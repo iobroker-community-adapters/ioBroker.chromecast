@@ -1,28 +1,28 @@
 {
-  "name": "iobroker.template",
+  "name": "iobroker.chromecast",
   "version": "0.3.0",
-  "description": "ioBroker template Adapter",
+  "description": "ioBroker chromecast Adapter",
   "author": {
-    "name": "@@Author@@",
-    "email": "@@email@@"
+    "name": "Vegetto",
+    "email": "iobroker@angelnu.com"
   },
   "contributors": [
     {
-      "name": "@@Author@@",
-      "email": "@@email@@"
+      "name": "Vegetto",
+      "email": "iobroker@angelnu.com"
     }
   ],
-  "homepage": "https://github.com/ioBroker/ioBroker.template",
+  "homepage": "https://github.com/ioBroker/ioBroker.chromecast",
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "template",
+    "chromecast",
     "Smart Home",
     "home automation"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ioBroker/ioBroker.template"
+    "url": "https://github.com/ioBroker/ioBroker.chromecast"
   },
   "dependencies": {
   },
@@ -38,7 +38,7 @@
       "grunt-exec": "^0.4.6"
   },
   "bugs": {
-    "url": "https://github.com/ioBroker/ioBroker.template/issues"
+    "url": "https://github.com/ioBroker/ioBroker.chromecast/issues"
   },
   "readmeFilename": "README.md"
 }

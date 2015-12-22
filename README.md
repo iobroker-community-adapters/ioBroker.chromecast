@@ -1,26 +1,26 @@
-![Logo](admin/template.png)
-# ioBroker.template
+![Logo](admin/chromecast.png)
+# ioBroker.chromecast
 =================
 
-This adapter is a template for creation of own adapter.
+This adapter is a chromecast for creation of own adapter.
 
 ##Steps 
-- download and unpack this packet from github ```https://github.com/ioBroker/ioBroker.template/archive/master.zip```
-  or clone git repository ```git clone https://github.com/ioBroker/ioBroker.template.git```
+- download and unpack this packet from github ```https://github.com/ioBroker/ioBroker.chromecast/archive/master.zip```
+  or clone git repository ```git clone https://github.com/ioBroker/ioBroker.chromecast.git```
 
-- download required npm packets. Write in ioBroker.template directory:
+- download required npm packets. Write in ioBroker.chromecast directory:
 
   ```npm install```
   
-- set name of this template. Call
+- set name of this chromecast. Call
   
   ```grunt rename --name=mynewname --email=email@mail.com --author="Author Name"```
   
   *mynewname* must be **lower** case and with no spaces.
  
-- rename directory from *ioBroker.template* (can be *ioBroker.template-master*) to *iobroker.mynewname*
+- rename directory from *ioBroker.chromecast* (can be *ioBroker.chromecast-master*) to *iobroker.mynewname*
 
-- to use this template you should copy it into *.../iobroker/node_modules* directory
+- to use this chromecast you should copy it into *.../iobroker/node_modules* directory
 
 - create your adapter:
 
@@ -40,7 +40,7 @@ This adapter is a template for creation of own adapter.
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015 @@Author@@<@@email@@>
+Copyright (c) 2015 Vegetto<iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
