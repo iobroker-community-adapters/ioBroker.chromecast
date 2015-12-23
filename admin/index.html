@@ -29,9 +29,8 @@
 
     // Dictionary (systemDictionary is global variable from adapter-settings.js)
     systemDictionary = {
-        "chromecast adapter settings": {"de": "Beispiel", "ru": "Пример"},
-        "test1":                    {"en": "Test 1", "de": "Test 1", "ru": "Тест 1"},
-        "test2":                    {"en": "Test 2", "de": "Test 2", "ru": "Тест 2"},
+        "Chromecast Adapter settings": {"de": "Chromecast Einstellung", "ru": "Chromecast Adapter settings"},
+        "useSSDP":                  {"en": "Use SSDP to scan for Chromecast", "de": "SSDP benutzen, um Chromecast Geräten zu finden", "ru": "Use SSDP to scan for Chromecast"},
         "on save adapter restarts with new config immediately": {
             "de": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet.",
             "ru": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями"
@@ -80,8 +79,7 @@
         <td><h3 class="translate">chromecast adapter settings</h3></td>
     </tr></table>
     <p>
-        <span class="translate">test1</span> <input class="value" id="test1"/><br>
-        <span class="translate">test2</span> <input class="value" id="test2"/><br>
+        <span class="translate">useSSDP</span> <input class="value" type="checkbox" id="useSSDP"/><br>
     </p>
 
     <p class="translate">on save adapter restarts with new config immediately</p>

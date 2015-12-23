@@ -1,29 +1,6 @@
 /**
  *
- * template adapter
- *
- *
- *  file io-package.json comments:
- *
- *  {
- *      "common": {
- *          "name":         "template",                  // name has to be set and has to be equal to adapters folder name and main file name excluding extension
- *          "version":      "0.0.0",                    // use "Semantic Versioning"! see http://semver.org/
- *          "title":        "Node.js template Adapter",  // Adapter title shown in User Interfaces
- *          "authors":  [                               // Array of authord
- *              "name <mail@template.com>"
- *          ]
- *          "desc":         "template adapter",          // Adapter description shown in User Interfaces. Can be a language object {de:"...",ru:"..."} or a string
- *          "platform":     "Javascript/Node.js",       // possible values "javascript", "javascript/Node.js" - more coming
- *          "mode":         "daemon",                   // possible values "daemon", "schedule", "subscribe"
- *          "schedule":     "0 0 * * *"                 // cron-style schedule. Only needed if mode=schedule
- *          "loglevel":     "info"                      // Adapters Log Level
- *      },
- *      "native": {                                     // the native object is available via adapter.config in your adapters code - use it for configuration
- *          "test1": true,
- *          "test2": 42
- *      }
- *  }
+ * ioBroker Chromecast adapter
  *
  */
 
@@ -85,13 +62,209 @@ adapter.on('ready', function () {
     main();
 });
 
+
+//SSDP Scanner
+var ssdp = require('node-ssdp').Client;
+var http = require('http');
+function ssdp_scan(callback){
+	
+	var ssdpBrowser = new ssdp();
+	ssdpBrowser.on('response', function (headers, statusCode, rinfo) {
+		if (statusCode != 200)
+			return;
+		if (!headers['LOCATION'])
+			return;
+		var request = http.get(headers['LOCATION'], function(res) {
+			var body = '';
+			res.on('data', function(chunk) {
+				body += chunk;
+			});
+			res.on('end', function() {
+				if (body.search('<manufacturer>Google Inc.</manufacturer>') == -1)
+					return;
+				var match = body.match(/<friendlyName>(.+?)<\/friendlyName>/);
+				if (!match || match.length != 2)
+					return;
+				var address = rinfo.address;
+				var name = match[1];
+				callback(address, name);
+			});
+		});
+	});
+	ssdpBrowser.search('urn:dial-multiscreen-org:service:dial:1');
+}
+
+//multicast-dns scanner
+var scanner = require('chromecast-scanner');
+function mdsn_scan(callback){
+	scanner(function(err, service) {
+		callback(service.data, service.name);
+	});
+}
+
+var player = require('chromecast-player')();
+function found_device(address, name) {
+
+	adapter.log.info("Found Chromecast - Address:"+address+" NAME:"+name);
+	adapter.setObject(name, {
+        type: 'device',
+        common: {
+        	name: name
+        },
+        native: {}
+    });
+	
+	adapter.setObject(name+'.address', {
+        type: 'state',
+        common: {
+        	name: name+'.address',
+            type: 'boolean',
+            role: 'indicator',
+            write: false,
+            read: true
+        },
+        native: {}
+    });
+	adapter.setState(name+'.address', {val: address, ack: true});
+	
+	adapter.setObject(name+'.active', {
+        type: 'state',
+        common: {
+        	name: name+'.active',
+            type: 'boolean',
+            role: 'indicator',
+            write: false,
+            read: true
+        },
+        native: {}
+    });
+
+	player.attach({address:address},function(err, p) {
+		if (err === null){
+			adapter.setState(name+'.active', {val: true, ack: true});
+			console.log("Attached to active "+name);
+			adapter.setObject(name+".media", {
+		        type: 'channel',
+		        common: {
+		        	name: name+".media"
+		        },
+		        native: {}
+		    });
+			
+			adapter.setObject(name+".media.metadata", {
+		        type: 'channel',
+		        common: {
+		        	name: name+".media.metadata"
+		        },
+		        native: {}
+		    });
+			
+			p.getStatus(function(err,s){statusChanged(s)});
+			p.on('status', statusChanged);
+		} else{
+			//console.log(err);
+			adapter.setState(name+'.active', {val: false, ack: true});
+		}
+	});
+	
+	function statusChanged(s){
+		try {
+			Object.keys(s.media.metadata).forEach(function (k) {
+				var v = s.media.metadata[k];
+				
+				adapter.setObject(name+'.media.metadata.'+k, {
+					type: 'state',
+					common: {
+						name: name+'.media.metadata.'+k,
+						type: 'string',
+		                write: false,
+		                read: true
+					},
+					native: {}
+				});
+				adapter.setState(name+'.media.metadata.'+k, {val: v, ack: true});
+			});
+		} catch(e) {
+			adapter.setState(name+'.active', {val: false, ack: true});
+		}
+	}
+}
+
+
+function debugObject(obj){
+	adapter.log.info(Object.getOwnPropertyNames(obj));
+}
+
+function deleteStates(device, channel){
+	adapter.getStatesOf(device, channel, function (err, states) {
+		adapter.log.info("Deleting states for device "+device+" and channel "+channel);
+    	if (err || !states) {
+            return;
+        }
+    	adapter.log.info("err "+JSON.stringify(err));
+    	adapter.log.info("states "+JSON.stringify(states));
+    	
+    	for (var i in states) {
+    		adapter.log.info("VAMOS "+i);
+    		var state = states[i];
+
+    		adapter.log.info("Deleting state "+state.common.name);
+    		adapter.deleteState(device,channel,state.common.name);
+    		adapter.log.info("BORRADO "+state);
+
+    	}
+    });
+}
+
+function deleteChannels(device){
+	adapter.getChannels(device+'.*', function (err, channels) {
+    	if (err || !channels) {
+            return;
+        }
+        for (var i in channels) {
+        	if (channels.hasOwnProperty(i)) {
+            	var channel = channels[i];
+            	try{
+            		adapter.log.info("Deleting channel "+channel.common.name);
+            		deleteStates(device,channel.common.name);
+            		//adapter.deleteChannel(channel.common.name);
+            	} catch(e) {};
+            }
+        }
+    });
+}
+
 function main() {
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
-    adapter.log.info('config test1: ' + adapter.config.test1);
-    adapter.log.info('config test1: ' + adapter.config.test2);
-
+    adapter.log.info('use useSSDP? ' + adapter.config.useSSDP);
+    
+    var resetDevices = false;
+    if (resetDevices) {
+    	adapter.getDevices('*', function (err, devices) {
+    		if (err || !devices) {
+    			return;
+    		}
+    		for (var i in devices) {
+    			if (devices.hasOwnProperty(i)) {
+    				var device = devices[i];
+    				try{
+    					adapter.log.info("Deleting device "+device.common.name);
+    					deleteStates(device.common.name);
+    					deleteChannels(device.common.name);
+    					adapter.deleteDevice(device.common.name);
+    				} catch(e) {};
+    			}
+    		}
+    	});
+    	adapter.log.info("DONE!");
+    	return;
+    }
+    if (adapter.config.useSSDP)
+    	ssdp_scan(found_device);
+    else
+    	mdsn_scan(found_device);
 
     /**
      *
@@ -103,17 +276,11 @@ function main() {
      *
      */
 
-    adapter.setObject('testVariable', {
-        type: 'state',
-        common: {
-            type: 'boolean',
-            role: 'indicator'
-        },
-        native: {}
-    });
+    
 
     // in this template all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
+    
 
 
     /**
@@ -122,7 +289,7 @@ function main() {
      *   you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
      *
      */
-
+/*
     // the variable testVariable is set to true as command (ack=false)
     adapter.setState('testVariable', true);
 
@@ -144,6 +311,6 @@ function main() {
         console.log('check group user admin group admin: ' + res);
     });
 
-
+*/
 
 }
