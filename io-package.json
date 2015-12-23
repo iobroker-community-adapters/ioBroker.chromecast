@@ -1,25 +1,25 @@
 {
-    "common": {
-        "name":                     "chromecast",
-        "version":                  "0.0.1",
-        "title":                    "Chromecast Adapter",
-        "desc":                     {
-		"en": "Allows to monitor and play files to Google Chromecasts",
-		"de": "ioBroker Chromecast Adapter",
-		"ru": "ioBroker Chromecast драйвер как образец"
+	"common": {
+		"name":       "chromecast",
+		"version":    "0.0.1",
+		"title":      "Chromecast Adapter",
+		"desc":       {
+			"en": "Allows to monitor and play files to Google Chromecasts",
+			"de": "ioBroker Chromecast Adapter",
+			"ru": "ioBroker Chromecast драйвер как образец"
+		},
+		"platform":   "Javascript/Node.js",
+		"mode":       "daemon",
+		"icon":       "chromecast.png",
+		"extIcon":    "https://raw.githubusercontent.com/angelnu/ioBroker.chromecast/master/admin/chromecast.png",
+		"readme":     "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
+		"loglevel":   "warning",
+		"type":       "media"
 	},
-        "platform":                 "Javascript/Node.js",
-        "mode":                     "daemon",
-        "icon":                     "chromecast.png",
-		"extIcon":          "https://raw.githubusercontent.com/angelnu/ioBroker.chromecast/master/admin/chromecast.png",
-		"readme":           "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
-		"loglevel":         "info",
-        "type":                     "media"
-    },
-    "native": {
-        "useSSDP": true
-    },
-    "objects": [
+	"native": {
+		"useSSDP": true
+	},
+	"objects": [
 
-    ]
+	            ]
 }
