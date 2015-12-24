@@ -1,41 +1,42 @@
 ![Logo](admin/chromecast.png)
-# ioBroker.chromecast
-=================
+iobroker.chromecast
+=============
+### A Chromecast adapter for ioBorker
 
-This adapter is a chromecast for creation of own adapter.
+*Work in progress*
 
-##Steps 
-- download and unpack this packet from github ```https://github.com/ioBroker/ioBroker.chromecast/archive/master.zip```
-  or clone git repository ```git clone https://github.com/ioBroker/ioBroker.chromecast.git```
+Based on ioBroker.template
 
-- download required npm packets. Write in ioBroker.chromecast directory:
+Using [node-castv2-client](https://github.com/thibauts/node-castv2-client) to connect to Chromecast devices
 
-  ```npm install```
-  
-- set name of this chromecast. Call
-  
-  ```grunt rename --name=mynewname --email=email@mail.com --author="Author Name"```
-  
-  *mynewname* must be **lower** case and with no spaces.
- 
-- rename directory from *ioBroker.chromecast* (can be *ioBroker.chromecast-master*) to *iobroker.mynewname*
+What is working?
+----------------
 
-- to use this chromecast you should copy it into *.../iobroker/node_modules* directory
+* detect devices with either SSDP or multicast-dns
+* create ioBroker objects for each found device
+* status, player, media and metadata channels
+* control Chromecast device from adapter
+  * set volume
+  * stop broadcasting
+  * pause (not tested yet!)
+  * play url (write to device.player.url2play)
+    * assume MP3
 
-- create your adapter:
+What is missing?
+----------------
 
-  [Adapter-Development-Documentation](https://github.com/ioBroker/ioBroker/wiki/Adapter-Development-Documentation),
-  
-  [Installation, setup and first steps with an ioBroker Development Environment](https://github.com/ioBroker/ioBroker/wiki/Installation,-setup-and-first-steps-with-an-ioBroker-Development-Environment)
+* support for Chromecast audio groups
+  * currently the adapter ignore devices playing as part of a group
+* detect metadata when launching player via device.player.url2play
+* publish to npm
+* publish to ioBroker
+* more testing
 
-- change version: edit package.json and then call ```grunt p``` in your adapter directory.
-  
-- share it with community
 
 ## Changelog
 
-#### 0.2.0
-* (bluefox) initial release
+#### 0.0.0
+* (Vegetto) initial release
 
 ## License
 The MIT License (MIT)
