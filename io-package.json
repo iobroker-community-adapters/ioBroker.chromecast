@@ -8,7 +8,7 @@
 		"desc":       {
 			"en": "Allows to monitor and play files to Google Chromecasts",
 			"de": "ioBroker Chromecast Adapter",
-			"ru": "ioBroker Chromecast драйвер как образец"
+			"ru": "Позволяет находить и проигрывть файлы с ioBroker Chromecast"
 		},
 		"platform":   "Javascript/Node.js",
 		"mode":       "daemon",
