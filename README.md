@@ -57,9 +57,10 @@ Changelog
 
 ### 0.1.1
 * (Vegetto) Fix package syntax
-
-### 0.1.1
 * (Vegetto) Fix package dependencies
+
+### 0.1.0
+* (Vegetto) Initial release
 
 License
 --------
