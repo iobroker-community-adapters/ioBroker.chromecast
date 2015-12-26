@@ -52,14 +52,14 @@ What is missing?
 Changelog
 ---------
 
+### 0.1.2
+* (Vegetto) Merge base
+
 ### 0.1.1
 * (Vegetto) Fix package syntax
 
 ### 0.1.1
 * (Vegetto) Fix package dependencies
-
-### 0.1.0
-* (Vegetto) initial release
 
 License
 --------
