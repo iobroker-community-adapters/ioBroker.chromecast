@@ -17,11 +17,10 @@ Instructions
    2. Click on *Install from custom URL*
    3. Enter [https://github.com/angelnu/ioBroker.chromecast](https://github.com/angelnu/ioBroker.chromecast)
 2. Add an instance of the Chromecast adapter
-3. Go to the ioBroker instances tab
-4. Activate the Chromecast instance adapter (no config is required)
-5. Check your log: you should see logs about the detected devices
-6. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.<your chromecast name>.player.url2play
-7. The URL should start playing on your device
+   * it should automatically run after it is installed
+3. Check your log: you should see logs about the detected devices
+4. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.<your chromecast name>.player.url2play
+5. The URL should start playing on your device
 
 Features
 --------
@@ -50,12 +49,17 @@ What is missing?
 * more testing
 
 
-## Changelog
+Changelog
+---------
 
-#### 0.1.0
+### 0.1.0
 * (Vegetto) initial release
 
-## License
+### 0.1.1
+* (Vegetto) Fix package dependencies
+
+License
+--------
 The MIT License (MIT)
 
 Copyright (c) 2015 Vegetto <iobroker@angelnu.com>
