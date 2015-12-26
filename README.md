@@ -19,7 +19,7 @@ Instructions
 2. Add an instance of the Chromecast adapter
    * it should automatically run after it is installed
 3. Check your log: you should see logs about the detected devices
-4. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.<your chromecast name>.player.url2play
+4. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.`<your chromecast name>`.player.url2play
 5. The URL should start playing on your device
 
 Features
@@ -33,7 +33,7 @@ Features
   * mute/unmute
   * stop broadcasting
   * pause
-  * play url (chromecast.0.<your chromecast name>.player.url2play)
+  * play url (chromecast.0.`<your chromecast name>`.player.url2play)
     * assume LIVE MP3
     * it does not support local files (yet)
 
