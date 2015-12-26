@@ -53,7 +53,9 @@ Changelog
 ---------
 
 ### 0.1.3
-* (Vegetto) Added re-connects with retries
+* (Vegetto) Added re-connection with retries. Will try for up 42 hours.
+* (Vegetto) Support for triggering a reconnection by writing to <device>.status.connected
+* (Vegetto) Fixed race condition when playing local file
 
 ### 0.1.2
 * (Vegetto) Merge base
