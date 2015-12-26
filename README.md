@@ -34,8 +34,8 @@ Features
   * stop broadcasting
   * pause
   * play url (chromecast.0.`<your chromecast name>`.player.url2play)
-    * assume LIVE MP3
-    * it does not support local files (yet)
+    * tested with MP3
+    * it does not support list files such as .m3u
 
 What is missing?
 ----------------
@@ -51,6 +51,9 @@ What is missing?
 
 Changelog
 ---------
+
+### 0.1.3
+* (Vegetto) Added re-connects with retries
 
 ### 0.1.2
 * (Vegetto) Merge base
