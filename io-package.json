@@ -1,8 +1,10 @@
 {
 	"common": {
 		"name":       "chromecast",
-		"version":    "0.0.1",
 		"title":      "Chromecast Adapter",
+		"version":    "0.1.0",
+		"license":    "MIT",
+		"authors":    ["Vegetto <iobroker@angelnu.com>"],
 		"desc":       {
 			"en": "Allows to monitor and play files to Google Chromecasts",
 			"de": "ioBroker Chromecast Adapter",
@@ -11,9 +13,11 @@
 		"platform":   "Javascript/Node.js",
 		"mode":       "daemon",
 		"icon":       "chromecast.png",
+		"enabled":    true,
+		"keywords":   ["chromecast", "player", "music"],
 		"extIcon":    "https://raw.githubusercontent.com/angelnu/ioBroker.chromecast/master/admin/chromecast.png",
 		"readme":     "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
-		"loglevel":   "warning",
+		"loglevel":   "info",
 		"type":       "media"
 	},
 	"native": {

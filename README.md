@@ -3,24 +3,40 @@ iobroker.chromecast
 =============
 ### A Chromecast adapter for ioBorker
 
-*Work in progress*
+This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
-Based on ioBroker.template
+Build on top of the following projects:
+  * [ioBroker](http://www.iobroker.net)
+  * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Chromecast client library.
 
-Using [node-castv2-client](https://github.com/thibauts/node-castv2-client) to connect to Chromecast devices
+Instructions
+------------
 
-What is working?
-----------------
+1. Install into ioBroker
+   1. Go to your ioBroker Adapters tab
+   2. Click on *Install from custom URL*
+   3. Enter [https://github.com/angelnu/ioBroker.chromecast](https://github.com/angelnu/ioBroker.chromecast)
+2. Add an instance of the Chromecast adapter
+3. Go to the ioBroker instances tab
+4. Activate the Chromecast instance adapter (no config is required)
+5. Check your log: you should see logs about the detected devices
+6. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.<your chromecast name>.player.url2play
+7. The URL should start playing on your device
+
+Features
+--------
 
 * detect devices with either SSDP or multicast-dns
 * create ioBroker objects for each found device
 * status, player, media and metadata channels
 * control Chromecast device from adapter
   * set volume
+  * mute/unmute
   * stop broadcasting
-  * pause (not tested yet!)
-  * play url (write to device.player.url2play)
-    * assume MP3
+  * pause
+  * play url (chromecast.0.<your chromecast name>.player.url2play)
+    * assume LIVE MP3
+    * it does not support local files (yet)
 
 What is missing?
 ----------------
@@ -28,6 +44,7 @@ What is missing?
 * support for Chromecast audio groups
   * currently the adapter ignore devices playing as part of a group
 * detect metadata when launching player via device.player.url2play
+* support for sayit adapter
 * publish to npm
 * publish to ioBroker
 * more testing
@@ -35,7 +52,7 @@ What is missing?
 
 ## Changelog
 
-#### 0.0.0
+#### 0.1.0
 * (Vegetto) initial release
 
 ## License
