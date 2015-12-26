@@ -1,6 +1,6 @@
 {
   "name": "iobroker.chromecast",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "ioBroker chromecast Adapter",
   "author": {
     "name": "Vegetto",
