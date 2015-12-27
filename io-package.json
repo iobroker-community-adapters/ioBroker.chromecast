@@ -2,7 +2,7 @@
 	"common": {
 		"name":       "chromecast",
 		"title":      "Chromecast Adapter",
-		"version":    "0.1.2",
+		"version":    "0.1.3",
 		"license":    "MIT",
 		"authors":    ["Vegetto <iobroker@angelnu.com>"],
 		"desc":       {
@@ -21,7 +21,9 @@
 		"type":       "media"
 	},
 	"native": {
-		"useSSDP": true
+		"useSSDP":    true,
+		"web":        "",
+	        "webServer":  ""
 	},
 	"objects": [
 

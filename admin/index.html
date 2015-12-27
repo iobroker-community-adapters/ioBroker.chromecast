@@ -29,8 +29,16 @@
 
     // Dictionary (systemDictionary is global variable from adapter-settings.js)
     systemDictionary = {
-        "Chromecast Adapter settings": {"de": "Chromecast Einstellung", "ru": "Chromecast Adapter settings"},
-        "useSSDP":                  {"en": "Use SSDP to scan for Chromecast", "de": "SSDP benutzen, um Chromecast Geräten zu finden", "ru": "Use SSDP to scan for Chromecast"},
+        "Chromecast Adapter settings": {"de": "Chromecast Einstellung",
+                                        "ru": "Chromecast Adapter settings"},
+        "useSSDP": {"en": "Use SSDP to scan for Chromecast",
+                    "de": "SSDP benutzen, um Chromecast Geräten zu finden"},
+        "Web instance:": {"en": "Web instance:",
+                          "de": "Web instance:",
+                          "ru": "Web instance:"},
+        "Web server IP:": {"en": "Web server IP:",
+                           "de": "Web server IP:",
+                           "ru": "IP Веб сервера:"},
         "on save adapter restarts with new config immediately": {
             "de": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet.",
             "ru": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями"
@@ -48,6 +56,8 @@
 				});
             } else {
                 $('#' + key + '.value').val(settings[key]).change(function () {
+                    var key = $(this).attr('id');
+                    if (key == 'web') checkWeb('#web');
 					onChange();
 				}).keyup(function () {
 					$(this).trigger('change');
@@ -56,8 +66,80 @@
         }
         // Signal to admin, that no changes yet
         onChange(false);
+        
+        fillWebServices('#web', settings.web, settings.type, settings.webServer);
+        
+        if (settings.webServer == "")
+            onChange(); //Selecting default
     }
 
+    //Copied from sayit adapter (UNCHANGED)
+    function checkWeb(elem, current) {
+        var web = $('#web').val();
+        for (var i = 0; i < webServers.length; i++) {
+            if (webServers[i].id == 'system.adapter.' + web) {
+                if (webServers[i].value.native.auth) {
+                    showMessage(_('Cannot use web server with authentication'), null, 'info');
+                }
+                if (webServers[i].value.native.bind == 'localhost' || webServers[i].value.native.bind == '127.0.0.1' || webServers[i].value.native.bind == '::1') {
+                    showMessage(_('Cannot use web server only on localhost'), null, 'info');
+                }
+                if (webServers[i].value.native.bind == '0.0.0.0') {
+                    $('#tr_webServer').show();
+                    $('#webServer').html('');
+                    // read all ipv4 addresses of host
+                    socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
+                        if (!err && obj && obj.native) {
+                            for (var iface in obj.native.hardware.networkInterfaces) {
+                                for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
+                                    if (obj.native.hardware.networkInterfaces[iface][i].family == "IPv4" && !obj.native.hardware.networkInterfaces[iface][i].internal) {
+                                        $('#webServer').append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv4] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
+                                    }
+                                }
+                            }
+                        }
+                        if (current)  $('#webServer').val(current);
+                    });
+                } else if (webServers[i].value.native.bind == '::') {
+                    // read all ipv6 addresses of host
+                    socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
+                        if (!err && obj && obj.native) {
+                            for (var iface in obj.native.hardware.networkInterfaces) {
+                                for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
+                                    if (obj.native.hardware.networkInterfaces[iface][i].family == "IPv6" && !obj.native.hardware.networkInterfaces[iface][i].internal) {
+                                        $('#webServer').append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv6] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
+                                    }
+                                }
+                            }
+                        }
+                        if (current)  $('#webServer').val(current);
+                    });
+                } else {
+                    $('#tr_webServer').hide();
+                }
+            }
+        }
+    }
+    
+    //Copied from sayit adapter (removed Sonos check, added set default value)
+    function fillWebServices(elem, current, type, webServer) {
+        socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.web.', endkey: 'system.adapter.web.\u9999'}, function (err, res) {
+            if (!err && res) {
+                webServers = res.rows;
+                for (var i = 0; i < res.rows.length; i++) {
+                    var n =  res.rows[i].id.replace('system.adapter.', '');
+                    var auth =  res.rows[i].value.native.auth ? 'data-auth="true"' : '';
+                    $(elem).append('<option value="' + n + '" ' + auth + '>' + n + '</option>');
+                    if (i == 0 || current == n)
+                        //Select "current" if valid/set else first element
+                        $(elem).val(n);
+                }                
+            }
+            
+            checkWeb('#web', webServer);
+        });
+    }
+    
     // ... and the function save has to exist.
     // you have to make sure the callback is called with the settings object as first param!
     function save(callback) {
@@ -74,15 +156,35 @@
 <!-- you have to put your config page in a div with id adapter-container -->
 <div id="adapter-container">
 
-    <table><tr>
-        <td><img src="chromecast.png"/></td>
-        <td><h3 class="translate">chromecast adapter settings</h3></td>
-    </tr></table>
-    <p>
-        <span class="translate">useSSDP</span> <input class="value" type="checkbox" id="useSSDP"/><br>
-    </p>
-
-    <p class="translate">on save adapter restarts with new config immediately</p>
+    <table>
+        <tr>
+            <td><img src="chromecast.png"/></td>
+            <td><h3 class="translate">chromecast adapter settings</h3></td>
+        </tr>
+    </table>
+    <div>
+        <table>
+        <tr>
+            <td class="translate">useSSDP</td>
+            <td>
+                <input class="value" type="checkbox" id="useSSDP"/>
+            </td>
+        </tr>
+        <tr id="tr_web" class="variable">
+            <td class="translate">Web instance:</td>
+            <td>
+                <select class="value" id="web">
+                </select>
+            </td>
+        </tr>
+        <tr id="tr_webServer" class="variable">
+            <td class="translate">Web server IP:</td>
+            <td>
+                <select class="value" id="webServer">
+                </select>
+            </td>
+        </tr>            
+    </div>
 
 </div>
 

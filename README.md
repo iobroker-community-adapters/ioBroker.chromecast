@@ -1,5 +1,5 @@
 ![Logo](admin/chromecast.png)
-iobroker.chromecast
+ioBroker.chromecast
 =============
 ### A Chromecast adapter for ioBorker
 
@@ -18,9 +18,11 @@ Instructions
    3. Enter [https://github.com/angelnu/ioBroker.chromecast](https://github.com/angelnu/ioBroker.chromecast)
 2. Add an instance of the Chromecast adapter
    * it should automatically run after it is installed
-3. Check your log: you should see logs about the detected devices
-4. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.`<your chromecast name>`.player.url2play
-5. The URL should start playing on your device
+3. (optional) If you plan to stream local files you need to configure the adapter
+   * you need to have an ioBroker web server instance
+4. Check your log: you should see logs about the detected devices
+5. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.`<your chromecast name>`.player.url2play
+6. The URL should start playing on your device
 
 Features
 --------
@@ -35,6 +37,8 @@ Features
   * pause
   * play url (chromecast.0.`<your chromecast name>`.player.url2play)
     * tested with MP3
+    * when the url does not start with http then assume that this is a local file
+      * export file via ioBroker web server
     * it does not support list files such as .m3u
 
 What is missing?
@@ -43,7 +47,7 @@ What is missing?
 * support for Chromecast audio groups
   * currently the adapter ignore devices playing as part of a group
 * detect metadata when launching player via device.player.url2play
-* support for sayit adapter
+* Add support for Chromecast adapter in sayit adapter
 * publish to npm
 * publish to ioBroker
 * more testing
@@ -56,6 +60,7 @@ Changelog
 * (Vegetto) Added re-connection with retries. Will try for up 42 hours.
 * (Vegetto) Support for triggering a reconnection by writing to <device>.status.connected
 * (Vegetto) Fixed race condition when playing local file
+* (Vegetto) Added support for playing local files
 
 ### 0.1.2
 * (Vegetto) Merge base
