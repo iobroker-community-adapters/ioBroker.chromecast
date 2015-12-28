@@ -61,6 +61,8 @@ Changelog
 * (Vegetto) Support for triggering a reconnection by writing to <device>.status.connected
 * (Vegetto) Fixed race condition when playing local file
 * (Vegetto) Added support for playing local files
+* (bluefox) Russian translations
+* (Vegetto) Update stale metadata when not present in player status
 
 ### 0.1.2
 * (Vegetto) Merge base
