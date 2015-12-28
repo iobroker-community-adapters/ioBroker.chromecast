@@ -40,6 +40,8 @@ Features
     * when the url does not start with http then assume that this is a local file
       * export file via ioBroker web server
     * it does not support list files such as .m3u
+* Initial support for Chromecast audio groups
+  * Note: this does not work with SSDP -> disable by default in adapter settings
 
 What is missing?
 ----------------
@@ -60,9 +62,10 @@ Changelog
 * (Vegetto) Added re-connection with retries. Will try for up 42 hours.
 * (Vegetto) Support for triggering a reconnection by writing to <device>.status.connected
 * (Vegetto) Fixed race condition when playing local file
-* (Vegetto) Added support for playing local files
+* (Vegetto) **Added support for playing local files**
 * (bluefox) Russian translations
 * (Vegetto) Update stale metadata when not present in player status
+* (Vegetto) **Initial support for audio groups**
 
 ### 0.1.2
 * (Vegetto) Merge base

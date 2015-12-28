@@ -21,7 +21,7 @@
 		"type":       "media"
 	},
 	"native": {
-		"useSSDP":    true,
+		"useSSDP":    false,
 		"web":        "",
 	        "webServer":  ""
 	},

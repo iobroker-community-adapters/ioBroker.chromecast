@@ -56,80 +56,14 @@ adapter.on('ready', function () {
 });
 
 
-
-/*
-function deleteStates(device, channel){
-	adapter.getStatesOf(device, channel, function (err, states) {
-		adapter.log.info("Deleting states for device "+device+" and channel "+channel);
-    	if (err || !states) {
-            return;
-        }
-    	adapter.log.info("err "+JSON.stringify(err));
-    	adapter.log.info("states "+JSON.stringify(states));
-    	
-    	for (var i in states) {
-    		adapter.log.info("VAMOS "+i);
-    		var state = states[i];
-
-    		adapter.log.info("Deleting state "+state.common.name);
-    		adapter.deleteState(device,channel,state.common.name);
-    		adapter.log.info("BORRADO "+state);
-
-    	}
-    });
-}
-
-function deleteChannels(device){
-	adapter.getChannels(device+'.*', function (err, channels) {
-    	if (err || !channels) {
-            return;
-        }
-        for (var i in channels) {
-        	if (channels.hasOwnProperty(i)) {
-            	var channel = channels[i];
-            	try{
-            		adapter.log.info("Deleting channel "+channel.common.name);
-            		deleteStates(device,channel.common.name);
-            		//adapter.deleteChannel(channel.common.name);
-            	} catch(e) {};
-            }
-        }
-    });
-}*/
-
 function main() {
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
     adapter.log.info('use useSSDP? ' + adapter.config.useSSDP);
     
-    /*
-    var resetDevices = true;
-    if (resetDevices) {
-    	adapter.getDevices('*', function (err, devices) {
-    		if (err || !devices) {
-    			return;
-    		}
-    		for (var i in devices) {
-    			if (devices.hasOwnProperty(i)) {
-    				var device = devices[i];
-    				try{
-    					adapter.log.info("Deleting device "+device.common.name);
-    					adapter.delObject(device.common.name);
-    					adapter.log.info("DONE!");
-    					//deleteStates(device.common.name);
-    					//deleteChannels(device.common.name);
-    					//adapter.deleteDevice(device.common.name);
-    				} catch(e) {};
-    			}
-    		}
-    	});
-    	adapter.log.info("DONE!");
-    	return;
-    }*/
-    
-    chromecastScanner(adapter.config.useSSDP, function (address, name){
-    	new ChromecastDevice(adapter, address, name)
+    chromecastScanner(adapter.config.useSSDP, function (address, name, port){
+    	new ChromecastDevice(adapter, address, name, port)
     });
 
     /**
