@@ -67,6 +67,7 @@ Changelog
 * (Vegetto) Update stale metadata when not present in player status
 * (Vegetto) **Initial support for audio groups**
 * (Vegetto) **Retrieve media type and title from URLs that support ICY**
+* (Vegetto) Added isActiveInput and isStandBy status
 
 ### 0.1.2
 * (Vegetto) Merge base
