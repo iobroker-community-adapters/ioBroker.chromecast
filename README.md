@@ -58,16 +58,20 @@ What is missing?
 Changelog
 ---------
 
+### 0.1.4
+* (Vegetto) Stability fixes - error handling, race-condition fixes, etc
+* (Vegetto) Clean getMediaInfo handler when disconnecting player
+
 ### 0.1.3
 * (Vegetto) Added re-connection with retries. Will try for up 42 hours.
 * (Vegetto) Support for triggering a reconnection by writing to <device>.status.connected
 * (Vegetto) Fixed race condition when playing local file
 * (Vegetto) **Added support for playing local files**
-* (bluefox) Russian translations
+* (Bluefox) Russian translations
 * (Vegetto) Update stale metadata when not present in player status
 * (Vegetto) **Initial support for audio groups**
 * (Vegetto) **Retrieve media type and title from URLs that support ICY**
-* (Vegetto) Added isActiveInput and isStandBy status
+* (Vegetto) Added displayName, isActiveInput and isStandBy status
 
 ### 0.1.2
 * (Vegetto) Merge base
