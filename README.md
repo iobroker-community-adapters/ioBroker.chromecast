@@ -37,6 +37,7 @@ Features
   * pause
   * play url (chromecast.0.`<your chromecast name>`.player.url2play)
     * tested with MP3
+      * Full list of formats [here](https://developers.google.com/cast/docs/media).
     * when the url does not start with http then assume that this is a local file
       * export file via ioBroker web server
     * it does not support list files such as .m3u
@@ -61,6 +62,7 @@ Changelog
 ### 0.1.4
 * (Vegetto) Stability fixes - error handling, race-condition fixes, etc
 * (Vegetto) Clean getMediaInfo handler when disconnecting player
+* (Vegetto) Added support to retrieve ICY metadata from https sources
 
 ### 0.1.3
 * (Vegetto) Added re-connection with retries. Will try for up 42 hours.
