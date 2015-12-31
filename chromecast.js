@@ -55,15 +55,20 @@ adapter.on('ready', function () {
     main();
 });
 
-
+var SCAN_INTERVAL = 10000;
 function main() {
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
     adapter.log.info('use useSSDP? ' + adapter.config.useSSDP);
     
-    chromecastScanner(adapter.config.useSSDP, function (address, name, port){
-    	new ChromecastDevice(adapter, address, name, port)
+    var chromecastDevices = {};
+    chromecastScanner(adapter.config.useSSDP,
+      function (name, address, port){
+        chromecastDevices[name] = new ChromecastDevice(adapter, name, address, port);    	
+    },SCAN_INTERVAL,
+      function (name, address, port){
+        chromecastDevices[name].updateAddress(address, port);
     });
 
     /**
