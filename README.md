@@ -63,6 +63,7 @@ Changelog
 * (Vegetto) Stability fixes - error handling, race-condition fixes, etc
 * (Vegetto) Clean getMediaInfo handler when disconnecting player
 * (Vegetto) Added support to retrieve ICY metadata from https sources
+* (Vegetto) Moved code for querying media info to a separate class
 
 ### 0.1.3
 * (Vegetto) Added re-connection with retries. Will try for up 42 hours.
