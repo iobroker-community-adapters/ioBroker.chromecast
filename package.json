@@ -32,7 +32,8 @@
       "xtend":         "^4.0.1",
       "mdns-txt":      "^2.0.0",
       "icy":           "^2.1.0",
-      "dev-null":      "^0.1.1"
+      "dev-null":      "^0.1.1",
+      "longjohn":      "^0.2.11"
   },
   "devDependencies": {
       "grunt":                  "^0.4.5",
@@ -43,8 +44,7 @@
       "grunt-contrib-clean":    "^0.6.0",
       "grunt-contrib-compress": "^0.13.0",
       "grunt-contrib-copy":     "^0.8.0",
-      "grunt-exec":             "^0.4.6",
-      "longjohn":               "^0.2.11"
+      "grunt-exec":             "^0.4.6"      
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.chromecast/issues"
