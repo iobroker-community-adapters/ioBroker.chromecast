@@ -33,7 +33,7 @@
       "mdns-txt":      "^2.0.0",
       "icy":           "^2.1.0",
       "dev-null":      "^0.1.1",
-      "longjohn":       "^0.2.11"
+      "longjohn":      "^0.2.11"
   },
   "devDependencies": {
       "grunt":                  "^0.4.5",
