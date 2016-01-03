@@ -18,7 +18,8 @@
 		"extIcon":    "https://raw.githubusercontent.com/angelnu/ioBroker.chromecast/master/admin/chromecast.png",
 		"readme":     "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
 		"loglevel":   "info",
-		"type":       "media"
+		"type":       "media",
+		"restartAdapters": ["vis"]
 	},
 	"native": {
 		"useSSDP":    false,

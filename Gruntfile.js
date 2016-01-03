@@ -34,6 +34,15 @@ module.exports = function (grunt) {
         if (fs.existsSync(__dirname + '/admin/template.png')) {
             fs.renameSync(__dirname + '/admin/template.png',              __dirname + '/admin/' + newname + '.png');
         }
+        if (fs.existsSync(__dirname + '/widgets/template.html')) {
+            fs.renameSync(__dirname + '/widgets/template.html',           __dirname + '/widgets/' + newname + '.html');
+        }
+        if (fs.existsSync(__dirname + '/widgets/template/js/template.js')) {
+            fs.renameSync(__dirname + '/widgets/template/js/template.js', __dirname + '/widgets/template/js/' + newname + '.js');
+        }
+        if (fs.existsSync(__dirname + '/widgets/template')) {
+            fs.renameSync(__dirname + '/widgets/template',                __dirname + '/widgets/' + newname);
+        }
     }
 
     // Project configuration.
@@ -67,6 +76,14 @@ module.exports = function (grunt) {
                                 srcDir + 'io-package.json'
                         ],
                         dest:    srcDir
+                    },
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
+                                srcDir + 'widgets/' + pkg.name.substring('iobroker.vis-'.length) + '.html'
+                        ],
+                        dest:    srcDir + 'widgets'
                     }
                 ]
             },
@@ -79,7 +96,7 @@ module.exports = function (grunt) {
                         },
                         {
                             match: /Template/g,
-                            replacement: newname[0].toUpperCase() + newname.substring(1)
+                            replacement: newname ? (newname[0].toUpperCase() + newname.substring(1)) : 'Template'
                         },
                         {
                             match: /@@Author@@/g,
@@ -96,6 +113,7 @@ module.exports = function (grunt) {
                         expand:  true,
                         flatten: true,
                         src:     [
+                                 srcDir + 'io-package.json',
                                  srcDir + 'LICENSE',
                                  srcDir + 'package.json',
                                  srcDir + 'README.md',
@@ -107,9 +125,33 @@ module.exports = function (grunt) {
                         expand:  true,
                         flatten: true,
                         src:     [
+                                 srcDir + 'widgets/' + newname +'.html'
+                        ],
+                        dest:    srcDir + 'widgets'
+                    },
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
                                  srcDir + 'admin/index.html'
                         ],
                         dest:    srcDir + 'admin'
+                    },
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
+                                 srcDir + 'widgets/' + newname + '/js/' + newname +'.js'
+                        ],
+                        dest:    srcDir + 'widgets/' + newname + '/js'
+                    },
+                    {
+                        expand:  true,
+                        flatten: true,
+                        src:     [
+                                 srcDir + 'widgets/' + newname + '/css/*.css'
+                        ],
+                        dest:    srcDir + 'widgets/' + newname + '/css'
                     }
                 ]
             }
