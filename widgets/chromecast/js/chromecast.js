@@ -11,11 +11,21 @@
 // add translations for edit mode
 if (vis.editMode) {
     $.extend(true, systemDictionary, {
-        "myColor_tooltip":  {
-            "en": "Description of\x0AmyColor",
-            "de": "Beschreibung von\x0AmyColor",
-            "ru": "Описание\x0AmyColor"
+        "nDevs": {
+            "en": "Devices"
         },
+        "oid_dev_": {
+            "en": "id"
+        },
+        "group_device": {
+            "en": "Generated - Do not change"
+        },
+        "oid_connected_": {
+            "en": "connected id"
+        },
+        "oid_url2play_": {
+            "en": "url2play id"
+        }
     });
 }
 
@@ -46,14 +56,6 @@ function getValidDevId(devId){
     return devIdParts[0]+'.'+devIdParts[1]+'.'+devIdParts[2];
 }
 
-function createDeviceWidget4ValidDevId(validDevId, widgetID, view, data, style) {
-    var text = '';
-    
-    text += '<center><input class="value" type="checkbox"/>Connected</center>';
-    
-    return text;
-}
-
 // this code can be placed directly in chromecast.html
 vis.binds.chromecast = {
     version: "0.2.0",
@@ -64,27 +66,6 @@ vis.binds.chromecast = {
         }
     },
 
-    createDeviceWidget: function (widgetID, view, data, style) {
-        var $div = $('#' + widgetID);
-        // if nothing found => wait
-        if (!$div.length) {
-            return setTimeout(function () {
-                vis.binds.chromecast.createDeviceWidget(widgetID, view, data, style);
-            }, 100);
-        }
-        
-        var validDevId = getValidDevId(data.devID);
-        var name = (validDevId)?validDevId.split(".")[2]:"Not set";
-        
-        var text = '';
-        text += '<center><h1>' + name + '</h1></center>';
-        if (validDevId)
-            text += createDeviceWidget4ValidDevId(widgetID, view, data, style);
-        
-
-        $('#' + widgetID).html(text);
-    },
-    
     ChromecastDevice: {
         init: function(widgetID, view, data, style){
             var $div = $('#' + widgetID);
@@ -95,7 +76,7 @@ vis.binds.chromecast = {
                 }, 100);
             }
             
-            var validDevId = getValidDevId(data.devoid);
+            var validDevId = getValidDevId(data.oid_dev_1);
             var name = (validDevId)?validDevId.split(".")[2]:"Not set";
             
             $div.append('<center><h1>' + name + '</h1></center>');
@@ -108,38 +89,62 @@ vis.binds.chromecast = {
                 //connected - register for iobroker state updates
                 var ioBrokerState = validDevId+".status.connected";
                 vis.states.bind(ioBrokerState + '.val', function (e, newVal, oldVal) {
-                    console.log("BBBBBBBBBBBBBBBB");
+                    console.log("Updated "+ioBrokerState);
                     $connected.prop('checked', newVal);
                 });
+                $connected.prop('checked', vis.states[ioBrokerState + '.val']);
+                
                 $connected.change(function (evt) {
                     console.log("connected: "+$(this).prop('checked'));
+                    vis.setValue(ioBrokerState, $(this).prop('checked'));
                 });
                 
-              //url2play - create
+                //url2play - create
                 $div.append('<input class="url2play" type="text"/>URL2play</br>');
                 var $url2play = $div.find('input.url2play');
                 //url2play - register for iobroker state updates
                 var url2play_state = validDevId+".player.url2play";
                 vis.states.bind(url2play_state + '.val', function (e, newVal, oldVal) {
-                    console.log("BBBBBBBBBBBBBBBB url2play");
+                    console.log("Updated "+url2play_state);
                     $url2play.val(newVal);
                 });
                 $url2play.val(vis.states[url2play_state + '.val']);
+                
                 $url2play.change(function (evt) {
                     console.log("url2play: "+$url2play.val());
+                    vis.setValue(ioBrokerState, $(this).val());
                 });
             }
         }
     },
     
-    changedDevID: function(widgetID, view, newId, attr, isCss){
+    oid_dev_changed: function(widgetID, view, newId, attr, isCss){
+        var mods = [];
+        //Get device index
+        var index = attr.split("_")[2];
+        console.log("attr:"+attr+" index:"+index);
         var validDevId = getValidDevId(newId);
-        if (validDevId && (validDevId != newId)){
+        if (validDevId){
+            //Set device id
             vis.views[view].widgets[widgetID].data[attr] = validDevId;
-            return [attr];
+            mods.push(attr);
+            //Set derived props
+            vis.views[view].widgets[widgetID].data["oid_connected_"+index] =
+                validDevId+".status.connected";
+            mods.push("oid_connected_"+index);
+            vis.views[view].widgets[widgetID].data["oid_url2play_"+index] =
+                validDevId+".player.url2play";
+            mods.push("oid_url2play_"+index);
+            
         } else {
-            return [];
+            //Reset derived props
+            vis.views[view].widgets[widgetID].data["oid_connected_"+index] = "";
+            mods.push("oid_connected_"+index);
+            vis.views[view].widgets[widgetID].data["oid_url2play_"+index] = "";
+            mods.push("oid_url2play_"+index);
         }
+        
+        return mods;
     }
 
 };

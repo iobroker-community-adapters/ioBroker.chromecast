@@ -118,9 +118,11 @@
         type="text/ejs"
         class="vis-tpl"
         data-vis-prev='<div id="prev_tplChromecastDevice" style="position: relative; text-align: initial;padding: 4px "><div class="vis-widget_prev " style="overflow: visible; width: 58px; height: 23px; left: 33px; top: 57px; position: absolute;" >Name: <br></div></div>'
-        data-vis-attrs="devoid[nothing_selected]/id,device/changedDevID"
-        data-vis-attrs0="nDevs/number,1;group.device/byindex"
-        data-vis-attrs1="url2play_oid(1-nDevs)/id"
+        data-vis-attrs="nDevs[1]/number,1;"
+        data-vis-attrs0="oid_dev_(1-nDevs)/id,device/oid_dev_changed;"
+        data-vis-attrs1="group.device/byindex;"
+        data-vis-attrs2="oid_connected_(1-nDevs)/id;"
+        data-vis-attrs3="oid_url2play_(1-nDevs)/id"
         data-vis-set="chromecast"
         data-vis-type="ctr,val,button"
         data-vis-name="Chomecast dev">
