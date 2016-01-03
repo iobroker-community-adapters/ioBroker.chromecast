@@ -114,7 +114,7 @@ vis.binds.chromecast = {
                     vis.binds.chromecast.ChromecastDevice.init(widgetID, view, data, style);
                 }, 100);
             }
-
+            
             $div.append('<select class="chromecastDeviceSelector"/>');
             var $select = $div.find('select.chromecastDeviceSelector');
             for (var devIndex=1; devIndex <= data.nDevs; devIndex++){
@@ -148,19 +148,35 @@ vis.binds.chromecast = {
 
                     //Playing
                     $device.append('<input class="chromecastPlaying" type="checkbox"/>Playing</br>');
-                    registerForDeviceUpdates($device.find('input.chromecastPlaying'), data["oid_playing_"+devIndex]);
+                    registerForDeviceUpdates($device.find('.chromecastPlaying'), data["oid_playing_"+devIndex]);
 
                     //Paused
                     $device.append('<input class="chromecastPaused" type="checkbox"/>Paused</br>');
-                    registerForDeviceUpdates($device.find('input.chromecastPaused'), data["oid_paused_"+devIndex]);
+                    registerForDeviceUpdates($device.find('.chromecastPaused'), data["oid_paused_"+devIndex]);
 
                     //url2play
                     $device.append('<input class="chromecastUrl2play" type="text"/>url2play</br>');
-                    registerForDeviceUpdates($device.find('input.chromecastUrl2play'), data["oid_url2play_"+devIndex]);
-
+                    registerForDeviceUpdates($device.find('.chromecastUrl2play'), data["oid_url2play_"+devIndex]);                  
+                    
+                    //display name
+                    $device.append('<textarea class="chromecastDisplayName" readonly rows=1/></br>');
+                    registerForDeviceUpdates($device.find('.chromecastDisplayName'), data["oid_displayName_"+devIndex]);
+                    
+                    //Player Description
+                    $device.append('<textarea class="chromecastPlayerDescription" readonly rows=1/></br>');
+                    registerForDeviceUpdates($device.find('.chromecastPlayerDescription'), data["oid_statusText_"+devIndex]);
+                    
                     //player state
                     $device.append('<textarea class="chromecastPlayerState" readonly rows=1/>status</br>');
-                    registerForDeviceUpdates($device.find('textarea.chromecastPlayerState'), data["oid_playerState_"+devIndex]);
+                    registerForDeviceUpdates($device.find('.chromecastPlayerState'), data["oid_playerState_"+devIndex]);
+                    
+                    //Playing URL
+                    $device.append('<textarea class="chromecastPlayerURL" readonly rows=1/>Playing URL</br>');
+                    registerForDeviceUpdates($device.find('.chromecastPlayerURL'), data["oid_url_"+devIndex]);
+                    
+                    //Title
+                    $device.append('<textarea class="chromecastMetadataTitle" readonly rows=1/>title</br>');
+                    registerForDeviceUpdates($device.find('.chromecastMetadataTitle'), data["oid_title_"+devIndex]);
                 };
             };
 
@@ -176,48 +192,83 @@ vis.binds.chromecast = {
                 currentSelection = $select.val();
             });
             $select.val(data.selDev).change();            
-        }
+        },    
     },
-    
-    oid_dev_changed: function(widgetID, view, newId, attr, isCss){
-        
-        var oid2State = {
+    oid_changed: function(widgetID, view, newId, attr, isCss){
+        var mods = [];
+
+        //We just got the widgetID and the view -> find and
+        //call this function for all oid_dev_*
+        var nDevs = vis.views[view].widgets[widgetID].data.nDevs;            
+        for (var index=1; index <= nDevs; index++) {
+            attr  = "oid_dev_"+index;
+            newId = vis.views[view].widgets[widgetID].data[attr];
+            mods += oid_dev_changed(widgetID, view, newId, attr, isCss);
+        }
+        return mods;
+    }
+};
+
+function oid_dev_changed(widgetID, view, newId, attr, isCss){
+    var oid2State = {
             "oid_connected_"   : "status.connected",
             "oid_volume_"      : "status.volume",
             "oid_muted_"       : "status.muted",
             "oid_playing_"     : "status.playing",
             "oid_paused_"      : "player.paused",
             "oid_url2play_"    : "player.url2play",
-            "oid_playerState_" : "player.playerState"
-        };
-        
-        var mods = [];
-        //Get device index
-        var index = attr.split("_")[2];
-        console.log("attr:"+attr+" index:"+index);
-        var validDevId = getValidDevId(newId);
-        if (validDevId){
-            //Set device id
-            vis.views[view].widgets[widgetID].data[attr] = validDevId;
-            mods.push(attr);
-            //Set derived props
-            for (var oid in oid2State) {
-                vis.views[view].widgets[widgetID].data[oid+index] =
-                    validDevId+"."+oid2State[oid];
-                mods.push(oid+index);
-            }
-            
-        } else {
-            //Reset derived props
-            vis.views[view].widgets[widgetID].data["oid_connected_"+index] = "";
-            mods.push("oid_connected_"+index);
-            vis.views[view].widgets[widgetID].data["oid_url2play_"+index] = "";
-            mods.push("oid_url2play_"+index);
+            "oid_playerState_" : "player.playerState",
+            "oid_title_"       : "metadata.title",
+            "oid_url_"         : "media.contentId",
+            "oid_displayName_" : "status.displayName",
+            "oid_statusText_"  : "status.text"
+    };
+
+    var mods = [];
+    if (!attr){
+        //We just got the widgetID and the view -> find and
+        //call this function for all oid_dev_*
+        var nDevs = vis.views[view].widgets[widgetID].data.nDevs;            
+        for (var index=1; index <= nDevs; index++) {
+            attr  = "oid_dev_"+index;
+            newId = vis.views[view].widgets[widgetID].data[attr];
+            mods += oid_dev_changed(widgetID, view, newId, attr, isCss);
         }
-        
         return mods;
     }
 
-};
-	
+    //Get device index
+    var index = attr.split("_")[2];
+
+    //This is not the oid_dev -> look for the corresponding oid_dev and
+    //call this function with it
+    if (attr.indexOf("oid_dev_") < 0) {
+        attr = "oid_dev_"+index;
+        newId = vis.views[view].widgets[widgetID].data["oid_dev_"+index]
+        return vis.binds.chromecast.oid_dev_changed(widgetID, view, newId, attr, isCss)
+    }
+
+    var validDevId = getValidDevId(newId);
+    if (validDevId){
+        //Set device id
+        vis.views[view].widgets[widgetID].data[attr] = validDevId;
+        mods.push(attr);
+        //Set derived props
+        for (var oid in oid2State) {
+            vis.views[view].widgets[widgetID].data[oid+index] =
+                validDevId+"."+oid2State[oid];
+            mods.push(oid+index);
+        }
+
+    } else {
+        //Reset derived props
+        for (var oid in oid2State) {
+            vis.views[view].widgets[widgetID].data[oid+index] = undefined;
+            mods.push(oid+index);
+        }
+    }
+    return mods;        
+}
+
+
 vis.binds.chromecast.showVersion();
