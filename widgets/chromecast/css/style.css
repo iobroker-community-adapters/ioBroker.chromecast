@@ -1,3 +1,10 @@
-.template-class {
-    font-style: italic;
+.chromecastDeviceSelector {
+	width: 100%;
+	padding: 10px;
+	font-size: 2em;
+}
+.chromecastDeviceSelectorValue{
+}
+.chromecastDevice_div {
+    border-style: double;
 }

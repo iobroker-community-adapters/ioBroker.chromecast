@@ -14,6 +14,9 @@ if (vis.editMode) {
         "nDevs": {
             "en": "Devices"
         },
+        "selDev": {
+            "en": "Selection"
+        },        
         "oid_dev_": {
             "en": "id"
         },
@@ -21,10 +24,37 @@ if (vis.editMode) {
             "en": "Generated - Do not change"
         },
         "oid_connected_": {
-            "en": "connected id"
+            "en": "Connected id"
         },
+        "oid_volume_": {
+            "en": "Volume id"
+        },        
+        "oid_muted_": {
+            "en": "Muted id"
+        },        
+        "oid_playing_": {
+            "en": "Playing id"
+        },        
+        "oid_paused_": {
+            "en": "Paused id"
+        },        
         "oid_url2play_": {
             "en": "url2play id"
+        },        
+        "oid_playerState_": {
+            "en": "Player State id"
+        },        
+        "oid_title_": {
+            "en": "Title id"
+        },        
+        "oid_url_": {
+            "en": "ContentID id"
+        },        
+        "oid_displayName_": {
+            "en": "Display Name id"
+        },        
+        "oid_statusText_": {
+            "en": "Player Status id"
         }
     });
 }
@@ -74,15 +104,20 @@ function registerForDeviceUpdates($widget, ioBrokerState){
         setWidget(vis.states[ioBrokerState + '.val']);
 
         //register for widget state updates
-        $widget.change(function (evt) {
-            console.log("Sending to "+ioBrokerState+": "+ getWidgetVal());
-            vis.setValue(ioBrokerState, getWidgetVal());
-        });
+        if ($widget.is('input'))
+            $widget.closest('form').submit(function(e) {
+                e.preventDefault();
+                send2ioBroker(e);
+                });
+        else
+            $widget.change(send2ioBroker);
     }
     
     function setWidget(newVal){
         if ($widget.attr('type') == 'checkbox')
             $widget.prop('checked', newVal);
+        else if ($widget.is('span'))
+            $widget.text(newVal);
         else
             $widget.val(newVal);
     }
@@ -90,8 +125,15 @@ function registerForDeviceUpdates($widget, ioBrokerState){
     function getWidgetVal(){
         if ($widget.attr('type') == 'checkbox')
             return $widget.prop('checked');
+        else if ($widget.is('span'))
+            return $widget.text();
         else
             return $widget.val();
+    }
+    
+    function send2ioBroker(evt) {
+        console.log("Sending to "+ioBrokerState+": "+ getWidgetVal());
+        vis.setValue(ioBrokerState, getWidgetVal());
     }
 }
 
@@ -126,56 +168,56 @@ vis.binds.chromecast = {
                 if (validDevId){
                     //Create selection
                     var name = validDevId.split(".")[2];
-                    $select.append('<option value="'+devIndex+'">'+name+'</option>');
+                    $select.append('<option value="'+devIndex+'" class="chromecastDeviceSelectorValue">'+name+'</option>');
 
                     //Create div
                     console.log("creating "+validDevId);
-                    $div.append('<div class="chromecastDevice_'+devIndex+'"/>');
+                    $div.append('<div class="chromecastDevice_'+devIndex+' chromecastDevice_div"/>');
                     var $device = $div.find('.chromecastDevice_'+devIndex);
                     $device.hide();
 
                     //Connected
-                    $device.append('<input class="chromecastConnected" type="checkbox"/>Connected</br>');
+                    $device.append('<p><input class="chromecastConnected" type="checkbox"/>Connected</p>');
                     registerForDeviceUpdates($device.find('input.chromecastConnected'), data["oid_connected_"+devIndex]);
 
                     //Volume
-                    $device.append('<input class="chromecastVolume" type="range" min="0" max="100" />Volume</br>');
+                    $device.append('<p><input class="chromecastVolume" type="range" min="0" max="100" />Volume</p>');
                     registerForDeviceUpdates($device.find('input.chromecastVolume'), data["oid_volume_"+devIndex]);
 
                     //Muted
-                    $device.append('<input class="chromecastMuted" type="checkbox"/>Muted</br>');
+                    $device.append('<p><input class="chromecastMuted" type="checkbox"/>Muted</p>');
                     registerForDeviceUpdates($device.find('input.chromecastMuted'), data["oid_muted_"+devIndex]);
 
                     //Playing
-                    $device.append('<input class="chromecastPlaying" type="checkbox"/>Playing</br>');
+                    $device.append('<p><input class="chromecastPlaying" type="checkbox"/>Playing</p>');
                     registerForDeviceUpdates($device.find('.chromecastPlaying'), data["oid_playing_"+devIndex]);
 
                     //Paused
-                    $device.append('<input class="chromecastPaused" type="checkbox"/>Paused</br>');
+                    $device.append('<p><input class="chromecastPaused" type="checkbox"/>Paused</p>');
                     registerForDeviceUpdates($device.find('.chromecastPaused'), data["oid_paused_"+devIndex]);
 
                     //url2play
-                    $device.append('<input class="chromecastUrl2play" type="text"/>url2play</br>');
+                    $device.append('<p>url2play: <form><input class="chromecastUrl2play" type="url"/></form></p>');
                     registerForDeviceUpdates($device.find('.chromecastUrl2play'), data["oid_url2play_"+devIndex]);                  
                     
                     //display name
-                    $device.append('<textarea class="chromecastDisplayName" readonly rows=1/></br>');
+                    $device.append('<p><span class="chromecastDisplayName"/></p>');
                     registerForDeviceUpdates($device.find('.chromecastDisplayName'), data["oid_displayName_"+devIndex]);
                     
                     //Player Description
-                    $device.append('<textarea class="chromecastPlayerDescription" readonly rows=1/></br>');
+                    $device.append('<p><span class="chromecastPlayerDescription"/></p>');
                     registerForDeviceUpdates($device.find('.chromecastPlayerDescription'), data["oid_statusText_"+devIndex]);
                     
                     //player state
-                    $device.append('<textarea class="chromecastPlayerState" readonly rows=1/>status</br>');
+                    $device.append('<p>Status: <span class="chromecastPlayerState"/></p>');
                     registerForDeviceUpdates($device.find('.chromecastPlayerState'), data["oid_playerState_"+devIndex]);
                     
                     //Playing URL
-                    $device.append('<textarea class="chromecastPlayerURL" readonly rows=1/>Playing URL</br>');
+                    $device.append('<p>Playing URL: <span class="chromecastPlayerURL"/></p>');
                     registerForDeviceUpdates($device.find('.chromecastPlayerURL'), data["oid_url_"+devIndex]);
                     
                     //Title
-                    $device.append('<textarea class="chromecastMetadataTitle" readonly rows=1/>title</br>');
+                    $device.append('<p>Title: <span class="chromecastMetadataTitle"/></p>');
                     registerForDeviceUpdates($device.find('.chromecastMetadataTitle'), data["oid_title_"+devIndex]);
                 };
             };

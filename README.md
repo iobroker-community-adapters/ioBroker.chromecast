@@ -60,7 +60,7 @@ Changelog
 ---------
 
 ### 0.2.0
-* (Vegetto) Add vis widget
+* (Vegetto) Add vis widget (Alpha)
 
 ### 0.1.4
 * (Vegetto) Stability fixes - error handling, race-condition fixes, etc
