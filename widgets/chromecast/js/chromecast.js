@@ -104,7 +104,7 @@ function registerForDeviceUpdates($widget, ioBrokerState){
         setWidget(vis.states[ioBrokerState + '.val']);
 
         //register for widget state updates
-        if ($widget.is('input') && ($widget.attr('type') == 'text'))
+        if ($widget.is('input') && ($widget.attr('type') == 'url'))
             $widget.closest('form').submit(function(e) {
                 e.preventDefault();
                 send2ioBroker(e);
