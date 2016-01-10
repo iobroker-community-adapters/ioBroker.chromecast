@@ -8,6 +8,18 @@
 /*jslint node: true */
 "use strict";
 
+//For profiling: comment out the following block and connect to
+//http://c4milo.github.io/node-webkit-agent/26.0.1410.65/inspector.html?host=localhost:19999&page=0
+/*
+var agent = require('webkit-devtools-agent');
+agent.start({
+        port: 19999,
+        bind_to: '0.0.0.0',
+        ipc_port: 13333,
+        verbose: true
+    })
+*/
+
 // you have to require the utils module and call adapter function
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 
