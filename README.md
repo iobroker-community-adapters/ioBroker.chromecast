@@ -41,16 +41,15 @@ Features
     * when the url does not start with http then assume that this is a local file
       * export file via ioBroker web server
     * it does not support list files such as .m3u
+* Vis widget
+  * NOTE: requires [patched vis adapter](https://github.com/angelnu/ioBroker.vis).
 * Initial support for Chromecast audio groups
   * Note: this does not work with SSDP -> disable by default in adapter settings
 
 What is missing?
 ----------------
 
-* support for Chromecast audio groups
-  * currently the adapter ignore devices playing as part of a group
-* detect metadata when launching player via device.player.url2play
-* Add support for Chromecast adapter in sayit adapter
+* use semaphores to avoid race conditions
 * publish to npm
 * publish to ioBroker
 * more testing
@@ -61,6 +60,7 @@ Changelog
 
 ### 0.2.0
 * (Vegetto) Add vis widget (Alpha)
+* (Vegetto) Performance improvements
 
 ### 0.1.4
 * (Vegetto) Stability fixes - error handling, race-condition fixes, etc
