@@ -12,7 +12,7 @@
       "email": "iobroker@angelnu.com"
     }
   ],
-  "homepage": "https://github.com/ioBroker/ioBroker.chromecast",
+  "homepage": "https://github.com/angelnu/ioBroker.chromecast",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ioBroker/ioBroker.chromecast"
+    "url": "https://github.com/angelnu/ioBroker.chromecast"
   },
   "dependencies": {
       "castv2-client": "^1.1.0",
@@ -48,7 +48,7 @@
       "webkit-devtools-agent":  "^0.3.1"      
   },
   "bugs": {
-    "url": "https://github.com/ioBroker/ioBroker.chromecast/issues"
+    "url": "https://github.com/angelnu/ioBroker.chromecast/issues"
   },
   "readmeFilename": "README.md"
 }
