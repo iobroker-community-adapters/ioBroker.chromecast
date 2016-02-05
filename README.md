@@ -1,6 +1,12 @@
 ![Logo](admin/chromecast.png)
 ioBroker.chromecast
 =============
+
+[![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
+
+[![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
+
 ### A Chromecast adapter for ioBorker
 
 This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
@@ -14,8 +20,7 @@ Instructions
 
 1. Install into ioBroker
    1. Go to your ioBroker Adapters tab
-   2. Click on *Install from custom URL*
-   3. Enter [https://github.com/angelnu/ioBroker.chromecast](https://github.com/angelnu/ioBroker.chromecast)
+   2. Select and install Chromecast adapter
 2. Add an instance of the Chromecast adapter
    * it should automatically run after it is installed
 3. (optional) If you plan to stream local files you need to configure the adapter
@@ -50,13 +55,17 @@ What is missing?
 ----------------
 
 * use semaphores to avoid race conditions
-* publish to npm
-* publish to ioBroker
+* add state machine to track states: detected ->connected -> player loader -> playing
+* add retries: sometimes the Chromecast fails to respond to a request
 * more testing
 
 
 Changelog
 ---------
+
+### 0.2.1
+* (Vegetto) Update readme
+* (Vegetto) Integrated into iobroker: listed there
 
 ### 0.2.0
 * (Vegetto) Add vis widget (Alpha)
