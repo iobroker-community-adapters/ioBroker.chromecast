@@ -76,11 +76,11 @@ function main() {
     
     var chromecastDevices = {};
     chromecastScanner(adapter.config.useSSDP,
-      function (name, address, port){
-        chromecastDevices[name] = new ChromecastDevice(adapter, name, address, port);    	
-    },SCAN_INTERVAL,
-      function (name, address, port){
-        chromecastDevices[name].updateAddress(address, port);
+        function (name, address, port) {
+            chromecastDevices[name] = new ChromecastDevice(adapter, name, address, port);
+    }, SCAN_INTERVAL,
+        function (name, address, port) {
+            chromecastDevices[name].updateAddress(address, port);
     });
 
     /**

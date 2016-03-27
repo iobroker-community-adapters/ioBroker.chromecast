@@ -63,6 +63,10 @@ What is missing?
 Changelog
 ---------
 
+### 0.2.2
+* (Vegetto) Try to play last played URL when setting playing state to true
+* (Vegetto) Fix jshint and jscs findings
+
 ### 0.2.1
 * (Vegetto) Update readme
 * (Vegetto) Integrated into iobroker: listed there
