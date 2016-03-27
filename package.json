@@ -1,6 +1,6 @@
 {
   "name": "iobroker.chromecast",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "ioBroker chromecast Adapter",
   "author": {
     "name": "Vegetto",
@@ -30,7 +30,7 @@
       "multicast-dns": "^5.0.0",
       "array-find":    "^1.0.0",
       "xtend":         "^4.0.1",
-      "mdns-txt":      "^2.0.0",
+      "dns-txt":       "^2.0.0",
       "icy":           "^2.1.0",
       "dev-null":      "^0.1.1",
       "longjohn":      "^0.2.11"

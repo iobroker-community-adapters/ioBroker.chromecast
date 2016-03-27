@@ -63,8 +63,14 @@ What is missing?
 Changelog
 ---------
 
-### 0.2.2
-* (Vegetto) Try to play last played URL when setting playing state to true
+### 1.0.2
+* (Vegetto) Fix deprecation warning - use dns-txt instead of mdns-txt
+
+### 1.0.1
+* (Vegetto) Fix exception
+
+### 1.0.0
+* (Vegetto) **Try to play last played URL when setting playing state to true**
 * (Vegetto) Fix jshint and jscs findings
 
 ### 0.2.1
