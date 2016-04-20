@@ -63,13 +63,7 @@ What is missing?
 Changelog
 ---------
 
-### 1.0.5
-* (Vegetto) Fix widget - correct devId check for empty string
-
-### 1.0.4
-* (Vegetto) Forgot the github before the npm publish
-
-### 1.0.3
+### 1.0.6
 * (Vegetto) Fix widget crashing when devId is not set
 
 ### 1.0.2

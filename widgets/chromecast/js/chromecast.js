@@ -1,7 +1,7 @@
 /*
     ioBroker.chromecast Widget-Set
 
-    version: "1.0.5"
+    version: "1.0.6"
 
     Copyright 10.2015-2016 Vegetto<iobroker@angelnu.com>
 
@@ -68,7 +68,7 @@ $.extend(true, systemDictionary, {
 //Helpers
 function getValidDevId(devId){
     
-    if (typeof devId !== 'string' || !(devId instanceof String))
+    if (typeof devId !== 'string' && !(devId instanceof String))
         return undefined;
     
     var devIdParts = devId.split(".");
@@ -142,7 +142,7 @@ function registerForDeviceUpdates($widget, ioBrokerState){
 
 // this code can be placed directly in chromecast.html
 vis.binds.chromecast = {
-    version: "1.0.5",
+    version: "1.0.6",
     showVersion: function () {
         if (vis.binds.chromecast.version) {
             console.log('Version chromecast: ' + vis.binds.chromecast.version);
