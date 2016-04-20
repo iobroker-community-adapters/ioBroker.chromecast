@@ -2,7 +2,7 @@
 	"common": {
 		"name":       "chromecast",
 		"title":      "Chromecast Adapter",
-		"version": "1.0.3",
+		"version": "1.0.4",
 		"license":    "MIT",
 		"authors":    ["Vegetto <iobroker@angelnu.com>"],
 		"desc":       {

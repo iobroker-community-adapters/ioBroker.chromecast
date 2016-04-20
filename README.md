@@ -62,6 +62,8 @@ What is missing?
 
 Changelog
 ---------
+### 1.0.4
+* (Vegetto) Forgot the github before the npm publish
 
 ### 1.0.3
 * (Vegetto) Fix widget crashing when devId is not set
