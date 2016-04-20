@@ -63,6 +63,9 @@ What is missing?
 Changelog
 ---------
 
+### 1.0.3
+* (Vegetto) Fix widget crashing when devId is not set
+
 ### 1.0.2
 * (Vegetto) Fix deprecation warning - use dns-txt instead of mdns-txt
 
