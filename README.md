@@ -62,6 +62,9 @@ What is missing?
 
 Changelog
 ---------
+### 1.0.6
+* (Vegetto) Show MultizoneLeader as playing
+* (Vegetto) Set pause state to false when modified and device is not playing
 
 ### 1.0.6
 * (Vegetto) Fix widget crashing when devId is not set
