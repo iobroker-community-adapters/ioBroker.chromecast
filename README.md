@@ -62,6 +62,9 @@ What is missing?
 
 Changelog
 ---------
+### 1.0.8
+* (Vegetto) Do not try to stop if not playing
+
 ### 1.0.7
 * (Vegetto) Show MultizoneLeader as playing
 * (Vegetto) Set pause state to false when modified and device is not playing
