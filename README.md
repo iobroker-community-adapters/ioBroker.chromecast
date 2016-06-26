@@ -50,6 +50,7 @@ Features
   * NOTE: requires [patched vis adapter](https://github.com/angelnu/ioBroker.vis).
 * Initial support for Chromecast audio groups
   * Note: this does not work with SSDP -> disable by default in adapter settings
+* Play again last played stream: just set _chromecast.0.`<your device>`.status.playing_ to _true_
 
 What is missing?
 ----------------
@@ -62,6 +63,10 @@ What is missing?
 
 Changelog
 ---------
+### 1.0.9
+* (Vegetto) Do not use this in callbacks. Replaced with _that_
+* (Vegetto) Fix contentId not being updated. This was breaking the _play last stream_ feature
+
 ### 1.0.8
 * (Vegetto) Do not try to stop if not playing
 
