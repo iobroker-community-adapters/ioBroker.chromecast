@@ -45,7 +45,7 @@ Features
       * Full list of formats [here](https://developers.google.com/cast/docs/media).
     * when the url does not start with http then assume that this is a local file
       * export file via ioBroker web server
-    * it does not support list files such as .m3u
+    * it only plays fist file from playlist files such as .m3u
 * Vis widget
   * NOTE: requires [patched vis adapter](https://github.com/angelnu/ioBroker.vis).
 * Initial support for Chromecast audio groups
@@ -63,6 +63,9 @@ What is missing?
 
 Changelog
 ---------
+### 1.1.0
+* (Vegetto) **Added support for playlist m3u, asx and pls files - play first entry**
+
 ### 1.0.9
 * (Vegetto) Do not use this in callbacks. Replaced with _that_
 * (Vegetto) Fix contentId not being updated. This was breaking the _play last stream_ feature
