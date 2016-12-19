@@ -55,14 +55,29 @@ Features
 What is missing?
 ----------------
 
-* use semaphores to avoid race conditions
 * add state machine to track states: detected ->connected -> player loader -> playing
 * add retries: sometimes the Chromecast fails to respond to a request
 * more testing
 
+How to build
+------------
+
+1. Checkout from git
+2. Install grunt with `npm install -g grunt-cli`
+3. Install node.js dependencies: `npm install`
+4. Make changes and test them
+5. Change version in package.json
+6. Check changes with `grunt`
+7. git commit & push
+8. npm publish
 
 Changelog
 ---------
+
+### 1.1.1
+* (Vegetto) bugfix - not playing when another chromecast playing same url
+* (Vegetto) added additional logs
+
 ### 1.1.0
 * (Vegetto) **Added support for playlist m3u, asx and pls files - play first entry**
 

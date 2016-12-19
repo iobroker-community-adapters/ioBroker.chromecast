@@ -30,7 +30,7 @@ var adapter = utils.adapter('chromecast');
 
 //Own libraries
 var chromecastScanner = require('./lib/chromecastScanner');
-var ChromecastDevice  = require('./lib/chromecastDevice');
+var ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -77,7 +77,7 @@ function main() {
     var chromecastDevices = {};
     chromecastScanner(adapter.config.useSSDP,
         function (name, address, port) {
-            chromecastDevices[name] = new ChromecastDevice(adapter, name, address, port);
+            chromecastDevices[name] = new ChromecastDevice(name, address, port);
     }, SCAN_INTERVAL,
         function (name, address, port) {
             chromecastDevices[name].updateAddress(address, port);
