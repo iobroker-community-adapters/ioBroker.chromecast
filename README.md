@@ -74,6 +74,9 @@ How to build
 Changelog
 ---------
 
+### 1.1.2
+* (Vegetto) Update npm dependencies in package.json to latest versions
+
 ### 1.1.1
 * (Vegetto) bugfix - not playing when another chromecast playing same url
 * (Vegetto) added additional logs
