@@ -73,6 +73,8 @@ How to build
 
 Changelog
 ---------
+### 1.1.3
+* (Vegetto) bugfix - media title was not kept to url when streamTitle not present
 
 ### 1.1.2
 * (Vegetto) Update npm dependencies in package.json to latest versions
