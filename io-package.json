@@ -23,7 +23,6 @@
 		"restartAdapters": ["vis"]
 	},
 	"native": {
-		"useSSDP":    false,
 		"web":        "",
 	        "webServer":  ""
 	},
