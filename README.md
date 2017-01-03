@@ -73,6 +73,11 @@ How to build
 
 Changelog
 ---------
+### 1.2.0
+* (Vegetto) Mayor rework
+  * Chromecast player and scanner splitted into a separated module
+  * **Support for playlists**
+  * Improved MIME detection - **OGG files work now** 
 ### 1.1.3
 * (Vegetto) bugfix - media title was not kept to url when streamTitle not present
 

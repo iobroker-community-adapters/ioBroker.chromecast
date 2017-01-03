@@ -2,7 +2,7 @@
 	"common": {
 		"name":       "chromecast",
 		"title":      "Chromecast Adapter",
-		"version": "1.1.3",
+		"version": "1.2.0",
 		"license":    "MIT",
 		"authors":    ["Vegetto <iobroker@angelnu.com>"],
 		"desc":       {
@@ -19,6 +19,7 @@
 		"readme":     "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
 		"loglevel":   "info",
 		"type":       "media",
+		"dependencies":	[{"vis": ">=0.10.0"}],
 		"restartAdapters": ["vis"]
 	},
 	"native": {
