@@ -78,6 +78,8 @@ Changelog
   * Chromecast player and scanner splitted into a separated module
   * **Support for playlists**
   * Improved MIME detection - **OGG files work now** 
+  * Support for **announcements** - playlist resume after completing announcement
+  * Support to **jump** between playlist entries
 ### 1.1.3
 * (Vegetto) bugfix - media title was not kept to url when streamTitle not present
 
