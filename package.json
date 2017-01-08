@@ -25,7 +25,7 @@
     "url": "https://github.com/angelnu/ioBroker.chromecast"
   },
   "dependencies": {
-      "castv2-player":   "^1.0.1"
+      "castv2-player":   "^1.1.0"
   },
   "devDependencies": {
       "grunt": "^1.0.1",
