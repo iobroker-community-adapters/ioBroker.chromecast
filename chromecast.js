@@ -28,10 +28,6 @@ var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.template.0
 var adapter = utils.adapter('chromecast');
 
-//Own libraries
-var chromecastScanner = require('./lib/chromecastScanner');
-var ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
-
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
     try {
@@ -70,17 +66,18 @@ adapter.on('ready', function () {
 var SCAN_INTERVAL = 10000;
 function main() {
 
+    //Own libraries
+    var LogWrapper        = require('castv2-player').LogWrapper; 
+    var Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
+
+    var ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
+
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
-    adapter.log.info('use useSSDP? ' + adapter.config.useSSDP);
     
-    var chromecastDevices = {};
-    chromecastScanner(adapter.config.useSSDP,
-        function (name, address, port) {
-            chromecastDevices[name] = new ChromecastDevice(name, address, port);
-    }, SCAN_INTERVAL,
-        function (name, address, port) {
-            chromecastDevices[name].updateAddress(address, port);
+    //var chromecastDevices = {};
+    new Scanner (function (connection) {
+      /*chromecastDevices[name] = */new ChromecastDevice(connection);
     });
 
     /**
