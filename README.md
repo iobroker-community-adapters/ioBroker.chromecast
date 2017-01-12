@@ -73,6 +73,9 @@ How to build
 
 Changelog
 ---------
+### 1.2.1
+* (Vegetto) Update to player 1.1.2 - reconnect on url2play
+
 ### 1.2.0
 * (Vegetto) Mayor rework
   * Chromecast player and scanner splitted into a separated module
