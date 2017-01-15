@@ -7,7 +7,7 @@ ioBroker.chromecast
 
 [![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
 
-### A Chromecast adapter for ioBorker
+### A Chromecast adapter for ioBroker
 
 This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
@@ -73,6 +73,9 @@ How to build
 
 Changelog
 ---------
+### 1.2.2
+* (Vegetto) Update to player 1.1.3 - support relative paths in playlists
+
 ### 1.2.1
 * (Vegetto) Update to player 1.1.2 - reconnect on url2play
 
