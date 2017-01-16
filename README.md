@@ -74,6 +74,9 @@ How to build
 Changelog
 ---------
 ### 1.2.2
+* (Vegetto) Forgot to step up version.
+
+### 1.2.2
 * (Vegetto) Update to player 1.1.3 - support relative paths in playlists
 
 ### 1.2.1
