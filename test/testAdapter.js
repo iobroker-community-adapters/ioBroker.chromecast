@@ -87,7 +87,7 @@ describe('Test ' + adapterShortName + ' adapter', function() {
 
             setup.setAdapterConfig(config.common, config.native);
 
-//            setup.installAdapter('vis', function () {
+//            setup.installAdapter('vis', function () { 
 //                setup.installAdapter('web', function () {
                     setup.startController(true, function(id, obj) {}, function (id, state) {
                         if (onStateChanged) onStateChanged(id, state);
