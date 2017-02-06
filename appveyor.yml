@@ -15,6 +15,8 @@ install:
   - npm install
   - npm install winston@2.3.0
   - 'npm install https://github.com/ioBroker/ioBroker.js-controller/tarball/master --production'
+  - npm install iobroker.vis  --prefix ./node_modules/iobroker.js-controller/
+
 test_script:
   - echo %cd%
   - node --version
