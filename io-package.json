@@ -19,7 +19,7 @@
 		"readme":     "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
 		"loglevel":   "info",
 		"type":       "media",
-		"dependencies":	[{"web": ">=1.5.4"},{"vis": ">=0.10.0"}],
+		"dependencies":	[{"vis": ">=0.10.0"}],
 		"restartAdapters": ["vis"]
 	},
 	"native": {
