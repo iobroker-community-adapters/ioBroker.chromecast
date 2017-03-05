@@ -9,8 +9,6 @@ node_js:
 before_script:
   - npm install winston@2.3.0 --production
   - npm install https://github.com/Apollon77/ioBroker.js-controller/tarball/master --production
-  - npm install iobroker.web --production --prefix ./node_modules/iobroker.js-controller/
-  - npm install iobroker.vis --production --prefix ./node_modules/iobroker.js-controller/
 
 env:
   - CXX=g++-4.8
