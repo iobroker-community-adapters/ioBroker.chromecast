@@ -1,5 +1,6 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
+/*jshint expr: true*/
 var expect = require('chai').expect;
 var setup  = require(__dirname + '/lib/setup');
 
@@ -87,8 +88,6 @@ describe('Test ' + adapterShortName + ' adapter', function() {
 
             setup.setAdapterConfig(config.common, config.native);
 
-//            setup.installAdapter('web', function () {
-//                setup.installAdapter('vis', function () {
                     setup.startController(true, function(id, obj) {}, function (id, state) {
                         if (onStateChanged) onStateChanged(id, state);
                     },
@@ -98,8 +97,6 @@ describe('Test ' + adapterShortName + ' adapter', function() {
                         _done();
                     });
                 });
-//            });
-//        });
     });
 
 /*
