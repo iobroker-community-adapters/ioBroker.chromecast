@@ -11,6 +11,8 @@ ioBroker.chromecast
 
 This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
+***This Adapter needs node 4.x or higher!***
+
 Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
   * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Chromecast client library.
@@ -86,7 +88,7 @@ Changelog
 * (Vegetto) Mayor rework
   * Chromecast player and scanner splitted into a separated module
   * **Support for playlists**
-  * Improved MIME detection - **OGG files work now** 
+  * Improved MIME detection - **OGG files work now**
   * Support for **announcements** - playlist resume after completing announcement
   * Support to **jump** between playlist entries
 
