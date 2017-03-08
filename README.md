@@ -11,7 +11,7 @@ ioBroker.chromecast
 
 This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
-***This Adaoter needs node 4.x or higher!***
+***This Adapter needs node 4.x or higher!***
 
 Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
