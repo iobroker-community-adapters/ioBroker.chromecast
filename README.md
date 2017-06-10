@@ -75,6 +75,10 @@ How to build
 
 Changelog
 ---------
+### 1.3.0
+* (Vegetto) Create playlist channel with raw playlist and repeat modes
+* (Vegetto) Moved jump and repeatMode from player to plalist channel
+
 ### 1.2.2
 * (Vegetto) Forgot to step up version.
 
