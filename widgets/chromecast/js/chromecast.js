@@ -1,7 +1,7 @@
 /*
     ioBroker.chromecast Widget-Set
 
-    version: "1.2.3"
+    version: "1.3.0"
 
     Copyright 10.2015-2016 Vegetto<iobroker@angelnu.com>
 
@@ -142,7 +142,7 @@ function registerForDeviceUpdates($widget, ioBrokerState){
 
 // this code can be placed directly in chromecast.html
 vis.binds.chromecast = {
-    version: "1.2.3",
+    version: "1.3.0",
     showVersion: function () {
         if (vis.binds.chromecast.version) {
             console.log('Version chromecast: ' + vis.binds.chromecast.version);
