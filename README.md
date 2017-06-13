@@ -75,6 +75,10 @@ How to build
 
 Changelog
 ---------
+### 1.3.1
+* (Vegetto) Fix updateStates to accept null values
+* (Vegetto) Add playlist currentItemdId
+
 ### 1.3.0
 * (Vegetto) Create playlist channel with raw playlist and repeat modes
 * (Vegetto) Moved jump and repeatMode from player to plalist channel
