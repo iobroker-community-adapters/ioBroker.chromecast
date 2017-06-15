@@ -75,6 +75,9 @@ How to build
 
 Changelog
 ---------
+### 1.3.2
+* (Vegetto) recognize uncomple playlist status and trigger a new getStatus
+
 ### 1.3.1
 * (Vegetto) Fix updateStates to accept null values
 * (Vegetto) Add playlist currentItemdId
