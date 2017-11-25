@@ -6,7 +6,7 @@
 
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
-"use strict";
+'use strict';
 
 //For profiling: comment out the following block and connect to
 //http://c4milo.github.io/node-webkit-agent/26.0.1410.65/inspector.html?host=localhost:19999&page=0
@@ -21,12 +21,12 @@ agent.start({
 */
 
 // you have to require the utils module and call adapter function
-var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.template.0
-var adapter = utils.adapter('chromecast');
+const adapter = new utils.Adapter('chromecast');
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -46,8 +46,8 @@ adapter.on('objectChange', function (id, obj) {
 
 // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
 adapter.on('message', function (obj) {
-    if (typeof obj == 'object' && obj.message) {
-        if (obj.command == 'send') {
+    if (typeof obj === 'object' && obj.message) {
+        if (obj.command === 'send') {
             // e.g. send email or pushover or whatever
             console.log('send command');
 
@@ -63,14 +63,14 @@ adapter.on('ready', function () {
     main();
 });
 
-var SCAN_INTERVAL = 10000;
+// const SCAN_INTERVAL = 10000;
 function main() {
 
     //Own libraries
-    var LogWrapper        = require('castv2-player').LogWrapper; 
-    var Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
+    const LogWrapper        = require('castv2-player').LogWrapper;
+    const Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
 
-    var ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
+    const ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
@@ -79,18 +79,6 @@ function main() {
     new Scanner (function (connection) {
       /*chromecastDevices[name] = */new ChromecastDevice(connection);
     });
-
-    /**
-     *
-     *      For every state in the system there has to be also an object of type state
-     *
-     *      Here a simple template for a boolean variable named "testVariable"
-     *
-     *      Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-     *
-     */
-
-    
 
     // in this template all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
