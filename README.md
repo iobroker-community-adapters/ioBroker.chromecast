@@ -1,5 +1,5 @@
 ![Logo](admin/chromecast.png)
-ioBroker.chromecast
+# ioBroker.chromecast
 =============
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
@@ -7,7 +7,7 @@ ioBroker.chromecast
 
 [![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
 
-### A Chromecast adapter for ioBroker
+## A Chromecast adapter for ioBroker
 
 This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
@@ -17,8 +17,7 @@ Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
   * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Chromecast client library.
 
-Instructions
-------------
+## Instructions
 
 1. Install into ioBroker
    1. Go to your ioBroker Adapters tab
@@ -31,8 +30,7 @@ Instructions
 5. Write an URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.`<your chromecast name>`.player.url2play
 6. The URL should start playing on your device
 
-Features
---------
+## Features
 
 * detect devices with either SSDP or multicast-dns
 * create ioBroker objects for each found device
@@ -54,15 +52,13 @@ Features
   * Note: this does not work with SSDP -> disable by default in adapter settings
 * Play again last played stream: just set _chromecast.0.`<your device>`.status.playing_ to _true_
 
-What is missing?
-----------------
+## What is missing?
 
 * add state machine to track states: detected ->connected -> player loader -> playing
 * add retries: sometimes the Chromecast fails to respond to a request
 * more testing
 
-How to build
-------------
+## How to build
 
 1. Checkout from git
 2. Install grunt with `npm install -g grunt-cli`
@@ -73,10 +69,13 @@ How to build
 7. git commit & push
 8. npm publish
 
-Changelog
----------
+## Changelog
+
+### 1.3.3 (2017.11.24)
+* (bluefox) bump a version
+
 ### 1.3.2
-* (Vegetto) recognize uncomple playlist status and trigger a new getStatus
+* (Vegetto) recognize uncompleted playlist status and trigger a new getStatus
 
 ### 1.3.1
 * (Vegetto) Fix updateStates to accept null values
@@ -180,7 +179,7 @@ License
 --------
 The MIT License (MIT)
 
-Copyright (c) 2015 Vegetto <iobroker@angelnu.com>
+Copyright (c) 2015-2017 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

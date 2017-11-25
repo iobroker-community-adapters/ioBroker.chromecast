@@ -2,13 +2,13 @@
 	"common": {
 		"name":       "chromecast",
 		"title":      "Chromecast Adapter",
-		"version": "1.3.2",
+		"version": "1.3.3",
 		"license":    "MIT",
 		"authors":    ["Vegetto <iobroker@angelnu.com>"],
 		"desc":       {
 			"en": "Allows to monitor and play files to Google Chromecasts",
 			"de": "ioBroker Chromecast Adapter",
-			"ru": "Позволяет находить и проигрывть файлы с ioBroker Chromecast"
+			"ru": "Позволяет находить и проигрывть файлы в Chromecast"
 		},
 		"platform":   "Javascript/Node.js",
 		"mode":       "daemon",
