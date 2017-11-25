@@ -1,7 +1,7 @@
 // Dictionary (systemDictionary is global variable from adapter-settings.js)
 systemDictionary = {
-    "Chromecast Adapter settings": {"de": "Chromecast Einstellung",
-        "ru": "Настройки драйвера Chromecast"},
+    "Google Home Adapter settings": {"de": "Google Home Einstellung",
+        "ru": "Настройки драйвера Google Home"},
     "Web instance:": {"en": "Web instance:",
         "de": "Web instance:",
         "ru": "Web instance:"},

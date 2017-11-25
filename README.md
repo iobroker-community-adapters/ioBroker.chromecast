@@ -1,28 +1,27 @@
-![Logo](admin/chromecast.png)
+![Logo](admin/home.png)
 # ioBroker.chromecast
-=============
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 
 [![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
 
-## A Chromecast adapter for ioBroker
+## A Google Home adapter for ioBroker
 
-This plugin allows to detect video and/or Chromecast devices. For each detect Chromecast device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
+This plugin allows to detect video and/or audio Google Home devices. For each detected Home device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
 
 ***This Adapter needs node 4.x or higher!***
 
 Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
-  * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Chromecast client library.
+  * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Home client library.
 
 ## Instructions
 
 1. Install into ioBroker
    1. Go to your ioBroker Adapters tab
-   2. Select and install Chromecast adapter
-2. Add an instance of the Chromecast adapter
+   2. Select and install Google Home adapter
+2. Add an instance of the Google Home adapter
    * it should automatically run after it is installed
 3. (optional) If you plan to stream local files you need to configure the adapter
    * you need to have an ioBroker web server instance
@@ -35,12 +34,12 @@ Build on top of the following projects:
 * detect devices with either SSDP or multicast-dns
 * create ioBroker objects for each found device
 * status, player, media and metadata channels
-* control Chromecast device from adapter
+* control Google Home device from adapter
   * set volume
   * mute/unmute
   * stop broadcasting
   * pause
-  * play url (chromecast.0.`<your chromecast name>`.player.url2play)
+  * play url (chromecast.0.`<your Google Home name>`.player.url2play)
     * tested with MP3
       * Full list of formats [here](https://developers.google.com/cast/docs/media).
     * when the url does not start with http then assume that this is a local file
@@ -55,7 +54,7 @@ Build on top of the following projects:
 ## What is missing?
 
 * add state machine to track states: detected ->connected -> player loader -> playing
-* add retries: sometimes the Chromecast fails to respond to a request
+* add retries: sometimes the Google Home fails to respond to a request
 * more testing
 
 ## How to build
@@ -66,10 +65,14 @@ Build on top of the following projects:
 4. Make changes and test them
 5. Change version in package.json
 6. Check changes with `grunt`
-7. git commit & push
-8. npm publish
+7. npm test
+8. git commit & push
+9. npm publish
 
 ## Changelog
+
+### 1.3.4 (2017.11.25)
+* (angelnu) Rename to Google Home
 
 ### 1.3.3 (2017.11.24)
 * (bluefox) bump a version

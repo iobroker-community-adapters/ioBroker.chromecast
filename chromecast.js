@@ -6,6 +6,7 @@
 
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
+/*jshint esversion: 6 */
 'use strict';
 
 //For profiling: comment out the following block and connect to
