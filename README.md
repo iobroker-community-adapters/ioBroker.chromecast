@@ -4,6 +4,7 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
+[![Build Status](https://travis-ci.org/angelnu/ioBroker.chromecast.svg?branch=master)](https://travis-ci.org/angelnu/ioBroker.chromecast.svg?branch=master)
 
 [![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
 
