@@ -72,6 +72,10 @@ Build on top of the following projects:
 
 ## Changelog
 
+### 1.4.0 (2017.11.26) 
+* (angelnu) Support for additional languages
+* (angelnu) Support for version 3 of the Admin adapter
+
 ### 1.3.4 (2017.11.26)
 * (angelnu) Update to latest cast2-player - wait for announcement
 

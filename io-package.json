@@ -1,14 +1,40 @@
 {
 	"common": {
 		"name":       "chromecast",
-		"title":      "Google Home Adapter",
+		"title":      {
+			"en": "Google Home Adapter",
+			"de": "Google Home Adapter",
+			"ru": "Адаптер Google Home",
+			"pt": "Adaptador Home do Google",
+			"nl": "Google Home Adapter",
+			"fr": "Adaptateur Google Home",
+			"it": "Google Home Adapter",
+			"es": "Adaptador para Google Home"
+		},
 		"version": "1.3.5",
+		"news": {
+			"1.4.0": {
+				"en": "Support for additional languages\nSupport for version 3 of the Admin adapter",
+				"de": "Unterstützung für zusätzliche Sprachen\nUnterstützung für Version 3 des Admin-Adapters",
+				"ru": "Поддержка дополнительных языков\nПоддержка версии 3 адаптера администратора",
+				"pt": "Suporte para idiomas adicionais\nSuporte para a versão 3 do adaptador de administrador",
+				"nl": "Ondersteuning voor extra talen\nOndersteuning voor versie 3 van de Admin-adapter",
+				"fr": "Prise en charge de langues supplémentaires\nPrise en charge de la version 3 de l'adaptateur Admin",
+				"it": "Supporto per lingue aggiuntive\nSupporto per la versione 3 dell'adattatore di amministrazione",
+				"es": "Soporte para idiomas adicionales\nSoporte para la versión 3 del adaptador de administración"
+			}
+		},
 		"license":    "MIT",
 		"authors":    ["Vegetto <iobroker@angelnu.com>"],
-		"desc":       {
+		"desc":	{
 			"en": "Allows to monitor and play files to Google Home (Chromecast)",
-			"de": "ioBroker Chromecast Adapter",
-			"ru": "Позволяет находить и проигрывть файлы в Chromecast"
+			"de": "Ermöglicht die Überwachung und Wiedergabe von Dateien in Google Home (Chromecast)",
+			"ru": "Позволяет контролировать и воспроизводить файлы в Google Домой (Chromecast)",
+			"pt": "Permite monitorar e reproduzir arquivos no Google Home (Chromecast)",
+			"nl": "Hiermee kunnen bestanden worden gecontroleerd en afgespeeld op Google Home (Chromecast)",
+			"fr": "Permet de surveiller et de lire des fichiers sur Google Home (Chromecast)",
+			"it": "Permette di monitorare e riprodurre file su Google Home (Chromecast)",
+			"es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)"
 		},
 		"platform":   "Javascript/Node.js",
 		"mode":       "daemon",
@@ -20,6 +46,7 @@
 		"loglevel":   "info",
 		"type":       "multimedia",
 		"dependencies":	[{"vis": ">=0.10.0"}],
+		"materialize": true,
 		"restartAdapters": ["vis"]
 	},
 	"native": {
