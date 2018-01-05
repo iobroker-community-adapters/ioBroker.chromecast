@@ -1,7 +1,8 @@
 {
     "common": {
         "name": "chromecast",
-        "title": {
+        "title": "Google Home Adapter",
+        "titleLang": {
             "en": "Google Home Adapter",
             "de": "Google Home Adapter",
             "ru": "Адаптер Google Home",
