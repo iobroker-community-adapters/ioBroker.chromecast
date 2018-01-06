@@ -71,6 +71,8 @@ Build on top of the following projects:
 9. npm publish
 
 ## Changelog
+### 1.4.1 (2018-01-06)
+* Fix for languages in io-package
 
 ### 1.4.0 (2017.11.26) 
 * (angelnu) Support for additional languages

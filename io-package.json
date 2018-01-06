@@ -12,8 +12,19 @@
             "it": "Google Home Adapter",
             "es": "Adaptador para Google Home"
         },
-        "version": "1.4.0",
+        "version": "1.4.1",
         "news": {
+            "1.4.1": {
+                "en": "Fix for languages in io-package",
+                "de": "Fix für Sprachen in io-package",
+                "ru": "Исправить для языков в io-пакете",
+                "pt": "Reparar para idiomas em io-package",
+                "nl": "Fix voor talen in io-pakket",
+                "fr": "Correctif pour les langues dans io-package",
+                "it": "Correzione per le lingue in io-pacchetto",
+                "es": "Solución para idiomas en io-paquete",
+                "pl": "Naprawiono języki w pakiecie io"
+            },
             "1.4.0": {
                 "en": "Support for additional languages\nSupport for version 3 of the Admin adapter",
                 "de": "Unterstützung für zusätzliche Sprachen\nUnterstützung für Version 3 des Admin-Adapters",
