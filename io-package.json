@@ -12,8 +12,19 @@
             "it": "Google Home Adapter",
             "es": "Adaptador para Google Home"
         },
-        "version": "1.4.1",
+        "version": "1.4.2",
         "news": {
+            "1.4.2": {
+              "en": "Always use volume parameter for announcements",
+              "de": "Immer Volume-Parameter für Ansagen verwenden",
+              "ru": "Всегда используйте параметр объема для объявлений",
+              "pt": "Use sempre o parâmetro de volume para anúncios",
+              "nl": "Gebruik altijd de volume parameter voor aankondigingen",
+              "fr": "Toujours utiliser le paramètre de volume pour les annonces",
+              "it": "Usa sempre il parametro del volume per gli annunci",
+              "es": "Utiliza siempre el parámetro de volumen para los anuncios",
+              "pl": "Zawsze używaj parametru głośności dla ogłoszeń"
+            },
             "1.4.1": {
                 "en": "Fix for languages in io-package",
                 "de": "Fix für Sprachen in io-package",

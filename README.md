@@ -71,6 +71,9 @@ Build on top of the following projects:
 9. npm publish
 
 ## Changelog
+### 1.4.2 (2018-01-30)
+* Always use volume parameter for announcements
+
 ### 1.4.1 (2018-01-06)
 * Fix for languages in io-package
 
