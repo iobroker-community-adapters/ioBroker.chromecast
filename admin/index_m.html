@@ -40,6 +40,7 @@
         if (settings.webServer === '') {
             onChange(); //Selecting default
         }
+        if (M) M.updateTextFields();
     }
 
     //Copied from sayit adapter (UNCHANGED)
@@ -130,27 +131,30 @@
 <body>
 <!-- you have to put your config page in a div with id adapter-container -->
 <div class="m adapter-container">
+   <div class="row">
     <div id="tab-main" class="col s12 page">
         <div class="row">
-            <li class="col s12 m4 l2">
-                <img src="home.png"/>
-            </li>
-            <li class="col s12 m8 l5">
-                <h3 class="translate">Google Home adapter settings</h3>
-            </li>
+            <div class="col s6">
+                <img src="home.png" class="logo"/>
+            </div>               
         </div>
         <div class="row">
-            <div class="col s12 m8 l5">
+            <h5 class="col s12 translate">Google Home Adapter settings</h5>
+        </div>
+        <div class="row">            
+            <div class="col s12 m6 l5">
                 <label class="translate" for="web">Web instance:</label>
                 <select class="value" id="web"></select>
             </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m8 l5">
+            <div class="col s12 m6 l5">
                 <label class="translate" for="webServer">Web server IP:</label>
                 <select class="value" id="webServer"></select>
             </div>
         </div>
+        <div class="row">
+            <p class="col s12 translate">on save adapter restarts with new config immediately</p>
+        </div>
+    </div>
     </div>
 </div>
 </body>
