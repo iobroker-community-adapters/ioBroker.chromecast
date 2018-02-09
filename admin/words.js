@@ -3,8 +3,45 @@
 'use strict';
 
 systemDictionary = {
-    "Google Home Adapter settings": {                "en": "Google Home Adapter settings",                   "de": "Google Home Einstellung",                        "ru": "Настройки драйвера Google Home",                 "pt": "Configuracoes do Google Home Adapter",           "nl": "Google Home Adapter-instellingen",               "fr": "Configuration de l'adapteur de Google Home",     "it": "Impostazioni di Google Home Adapter",            "es": "Configuracion del adaptador para Google Home"},
-    "Web instance:": {                               "en": "Web instance:",                                  "de": "Web Instance:",                                  "ru": "Web instance:",                                  "pt": "Instancia do servidor da Web:",                  "nl": "Web-instantie:",                                 "fr": "Instance du serveur Web : ",                     "it": "Istanza del server Web:",                        "es": "Instancia del servidor web:"},
-    "Web server IP:": {                              "en": "Web server IP:",                                 "de": "Web Server IP:",                                 "ru": "IP Веб сервера:",                                "pt": "IP do servidor da Web:",                         "nl": "Webserver IP:",                                  "fr": "IP du serveur Web : ",                           "it": "IP del server Web:",                             "es": "IP del servidor web:"},
-    "on save adapter restarts with new config immediately": {"en": "on save adapter restarts with new config immediately", "de": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet.", "ru": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями", "pt": "no adaptador de salvar reinicia com nova configuracao imediatamente", "nl": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config", "fr": "L'adapteur se reeinicie immediatement avec la nouvelle configuration apres avoir sauve", "it": "su save adapter si riavvia immediatamente con la nuova configurazione", "es": "Cuando se graba el adaptador se reinicia automaticamente"},
+    "Google Home Adapter settings": {               
+        "en": "Google Home Adapter settings",
+        "de": "Google Home Einstellung",
+        "ru": "Настройки драйвера Google Home",
+        "pt": "Configuracoes do Google Home Adapter",
+        "nl": "Google Home Adapter-instellingen",
+        "fr": "Configuration de l'adapteur de Google Home",
+        "it": "Impostazioni di Google Home Adapter",
+        "es": "Configuracion del adaptador para Google Home"
+    },
+    "Web instance:": {
+        "en": "Web instance:",
+        "de": "Web Instance:",
+        "ru": "Web instance:",
+        "pt": "Instancia do servidor da Web:",
+        "nl": "Web-instantie:",
+        "fr": "Instance du serveur Web :",
+        "it": "Istanza del server Web:",
+        "es": "Instancia del servidor web:"
+    },        
+    "Web server IP:": {
+        "en": "Web server IP:",
+        "de": "Web Server IP:",
+        "ru": "IP Веб сервера:",
+        "pt": "IP do servidor da Web:",
+        "nl": "Webserver IP:", 
+        "fr": "IP du serveur Web :",
+        "it": "IP del server Web:",
+        "es": "IP del servidor web:"
+    },
+        
+    "on save adapter restarts with new config immediately": {
+        "en": "on save adapter restarts with new config immediately",
+        "de": "Beim Speichern von Einstellungen der Adapter wird sofort neu gestartet.",
+        "ru": "Сразу после сохранения настроек драйвер перезапуститься с новыми значениями",
+        "pt": "no adaptador de salvar reinicia com nova configuracao imediatamente",
+        "nl": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
+        "fr": "L'adapteur se reeinicie immediatement avec la nouvelle configuration apres avoir sauve",
+        "it": "su save adapter si riavvia immediatamente con la nuova configurazione",
+        "es": "Cuando se graba el adaptador se reinicia automaticamente"
+    },
 };
