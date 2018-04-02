@@ -12,18 +12,29 @@
             "it": "Google Home Adapter",
             "es": "Adaptador para Google Home"
         },
-        "version": "1.4.2",
+        "version": "1.4.3",
         "news": {
+            "1.4.3": {
+                "en": "Added enabled flag so some adapters can be ignored",
+                "de": "Aktiviertes Flag hinzugefügt, so dass einige Adapter ignoriert werden können",
+                "ru": "Добавлен флажок включен, поэтому некоторые адаптеры могут быть проигнорированы",
+                "pt": "Adicionado sinalizador habilitado para que alguns adaptadores possam ser ignorados",
+                "nl": "Toegevoegde vlag toegevoegd, zodat sommige adapters kunnen worden genegeerd",
+                "fr": "Ajout de l'indicateur activé pour que certaines cartes puissent être ignorées",
+                "it": "Aggiunto flag abilitato così alcuni adattatori possono essere ignorati",
+                "es": "Se agregó una bandera habilitada para que algunos adaptadores puedan ser ignorados",
+                "pl": "Dodano opcję włączoną, dzięki czemu niektóre adaptery można zignorować"
+            },
             "1.4.2": {
-              "en": "Always use volume parameter for announcements",
-              "de": "Immer Volume-Parameter für Ansagen verwenden",
-              "ru": "Всегда используйте параметр объема для объявлений",
-              "pt": "Use sempre o parâmetro de volume para anúncios",
-              "nl": "Gebruik altijd de volume parameter voor aankondigingen",
-              "fr": "Toujours utiliser le paramètre de volume pour les annonces",
-              "it": "Usa sempre il parametro del volume per gli annunci",
-              "es": "Utiliza siempre el parámetro de volumen para los anuncios",
-              "pl": "Zawsze używaj parametru głośności dla ogłoszeń"
+                "en": "Always use volume parameter for announcements",
+                "de": "Immer Volume-Parameter für Ansagen verwenden",
+                "ru": "Всегда используйте параметр объема для объявлений",
+                "pt": "Use sempre o parâmetro de volume para anúncios",
+                "nl": "Gebruik altijd de volume parameter voor aankondigingen",
+                "fr": "Toujours utiliser le paramètre de volume pour les annonces",
+                "it": "Usa sempre il parametro del volume per gli annunci",
+                "es": "Utiliza siempre el parámetro de volumen para los anuncios",
+                "pl": "Zawsze używaj parametru głośności dla ogłoszeń"
             },
             "1.4.1": {
                 "en": "Fix for languages in io-package",
