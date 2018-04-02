@@ -71,6 +71,9 @@ Build on top of the following projects:
 9. npm publish
 
 ## Changelog
+### 1.4.3 (2018-04-03)
+* Added enabled flag so some adapters can be ignored
+
 ### 1.4.2 (2018-01-30)
 * Always use volume parameter for announcements
 
