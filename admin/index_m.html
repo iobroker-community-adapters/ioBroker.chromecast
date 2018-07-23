@@ -1,160 +1,169 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
-<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
 
-<script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
-<script type="text/javascript" src="../../js/translate.js"></script>
-<script type="text/javascript" src="../../lib/js/materialize.js"></script>
-<script type="text/javascript" src="../../js/adapter-settings.js"></script>
-<script type="text/javascript" src="words.js"></script>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+    <script type="text/javascript" src="words.js"></script>
 
-<!-- you have to define 2 functions in the global scope: -->
-<script type="text/javascript">
-    // the function loadSettings has to exist ...
-    function load(settings, onChange) {
-        for (var key in settings) {
-            if (!settings.hasOwnProperty(key)) continue;
-            var $value = $('#' + key + '.value');
-            if ($value.attr('type') === 'checkbox') {
-                $value.prop('checked', settings[key]).change(function () {
-					onChange();
-				});
-            } else {
-                $value.val(settings[key]).change(function () {
-                    var key = $(this).attr('id');
-                    if (key === 'web') checkWeb('#web');
-					onChange();
-				}).keyup(function () {
-					$(this).trigger('change');
-				});
-            }
-        }
-        // Signal to admin, that no changes yet
-        onChange(false);
-        
-        fillWebServices('#web', settings.web, settings.type, settings.webServer);
-        
-        if (settings.webServer === '') {
-            onChange(); //Selecting default
-        }
-        if (M) M.updateTextFields();
-    }
-
-    //Copied from sayit adapter (UNCHANGED)
-    function checkWeb(elem, current) {
-        var web = $('#web').val();
-        for (var i = 0; i < webServers.length; i++) {
-            if (webServers[i].id === 'system.adapter.' + web) {
-                if (webServers[i].value.native.auth) {
-                    showMessage(_('Cannot use web server with authentication'), null, 'info');
-                }
-                if (webServers[i].value.native.bind === 'localhost' || webServers[i].value.native.bind === '127.0.0.1' || webServers[i].value.native.bind === '::1') {
-                    showMessage(_('Cannot use web server only on localhost'), null, 'info');
-                }
-                if (webServers[i].value.native.bind === '0.0.0.0') {
-                    $('#tr_webServer').show();
-                    $('#webServer').html('');
-                    // read all ipv4 addresses of host
-                    socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
-                        if (!err && obj && obj.native) {
-                            for (var iface in obj.native.hardware.networkInterfaces) {
-                                if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
-                                for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
-                                    if (obj.native.hardware.networkInterfaces[iface][i].family === 'IPv4' && !obj.native.hardware.networkInterfaces[iface][i].internal) {
-                                        $('#webServer').append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv4] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
-                                    }
-                                }
-                            }
-                        }
-                        if (current)  $('#webServer').val(current);
-                    });
-                } else if (webServers[i].value.native.bind === '::') {
-                    // read all ipv6 addresses of host
-                    socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
-                        if (!err && obj && obj.native) {
-                            for (var iface in obj.native.hardware.networkInterfaces) {
-                                if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
-                                for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
-                                    if (obj.native.hardware.networkInterfaces[iface][i].family === 'IPv6' && !obj.native.hardware.networkInterfaces[iface][i].internal) {
-                                        $('#webServer').append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv6] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
-                                    }
-                                }
-                            }
-                        }
-                        if (current)  $('#webServer').val(current);
+    <!-- you have to define 2 functions in the global scope: -->
+    <script type="text/javascript">
+        var webServers;
+        // the function loadSettings has to exist ...
+        function load(settings, onChange) {
+            for (var key in settings) {
+                if (!settings.hasOwnProperty(key)) continue;
+                var $value = $('#' + key + '.value');
+                if ($value.attr('type') === 'checkbox') {
+                    $value.prop('checked', settings[key]).on('change', function () {
+                        onChange();
                     });
                 } else {
-                    $('#tr_webServer').hide();
+                    $value.val(settings[key]).on('change', function () {
+                        var key = $(this).attr('id');
+                        if (key === 'web') checkWeb('#web');
+                        onChange();
+                    }).on('keyup', function () {
+                        $(this).trigger('change');
+                    });
+                }
+            }
+
+            fillWebServices('#web', settings.web, settings.type, settings.webServer);
+
+            // Signal to admin, that no changes yet
+            onChange(false);
+
+            M.updateTextFields();
+            if (settings.webServer === '') {
+                onChange(); //Selecting default
+            }
+        }
+
+        //Copied from sayit adapter (UNCHANGED)
+        function checkWeb(elem, current) {
+            var web = $('#web').val();
+            for (var i = 0; i < webServers.length; i++) {
+                if (webServers[i].id === 'system.adapter.' + web) {
+                    if (webServers[i].value.native.auth) {
+                        showMessage(_('Cannot use web server with authentication'), null, 'info');
+                    }
+                    if (webServers[i].value.native.bind === 'localhost' || webServers[i].value.native.bind === '127.0.0.1' || webServers[i].value.native.bind === '::1') {
+                        showMessage(_('Cannot use web server only on localhost'), null, 'info');
+                    }
+                    if (webServers[i].value.native.bind === '0.0.0.0') {
+                        $('.web-server').show();
+                        $('#webServer').html('').select();
+                        // read all ipv4 addresses of host
+                        socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
+                            var $webServer = $('#webServer');
+                            if (!err && obj && obj.native) {
+                                for (var iface in obj.native.hardware.networkInterfaces) {
+                                    if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
+                                    for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
+                                        if (obj.native.hardware.networkInterfaces[iface][i].family === 'IPv4' && !obj.native.hardware.networkInterfaces[iface][i].internal) {
+                                            $webServer.append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv4] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
+                                        }
+                                    }
+                                }
+                            }
+                            if (current) {
+                                $webServer.val(current);
+                            }
+                            $webServer.select();
+                        });
+                    } else if (webServers[i].value.native.bind === '::') {
+                        // read all ipv6 addresses of host
+                        socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
+                            var $webServer = $('#webServer');
+                            if (!err && obj && obj.native) {
+                                for (var iface in obj.native.hardware.networkInterfaces) {
+                                    if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
+                                    for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
+                                        if (obj.native.hardware.networkInterfaces[iface][i].family === 'IPv6' && !obj.native.hardware.networkInterfaces[iface][i].internal) {
+                                            $webServer.append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv6] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
+                                        }
+                                    }
+                                }
+                            }
+                            if (current) {
+                                $webServer.val(current);
+                            }
+                            $webServer.select();
+                        });
+                    } else {
+                        $('.web-server').hide();
+                    }
                 }
             }
         }
-    }
-    
-    //Copied from sayit adapter (removed Sonos check, added set default value)
-    function fillWebServices(elem, current, type, webServer) {
-        socket.emit('getObjectView', 'system', 'instance', {startkey: 'system.adapter.web.', endkey: 'system.adapter.web.\u9999'}, function (err, res) {
-            if (!err && res) {
-                webServers = res.rows;
-                for (var i = 0; i < res.rows.length; i++) {
-                    var n =  res.rows[i].id.replace('system.adapter.', '');
-                    var auth =  res.rows[i].value.native.auth ? 'data-auth="true"' : '';
-                    $(elem).append('<option value="' + n + '" ' + auth + '>' + n + '</option>');
-                    if (i === 0 || current == n)
-                        //Select "current" if valid/set else first element
-                        $(elem).val(n);
-                }                
-            }
-            
-            checkWeb('#web', webServer);
-        });
-    }
-    
-    // ... and the function save has to exist.
-    // you have to make sure the callback is called with the settings object as first param!
-    function save(callback) {
-        var obj = {};
-        $('.value').each(function () {
-            var $this = $(this);
-            if ($this.attr('type') === 'checkbox') {
-                obj[$this.attr('id')] = $this.prop('checked');
-            } else {
-                obj[$this.attr('id')] = $this.val();
-            }
-        });
-        callback(obj);
-    }
-</script>
+
+        //Copied from sayit adapter (removed Sonos check, added set default value)
+        function fillWebServices(elem, current, type, webServer) {
+            socket.emit('getObjectView', 'system', 'instance', {
+                startkey: 'system.adapter.web.',
+                endkey: 'system.adapter.web.\u9999'
+            }, function (err, res) {
+                if (!err && res) {
+                    webServers = res.rows;
+                    for (var i = 0; i < res.rows.length; i++) {
+                        var n = res.rows[i].id.replace('system.adapter.', '');
+                        var auth = res.rows[i].value.native.auth ? 'data-auth="true"' : '';
+                        $(elem).append('<option value="' + n + '" ' + auth + '>' + n + '</option>');
+                        if (i === 0 || current == n) {
+                            //Select "current" if valid/set else first element
+                            $(elem).val(n);
+                        }
+                    }
+                }
+
+                checkWeb('#web', webServer);
+                $('#web').select();
+            });
+        }
+
+        // ... and the function save has to exist.
+        // you have to make sure the callback is called with the settings object as first param!
+        function save(callback) {
+            var obj = {};
+            $('.value').each(function () {
+                var $this = $(this);
+                if ($this.attr('type') === 'checkbox') {
+                    obj[$this.attr('id')] = $this.prop('checked');
+                } else {
+                    obj[$this.attr('id')] = $this.val();
+                }
+            });
+            callback(obj);
+        }
+    </script>
 </head>
 <body>
 <!-- you have to put your config page in a div with id adapter-container -->
 <div class="m adapter-container">
-   <div class="row">
-    <div id="tab-main" class="col s12 page">
-        <div class="row">
-            <div class="col s6">
-                <img src="home.png" class="logo"/>
-            </div>               
-        </div>
-        <div class="row">
-            <h5 class="col s12 translate">Google Home Adapter settings</h5>
-        </div>
-        <div class="row">            
-            <div class="col s12 m6 l5">
-                <label class="translate" for="web">Web instance:</label>
-                <select class="value" id="web"></select>
+    <div class="row">
+        <div id="tab-main" class="col s12 page">
+            <div class="row">
+                <div class="col s6">
+                    <img src="home.png" class="logo"/>
+                </div>
             </div>
-            <div class="col s12 m6 l5">
-                <label class="translate" for="webServer">Web server IP:</label>
-                <select class="value" id="webServer"></select>
+            <div class="row">
+                <div class="input-field col s12 m6 l5">
+                    <select class="value" id="web"></select>
+                    <label class="translate" for="web">Web instance:</label>
+                </div>
+                <div class="input-field col s12 m6 l5 web-server">
+                    <select class="value" id="webServer"></select>
+                    <label class="translate" for="webServer">Web server IP:</label>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <p class="col s12 translate">on save adapter restarts with new config immediately</p>
-        </div>
-    </div>
     </div>
 </div>
 </body>

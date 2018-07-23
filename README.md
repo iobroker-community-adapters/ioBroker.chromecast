@@ -1,5 +1,6 @@
 ![Logo](admin/home.png)
 # ioBroker.chromecast
+=======================
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
@@ -10,8 +11,6 @@
 ## A Google Home adapter for ioBroker
 
 This plugin allows to detect video and/or audio Google Home devices. For each detected Home device an ioBroker device is created. This device displays the status of the device and allows to send it a new URL to cast.
-
-***This Adapter needs node 4.x or higher!***
 
 Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
@@ -61,16 +60,19 @@ Build on top of the following projects:
 ## How to build
 
 1. Checkout from git
-2. Install grunt with `npm install -g grunt-cli`
+2. Install grunt with `npm install -g gulp-cli`
 3. Install node.js dependencies: `npm install`
 4. Make changes and test them
 5. Change version in package.json
-6. Check changes with `grunt`
+6. Check changes with `gulp`
 7. npm test
 8. git commit & push
 9. npm publish
 
 ## Changelog
+### 2.0.0 (2018-07-22)
+* (bluefox) refactoring and add new states for material
+
 ### 1.4.3 (2018-04-03)
 * Added enabled flag so some adapters can be ignored
 
@@ -194,11 +196,10 @@ Build on top of the following projects:
 ### 0.1.0
 * (Vegetto) Initial release
 
-License
---------
+## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2017 Vegetto <iobroker@angelnu.com>
+Copyright (c) 2015-2018 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
