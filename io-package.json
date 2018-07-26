@@ -1,19 +1,12 @@
 {
     "common": {
         "name": "chromecast",
-        "title": "Google Home Adapter",
-        "titleLang": {
-            "en": "Google Home Adapter",
-            "de": "Google Home Adapter",
-            "ru": "Адаптер Google Home",
-            "pt": "Adaptador Home do Google",
-            "nl": "Google Home Adapter",
-            "fr": "Adaptateur Google Home",
-            "it": "Google Home Adapter",
-            "es": "Adaptador para Google Home"
-        },
-        "version": "1.4.3",
+        "title": "Google Home",
+        "version": "2.0.0",
         "news": {
+            "2.0.0": {
+                "en": "refactoring"
+            },
             "1.4.3": {
                 "en": "Added enabled flag so some adapters can be ignored",
                 "de": "Aktiviertes Flag hinzugefügt, so dass einige Adapter ignoriert werden können",
