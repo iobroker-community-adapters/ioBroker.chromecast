@@ -24,9 +24,17 @@ agent.start({
 
 const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 
-const adapter = new utils.Adapter('chromecast');
+let adapter;
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {
+         name: 'chromecast',
+         ready: main
+    });
+    adapter = new utils.Adapter(options);
 
-adapter.on('ready', main);
+    return adapter;
+};
 
 // const SCAN_INTERVAL = 10000;
 function main() {
@@ -46,4 +54,10 @@ function main() {
     adapter.subscribeStates('*');
 }
 
-
+// If started as allInOne/compact mode => return function to create instance
+if (typeof module !== undefined && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
+}
