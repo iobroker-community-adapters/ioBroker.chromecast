@@ -34,7 +34,7 @@ function startAdapter(options) {
     adapter = new utils.Adapter(options);
 
     return adapter;
-});
+};
 
 // const SCAN_INTERVAL = 10000;
 function main() {

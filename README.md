@@ -65,9 +65,10 @@ Build on top of the following projects:
 4. Make changes and test them
 5. Change version in package.json
 6. Check changes with `gulp`
-7. npm test
-8. git commit & push
-9. npm publish
+7. Update [changelog](#changelog) and [news](io-package.json) with this [translator](http://iobroker.net:3000/)
+8. npm test
+9. git commit & push
+10. npm publish
 
 ## Changelog
 ### 2.0.1 (2019-01-06)
