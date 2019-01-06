@@ -71,8 +71,8 @@ Build on top of the following projects:
 10. npm publish
 
 ## Changelog
-### 2.0.1 (2019-01-06)
-* (Angel) compact mode support
+### 2.0.2 (2019-01-06)
+* (angelnu) compact mode support
 
 ### 2.0.0 (2018-07-22)
 * (bluefox) refactoring and add new states for material

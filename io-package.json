@@ -2,19 +2,19 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.0.1",
+        "version": "2.0.2",
         "compact": true,
         "news": {
-            "2.0.1": {
-              "en": "Compact mode support",
-              "de": "Unterstützung für kompakten Modus",
-              "ru": "Поддержка компактного режима",
-              "pt": "Suporte ao modo compacto",
-              "nl": "Ondersteuning voor compacte modus",
-              "fr": "Prise en charge du mode compact",
-              "it": "Supporto in modalità compatta",
-              "es": "Soporte de modo compacto",
-              "pl": "Obsługa w trybie kompaktowym"
+            "2.0.2": {
+                "en": "Compact mode support",
+                "de": "Unterstützung für kompakten Modus",
+                "ru": "Поддержка компактного режима",
+                "pt": "Suporte ao modo compacto",
+                "nl": "Ondersteuning voor compacte modus",
+                "fr": "Prise en charge du mode compact",
+                "it": "Supporto in modalità compatta",
+                "es": "Soporte de modo compacto",
+                "pl": "Obsługa w trybie kompaktowym"
             },
             "2.0.0": {
                 "en": "refactoring"
