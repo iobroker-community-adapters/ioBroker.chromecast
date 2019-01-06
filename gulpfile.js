@@ -371,6 +371,97 @@ gulp.task('updatePackages', function (done) {
     done();
 });
 
+gulp.task('rename', function ()  {
+    var newname;
+    var author = '@@Author@@';
+    var email  = '@@email@@';
+    for (var a = 0; a < process.argv.length; a++) {
+        if (process.argv[a] === '--name') {
+            newname = process.argv[a + 1]
+        } else if (process.argv[a] === '--email') {
+            email = process.argv[a + 1]
+        } else if (process.argv[a] === '--author') {
+            author = process.argv[a + 1]
+        }
+    }
+
+
+    console.log('Try to rename to "' + newname + '"');
+    if (!newname) {
+        console.log('Please write the new template name, like: "gulp rename --name mywidgetset" --author "Author Name"');
+        process.exit();
+    }
+    if (newname.indexOf(' ') !== -1) {
+        console.log('Name may not have space in it.');
+        process.exit();
+    }
+    if (newname.toLowerCase() !== newname) {
+        console.log('Name must be lower case.');
+        process.exit();
+    }
+    if (fs.existsSync(__dirname + '/admin/template.png')) {
+        fs.renameSync(__dirname + '/admin/template.png',              __dirname + '/admin/' + newname + '.png');
+    }
+    if (fs.existsSync(__dirname + '/widgets/template.html')) {
+        fs.renameSync(__dirname + '/widgets/template.html',           __dirname + '/widgets/' + newname + '.html');
+    }
+    if (fs.existsSync(__dirname + '/widgets/template/js/template.js')) {
+        fs.renameSync(__dirname + '/widgets/template/js/template.js', __dirname + '/widgets/template/js/' + newname + '.js');
+    }
+    if (fs.existsSync(__dirname + '/widgets/template')) {
+        fs.renameSync(__dirname + '/widgets/template',                __dirname + '/widgets/' + newname);
+    }
+    var patterns = [
+        {
+            match: /ioBroker template Adapter/g,
+            replacement: newname
+        },
+        {
+            match: /template/g,
+            replacement: newname
+        },
+        {
+            match: /Template/g,
+            replacement: newname ? (newname[0].toUpperCase() + newname.substring(1)) : 'Template'
+        },
+        {
+            match: /@@Author@@/g,
+            replacement: author
+        },
+        {
+            match: /@@email@@/g,
+            replacement: email
+        }
+    ];
+    var files = [
+        __dirname + '/io-package.json',
+        __dirname + '/LICENSE',
+        __dirname + '/package.json',
+        __dirname + '/README.md',
+        __dirname + '/main.js',
+        __dirname + '/gulpfile.js',
+        __dirname + '/widgets/' + newname +'.html',
+        __dirname + '/www/index.html',
+        __dirname + '/admin/index.html',
+        __dirname + '/admin/index_m.html',
+        __dirname + '/widgets/' + newname + '/js/' + newname +'.js',
+        __dirname + '/widgets/' + newname + '/css/style.css'
+    ];
+    files.forEach(function (f) {
+        try {
+            if (fs.existsSync(f)) {
+                var data = fs.readFileSync(f).toString('utf-8');
+                for (var r = 0; r < patterns.length; r++) {
+                    data = data.replace(patterns[r].match, patterns[r].replacement);
+                }
+                fs.writeFileSync(f, data);
+            }
+        } catch (e) {
+
+        }
+    });
+});
+
 gulp.task('updateReadme', function (done) {
     var readme = fs.readFileSync('README.md').toString();
     var pos = readme.indexOf('## Changelog\n');
