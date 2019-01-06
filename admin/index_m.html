@@ -147,6 +147,12 @@
 <!-- you have to put your config page in a div with id adapter-container -->
 <div class="m adapter-container">
     <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s4"><a href="#tab-main"   class="translate active">main settings</a></li>
+                <li class="tab col s4"><a href="#tab-devices" class="translate">devices</a></li>
+            </ul>
+        </div>
         <div id="tab-main" class="col s12 page">
             <div class="row">
                 <div class="col s6">
@@ -161,6 +167,25 @@
                 <div class="input-field col s12 m6 l5 web-server">
                     <select class="value" id="webServer"></select>
                     <label class="translate" for="webServer">Web server IP:</label>
+                </div>
+            </div>
+        </div>
+        <div id="tab-devices" class="col s12 page">
+            <div class="col s12" id="values">
+                <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                <div class="table-values-div">
+                    <table class="table-values" style="width: 100%;">
+                        <thead>
+                        <tr>
+                            <th data-name="_index" style="width: 40px" class="translate"></th>
+                            <th data-name="name" class="translate">name</th>
+                            <th data-name="ip" class="translate">ip</th>
+                            <th data-name="port" class="translate">port</th>
+                            <th data-name="type" class="translate">type</th>
+                            <th data-buttons="delete" style="width: 40px"></th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
