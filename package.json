@@ -25,8 +25,7 @@
     "url": "https://github.com/angelnu/ioBroker.chromecast"
   },
   "dependencies": {
-    "castv2-player": "^1.1.13",
-    "iobroker.js-controller": "https://github.com/ioBroker/ioBroker.js-controller/tarball/master"
+    "castv2-player": "^1.1.13"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
