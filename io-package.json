@@ -2,13 +2,20 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.1.0",
+        "version": "2.1.2",
         "compact": true,
         "news": {
-            "2.1.0": {
-                "en": "news",
-                "de": "neues",
-                "ru": "новое"
+            "2.1.2": {
+              "en": "Reconnect on mDNS updates",
+              "de": "Verbindung bei mDNS-Updates wiederherstellen",
+              "ru": "Переподключаться на обновлениях mDNS",
+              "pt": "Reconectar-se nas atualizações do mDNS",
+              "nl": "Reconnect op mDNS-updates",
+              "fr": "Reconnecter sur les mises à jour mDNS",
+              "it": "Riconnetti sugli aggiornamenti mDNS",
+              "es": "Reconectarse en las actualizaciones de mDNS",
+              "pl": "Połącz się z aktualizacjami mDNS",
+              "zh-cn": "重新连接mDNS更新"
             },
             "2.0.2": {
                 "en": "Compact mode support",
