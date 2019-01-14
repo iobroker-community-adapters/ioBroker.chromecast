@@ -71,6 +71,9 @@ Build on top of the following projects:
 10. npm publish
 
 ## Changelog
+### 2.1.2 (2019-01-14)
+* Reconnect on mDNS updates
+
 ### 2.0.2 (2019-01-06)
 * (angelnu) compact mode support
 
