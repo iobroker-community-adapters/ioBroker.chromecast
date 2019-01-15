@@ -22,7 +22,8 @@ agent.start({
     })
 */
 
-const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+// you have to require the utils module and call adapter function
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 
 let adapter;
 function startAdapter(options) {
@@ -44,6 +45,15 @@ function main() {
     const Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
 
     const ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
+
+    //Create manually added devices (if any)
+    if (adapter.config.manualDevices) {
+      for(let i=0;i<adapter.config.manualDevices.length; i++) {
+        let device = adapter.config.manualDevices[i];
+        device.id = "" + i + "-" + device.name;
+        new ChromecastDevice(device);
+      }
+    }
 
     //var chromecastDevices = {};
     new Scanner (connection => {

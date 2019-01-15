@@ -25,12 +25,14 @@
     "url": "https://github.com/angelnu/ioBroker.chromecast"
   },
   "dependencies": {
-    "castv2-player": "^2.0.0"
+    "@iobroker/adapter-core": "github:iobroker/adapter-core",
+    "castv2-player": "^2.0.0",
+    "iobroker.js-controller": "https://github.com/ioBroker/ioBroker.js-controller/tarball/master"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "gulp": "^3.9.1",
-    "mocha": "^5.2.0",
-    "chai": "^4.1.2"
+    "mocha": "^5.2.0"
   },
   "bugs": {
     "url": "https://github.com/angelnu/ioBroker.chromecast/issues"

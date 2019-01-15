@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
     <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
 
-    <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
     <script type="text/javascript" src="../../js/translate.js"></script>
@@ -36,6 +36,20 @@
 
             fillWebServices('#web', settings.web, settings.type, settings.webServer);
 
+            let manualDevices = settings.manualDevices || [];
+
+            let changed = false;
+            for(let i=0;i<manualDevices.length;i++) {
+              // if(fences[i].fenceid === '' || !fences[i].fenceid) {
+              //   fences[i].fenceid = fences[i].description.replace(/\s/g, '_') + '-' + i;
+              //   changed = true;
+              // }
+            }
+            // if ids are empty, fill them with a combination of description and index
+            values2table('values', manualDevices, onChange, function () {
+              M.updateTextFields();
+            });
+
             // Signal to admin, that no changes yet
             onChange(false);
 
@@ -43,7 +57,8 @@
             if (settings.webServer === '') {
                 onChange(); //Selecting default
             }
-        }
+
+        } //end of load method
 
         //Copied from sayit adapter (UNCHANGED)
         function checkWeb(elem, current) {
@@ -139,6 +154,10 @@
                     obj[$this.attr('id')] = $this.val();
                 }
             });
+
+            // Get edited table
+            obj.manualDevices = table2values('values');
+
             callback(obj);
         }
     </script>
@@ -172,6 +191,9 @@
         </div>
         <div id="tab-devices" class="col s12 page">
             <div class="col s12" id="values">
+                <div>
+                  <label class="translate" for="devices_readme">The adapter will try to detect Google Home adapters in the same subnetwork using mDNS but you can also manually add here devices bellow.</label>
+                </div>
                 <a class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
                 <div class="table-values-div">
                     <table class="table-values" style="width: 100%;">
@@ -179,9 +201,9 @@
                         <tr>
                             <th data-name="_index" style="width: 40px" class="translate"></th>
                             <th data-name="name" class="translate">name</th>
-                            <th data-name="ip" class="translate">ip</th>
+                            <th data-name="host" class="translate">ip</th>
                             <th data-name="port" class="translate">port</th>
-                            <th data-name="type" class="translate">type</th>
+                            <th data-name="type" data-type="select" data-options="Chromecast;Chromecast Audio;Google Cast Group" class="translate">type</th>
                             <th data-buttons="delete" style="width: 40px"></th>
                         </tr>
                         </thead>
