@@ -49,8 +49,12 @@ function main() {
     //Create manually added devices (if any)
     if (adapter.config.manualDevices) {
       for(let i=0;i<adapter.config.manualDevices.length; i++) {
+        //Emulate ID
         let device = adapter.config.manualDevices[i];
         device.id = "" + i + "-" + device.name;
+        //Emulate registerForUpdates
+        device.registerForUpdates = function(){};
+        
         new ChromecastDevice(device);
       }
     }
