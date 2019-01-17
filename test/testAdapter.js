@@ -1,6 +1,5 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
-/*jshint expr: true*/
 var expect = require('chai').expect;
 var setup  = require(__dirname + '/lib/setup');
 
@@ -88,15 +87,15 @@ describe('Test ' + adapterShortName + ' adapter', function() {
 
             setup.setAdapterConfig(config.common, config.native);
 
-                    setup.startController(true, function(id, obj) {}, function (id, state) {
-                        if (onStateChanged) onStateChanged(id, state);
-                    },
-                    function (_objects, _states) {
-                        objects = _objects;
-                        states  = _states;
-                        _done();
-                    });
+            setup.startController(true, function(id, obj) {}, function (id, state) {
+                    if (onStateChanged) onStateChanged(id, state);
+                },
+                function (_objects, _states) {
+                    objects = _objects;
+                    states  = _states;
+                    _done();
                 });
+        });
     });
 
 /*

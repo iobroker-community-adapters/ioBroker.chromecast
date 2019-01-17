@@ -2,9 +2,14 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.1.5",
+        "version": "2.2.0",
         "compact": true,
         "news": {
+            "2.2.0": {
+                "en": "Option to configure device URLs manually (when devices are in a different subnetwork)",
+                "de": "neues",
+                "ru": "новое"
+            },
             "2.1.5": {
                 "en": "Reconnect on mDNS updates",
                 "de": "Verbindung bei mDNS-Updates wiederherstellen",
@@ -116,7 +121,8 @@
     },
     "native": {
         "web": "",
-        "webServer": ""
+        "webServer": "",
+        "manualDevices": []
     },
     "objects": []
 }
