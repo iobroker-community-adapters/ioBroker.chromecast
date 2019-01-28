@@ -1,9 +1,9 @@
-gulpfile.js
-tasks
-node_modules
-.idea
-.git
+/.idea
 /node_modules
-test
-.travis.yml
-appveyor.yml
+/.project
+*~
+iobroker-data
+reinstall.js
+tmp
+package-lock.json
+.npmrc

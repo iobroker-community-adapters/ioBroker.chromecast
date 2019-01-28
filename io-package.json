@@ -2,13 +2,32 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.2.0",
+        "version": "2.2.1",
         "compact": true,
         "news": {
+            "2.2.1": {
+                "en": "Remove mandatory dependency on vis adapter",
+                "de": "Entfernen Sie die obligatorische Abhängigkeit vom vis-Adapter",
+                "ru": "Удалить обязательную зависимость от адаптера vis",
+                "pt": "Remover dependência obrigatória no adaptador vis",
+                "nl": "Verwijder de verplichte afhankelijkheid van vis adapter",
+                "fr": "Supprimer la dépendance obligatoire sur l'adaptateur vis",
+                "it": "Rimuovere la dipendenza obbligatoria da vis adapter",
+                "es": "Eliminar la dependencia obligatoria en el adaptador vis",
+                "pl": "Usuń obowiązkową zależność od adaptera vis",
+                "zh-cn": "删除对vis适配器的强制依赖"
+            },
             "2.2.0": {
                 "en": "Option to configure device URLs manually (when devices are in a different subnetwork)",
-                "de": "neues",
-                "ru": "новое"
+                "de": "Option zum manuellen Konfigurieren von Geräte-URLs (wenn sich die Geräte in einem anderen Subnetz befinden)",
+                "ru": "Возможность настроить URL-адреса устройств вручную (когда устройства находятся в другой подсети)",
+                "pt": "Opção para configurar URLs de dispositivo manualmente (quando os dispositivos estão em uma sub-rede diferente)",
+                "nl": "Optie om apparaat-URL's handmatig te configureren (wanneer apparaten zich in een ander subnetwerk bevinden)",
+                "fr": "Option pour configurer manuellement les URL de périphérique (lorsque les périphériques se trouvent dans un sous-réseau différent)",
+                "it": "Opzione per configurare manualmente gli URL dei dispositivi (quando i dispositivi si trovano in una sottorete diversa)",
+                "es": "Opción para configurar las URL de los dispositivos manualmente (cuando los dispositivos están en una subred diferente)",
+                "pl": "Możliwość ręcznego konfigurowania adresów URL urządzeń (gdy urządzenia znajdują się w innej podsieci)",
+                "zh-cn": "手动配置设备URL的选项（当设备位于不同的子网中时）"
             },
             "2.1.5": {
                 "en": "Reconnect on mDNS updates",
@@ -109,11 +128,6 @@
         "readme": "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
         "loglevel": "info",
         "type": "multimedia",
-        "dependencies": [
-            {
-                "vis": ">=0.10.0"
-            }
-        ],
         "materialize": true,
         "restartAdapters": [
             "vis"

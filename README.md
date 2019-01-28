@@ -71,6 +71,9 @@ Build on top of the following projects:
 10. npm publish
 
 ## Changelog
+### 2.2.1 (2019-01-29)
+* Remove mandatory dependency on vis adapter
+
 ### 2.2.0 (2019-01-15)
 * Option to configure device URLs manually (when devices are in a different subnetwork)
 
