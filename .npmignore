@@ -1,6 +1,12 @@
+gulpfile.js
+tasks	
+node_modules
 /.idea
 /node_modules
 /.project
+.git
+.travis.yml
+appveyor.yml
 *~
 iobroker-data
 reinstall.js
