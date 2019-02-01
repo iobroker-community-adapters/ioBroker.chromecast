@@ -2,9 +2,21 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.2.1",
+        "version": "2.2.2",
         "compact": true,
         "news": {
+            "2.2.2": {
+              "en": "Fix missing reference when mDNS update is received",
+              "de": "Fehlende Referenz behoben, wenn mDNS-Update empfangen wird",
+              "ru": "Исправить отсутствующую ссылку при получении обновления mDNS",
+              "pt": "Corrigir a referência ausente quando a atualização do mDNS é recebida",
+              "nl": "Fix ontbrekende referentie wanneer mDNS update is ontvangen",
+              "fr": "Correction de la référence manquante à la réception de la mise à jour mDNS",
+              "it": "Corregge il riferimento mancante quando viene ricevuto l'aggiornamento mDNS",
+              "es": "Arreglar la referencia que falta cuando se recibe la actualización mDNS",
+              "pl": "Napraw brakujące referencje po otrzymaniu aktualizacji mDNS",
+              "zh-cn": "收到mDNS更新时修复缺少的引用"
+            },
             "2.2.1": {
                 "en": "Remove mandatory dependency on vis adapter",
                 "de": "Entfernen Sie die obligatorische Abhängigkeit vom vis-Adapter",

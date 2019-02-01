@@ -31,7 +31,8 @@ Build on top of the following projects:
 
 ## Features
 
-* detect devices with either SSDP or multicast-dns
+* detect devices with multicast-dns
+  * optionally add additional manually configured devices in admin pannel
 * create ioBroker objects for each found device
 * status, player, media and metadata channels
 * control Google Home device from adapter
@@ -71,6 +72,9 @@ Build on top of the following projects:
 10. npm publish
 
 ## Changelog
+### 2.2.2 (2019-02-01)
+* Fix missing reference when mDNS update is received
+
 ### 2.2.1 (2019-01-29)
 * Remove mandatory dependency on vis adapter
 
