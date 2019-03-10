@@ -31,7 +31,8 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "gulp": "^3.9.1",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "@iobroker/testing": "^1.1.10"
   },
   "bugs": {
     "url": "https://github.com/angelnu/ioBroker.chromecast/issues"
@@ -39,6 +40,9 @@
   "readmeFilename": "README.md",
   "main": "main.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha --exit"
+    "test": "npm run test:package && npm run test:unit",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit"
   }
 }
