@@ -1,6 +1,6 @@
 {
   "name": "iobroker.chromecast",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "ioBroker chromecast Adapter",
   "author": {
     "name": "Vegetto",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^1.0.3",
-    "castv2-player": "^2.0.1"
+    "castv2-player": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",

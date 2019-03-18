@@ -72,6 +72,9 @@ Build on top of the following projects:
 10. npm publish
 
 ## Changelog
+### 2.2.3 (2019-03-19)
+* news
+
 ### 2.2.2 (2019-02-01)
 * Fix missing reference when mDNS update is received
 
