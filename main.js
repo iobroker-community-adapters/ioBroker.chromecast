@@ -41,7 +41,7 @@ function startAdapter(options) {
 
 // const SCAN_INTERVAL = 10000;
 let scanner = undefined;
-let devices = [];
+let devices = undefined;
 function ready () {
 
     //Own libraries
@@ -49,6 +49,8 @@ function ready () {
     const Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
 
     const ChromecastDevice  = require('./lib/chromecastDevice')(adapter);
+
+    devices = [];
 
     //Create manually added devices (if any)
     if (adapter.config.manualDevices) {
@@ -79,6 +81,7 @@ function unload (callback) {
       devices.forEach(function (device) {
         device.destroy();
       });
+      devices = undefined;
       adapter.log.info("Unload completed sucesfully");	    
     } catch (error) {
 	    console.error(error);
