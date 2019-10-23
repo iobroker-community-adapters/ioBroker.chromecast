@@ -2,10 +2,10 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.3.0",
+        "version": "2.3.1",
         "compact": true,
         "news": {
-            "2.3.0": {
+            "2.3.1": {
                 "en": "Tested compact mode works in Linux and Windows",
                 "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
                 "ru": "Протестированный компактный режим работает в Linux и Windows",
