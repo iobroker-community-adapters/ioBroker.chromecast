@@ -2,9 +2,21 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.2.3",
+        "version": "2.3.0",
         "compact": true,
         "news": {
+            "2.3.0": {
+                "en": "Tested compact mode works in Linux and Windows",
+                "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
+                "ru": "Протестированный компактный режим работает в Linux и Windows",
+                "pt": "O modo compacto testado funciona no Linux e Windows",
+                "nl": "De geteste compacte modus werkt in Linux en Windows",
+                "fr": "Le mode compact testé fonctionne sous Linux et Windows",
+                "it": "La modalità compatta testata funziona in Linux e Windows",
+                "es": "El modo compacto probado funciona en Linux y Windows",
+                "pl": "Testowany tryb kompaktowy działa w systemie Linux i Windows",
+                "zh-cn": "经过测试的压缩模式可在Linux和Windows中使用"
+            },
             "2.2.3": {
                 "en": "Race condition - fix undefined volume when no status received",
                 "de": "Racebedingung - undefiniertes Volumen korrigieren, wenn kein Status empfangen wurde",
