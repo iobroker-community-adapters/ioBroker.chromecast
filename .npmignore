@@ -1,5 +1,6 @@
 gulpfile.js
-tasks	
+tasks
+test
 node_modules
 /.idea
 /node_modules
