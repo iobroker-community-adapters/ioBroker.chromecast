@@ -33,7 +33,7 @@
     "chai": "^4.2.0",
     "gulp": "^3.9.1",
     "mocha": "^6.0.2",
-    "@iobroker/testing": "^1.1.10"
+    "@iobroker/testing": "2.4.4"
   },
   "bugs": {
     "url": "https://github.com/angelnu/ioBroker.chromecast/issues"
