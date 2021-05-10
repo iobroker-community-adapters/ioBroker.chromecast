@@ -65,12 +65,18 @@ Build on top of the following projects:
 4. Make changes and test them
 5. Change version in package.json
 6. Check changes with `gulp`
-7. Update [changelog](#changelog) and [news](io-package.json) with this [translator](http://iobroker.net:3000/)
+7. Update [changelog](#changelog) and [news](io-package.json) with this [translator](https://translator.iobroker.in/)
 8. npm test
 9. git commit & push
 10. npm publish
 
 ## Changelog
+
+### 2.3.2 (2020-05-10)
+* (thost96) Fixed some issues found by Adapter-Checker
+* (thost96) Added NodeJS 14 and 16 to CI Tests
+* (thost96) Updated some Links and Readme
+
 ### 2.3.1 (2019-10-23)
 * (angelnu) Tested compact mode works in Linux and Windows
 
@@ -221,7 +227,7 @@ Build on top of the following projects:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2020 Vegetto <iobroker@angelnu.com>
+Copyright (c) 2015-2021 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

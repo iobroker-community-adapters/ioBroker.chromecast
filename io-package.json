@@ -2,9 +2,21 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
-        "version": "2.3.1",
+        "version": "2.3.2",
         "compact": true,
         "news": {
+            "2.3.2": {
+                "en": "Fixed some Issue found by Adapter-Checker and added NodeJS 14 and 16 to Tests",
+                "de": "Einige von Adapter-Checker gefundene Probleme wurden behoben und NodeJS 14 und 16 zu Tests hinzugefügt",
+                "ru": "Исправлена некоторая проблема, обнаруженная Adapter-Checker, и добавлены NodeJS 14 и 16 в тесты.",
+                "pt": "Corrigido algum problema encontrado pelo Adapter-Checker e adicionado NodeJS 14 e 16 aos testes",
+                "nl": "Een probleem opgelost dat werd gevonden door Adapter-Checker en NodeJS 14 en 16 aan Tests toegevoegd",
+                "fr": "Correction d'un problème trouvé par Adapter-Checker et ajout de NodeJS 14 et 16 aux tests",
+                "it": "Risolti alcuni problemi trovati da Adapter-Checker e aggiunti NodeJS 14 e 16 ai test",
+                "es": "Se corrigieron algunos problemas encontrados por Adapter-Checker y se agregaron NodeJS 14 y 16 a las pruebas",
+                "pl": "Naprawiono problem znaleziony przez Adapter-Checker i dodano NodeJS 14 i 16 do testów",
+                "zh-cn": "修复了Adapter-Checker发现的一些问题，并在测试中添加了NodeJS 14和16"
+            },
             "2.3.1": {
                 "en": "Tested compact mode works in Linux and Windows",
                 "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
@@ -151,7 +163,7 @@
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
-        "icon": "chromecast.png",
+        "icon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.chromecast/master/admin/chromecast.png",
         "enabled": true,
         "keywords": [
             "chromecast",
@@ -160,10 +172,12 @@
             "player",
             "music"
         ],
-        "extIcon": "https://raw.githubusercontent.com/angelnu/ioBroker.chromecast/master/admin/chromecast.png",
-        "readme": "https://github.com/angelnu/ioBroker.chromecast/blob/master/README.md",
+        "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.chromecast/master/admin/chromecast.png",
+        "readme": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/blob/master/README.md",
         "loglevel": "info",
         "type": "multimedia",
+        "connectionType": "local",
+        "dataSource": "push",
         "materialize": true,
         "restartAdapters": [
             "vis"

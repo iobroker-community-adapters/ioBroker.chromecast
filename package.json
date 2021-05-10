@@ -1,6 +1,6 @@
 {
   "name": "iobroker.chromecast",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "ioBroker chromecast Adapter",
   "author": {
     "name": "Vegetto",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angelnu/ioBroker.chromecast"
+    "url": "https://github.com/angelnu/ioBroker.chromecast.git"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^1.0.3",
