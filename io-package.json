@@ -2,6 +2,18 @@
     "common": {
         "name": "chromecast",
         "title": "Google Home",
+        "titleLang": {
+            "en": "Google Home",
+            "de": "Google Home",
+            "ru": "Google Home",
+            "pt": "Página inicial do Google",
+            "nl": "Google huis",
+            "fr": "Google Home",
+            "it": "Google Home",
+            "es": "Página principal de Google",
+            "pl": "Strona główna Google",
+            "zh-cn": "谷歌主页"
+        },
         "version": "2.3.1",
         "compact": true,
         "news": {
@@ -167,6 +179,12 @@
         "materialize": true,
         "restartAdapters": [
             "vis"
+        ],
+        "dependencies": [
+            {
+                "js-controller": ">=3.1.6",
+                "net-tools": ">=0.1.5"
+            }
         ]
     },
     "native": {

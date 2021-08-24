@@ -6,6 +6,7 @@ node_modules
 /node_modules
 /.project
 .git
+.github
 .travis.yml
 appveyor.yml
 *~
