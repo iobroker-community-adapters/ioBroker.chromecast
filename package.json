@@ -12,7 +12,7 @@
       "email": "iobroker@angelnu.com"
     }
   ],
-  "homepage": "https://github.com/angelnu/ioBroker.chromecast",
+  "homepage": "https://github.com/iobroker-community-adapters/ioBroker.chromecast",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angelnu/ioBroker.chromecast"
+    "url": "git+https://github.com/iobroker-community-adapters/ioBroker.chromecast.git"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^1.0.3",
@@ -37,7 +37,7 @@
     "@iobroker/testing": "^1.1.10"
   },
   "bugs": {
-    "url": "https://github.com/angelnu/ioBroker.chromecast/issues"
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues"
   },
   "readmeFilename": "README.md",
   "main": "main.js",
@@ -45,6 +45,7 @@
     "test": "npm run test:package && npm run test:unit",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
-    "test:integration": "mocha test/integration --exit"
+    "test:integration": "mocha test/integration --exit",
+    "release": "release-script"
   }
 }
