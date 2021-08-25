@@ -23,7 +23,8 @@ agent.start({
 */
 
 // you have to require the utils module and call adapter function
-const utils = require('@iobroker/adapter-core'); // Get common adapter utils
+const utils = require('@iobroker/adapter-core');
+const {LogWrapper} = require("castv2-player"); // Get common adapter utils
 const adapterName = require('./package.json').name.split('.').pop();
 
 let adapter;
@@ -60,7 +61,7 @@ function ready () {
         device.id = "" + i + "-" + device.name;
         //Emulate registerForUpdates
         device.registerForUpdates = function(){};
-        
+
         devices.push(new ChromecastDevice(device));
       }
     }
@@ -74,6 +75,7 @@ function ready () {
     adapter.subscribeStates('*');
 }
 
+
 function unload (callback) {
     try {
       adapter.log.info("Unload triggered");
@@ -82,7 +84,7 @@ function unload (callback) {
         device.destroy();
       });
       devices = undefined;
-      adapter.log.info("Unload completed sucesfully");	    
+      adapter.log.info("Unload completed sucesfully");
     } catch (error) {
 	    console.error(error);
     }
