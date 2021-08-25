@@ -14,9 +14,21 @@
             "pl": "Strona główna Google",
             "zh-cn": "谷歌主页"
         },
-        "version": "2.3.1",
+        "version": "3.0.0",
         "compact": true,
         "news": {
+            "3.0.0": {
+                "en": "Breaking change: Object IDs are now mac addresses instead names",
+                "de": "Breaking Change: Objekt-IDs sind jetzt Mac-Adressen anstelle von Namen",
+                "ru": "Критическое изменение: теперь идентификаторы объектов - это MAC-адреса, а не имена.",
+                "pt": "Quebrando a mudança: os IDs de objeto agora são endereços mac em vez de nomes",
+                "nl": "Brekende verandering: object-ID's zijn nu mac-adressen in plaats van namen",
+                "fr": "Changement de rupture : les ID d'objet sont désormais des adresses mac au lieu de noms",
+                "it": "Modifica importante: gli ID oggetto ora sono indirizzi mac invece di nomi",
+                "es": "Cambio rotundo: los ID de objeto ahora son direcciones mac en lugar de nombres",
+                "pl": "Przełomowa zmiana: identyfikatory obiektów są teraz adresami mac zamiast nazwami",
+                "zh-cn": "重大变化：对象 ID 现在是 mac 地址而不是名称"
+            },
             "2.3.1": {
                 "en": "Tested compact mode works in Linux and Windows",
                 "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",

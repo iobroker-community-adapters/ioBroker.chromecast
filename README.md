@@ -59,7 +59,7 @@ Build on top of the following projects:
 
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 3.0.0 (2021-08-25)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names 
 
 
