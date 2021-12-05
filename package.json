@@ -25,16 +25,16 @@
     "url": "git+https://github.com/iobroker-community-adapters/ioBroker.chromecast.git"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3",
+    "@iobroker/adapter-core": "^2.0.0",
     "castv2-player": "^2.1.0",
     "gulp-cli": "^2.2.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^2.2.1",
     "chai": "^4.2.0",
-    "gulp": "^3.9.1",
+    "gulp": "4.0.2",
     "mocha": "^6.0.2",
-    "@iobroker/testing": "^1.1.10"
+    "@iobroker/testing": "2.4.4"
   },
   "bugs": {
     "url": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues"
