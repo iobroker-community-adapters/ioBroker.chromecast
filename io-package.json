@@ -192,10 +192,14 @@
         "restartAdapters": [
             "vis"
         ],
+        "globalDependencies": [
+            {
+                "net-tools": ">=0.1.5"
+            }
+        ],
         "dependencies": [
             {
-                "js-controller": ">=3.1.6",
-                "net-tools": ">=0.1.5"
+                "js-controller": ">=3.1.6"
             }
         ],
         "dataSource": "push",
