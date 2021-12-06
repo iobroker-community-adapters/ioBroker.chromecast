@@ -26,8 +26,10 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.0.0",
+    "castv2-client": "1.2.0",
     "castv2-player": "^2.1.0",
-    "gulp-cli": "^2.2.0"
+    "gulp-cli": "^2.2.0",
+    "youtube-remote": "^1.0.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^2.2.1",
