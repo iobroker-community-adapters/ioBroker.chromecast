@@ -1,6 +1,6 @@
 {
   "name": "iobroker.chromecast",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "ioBroker chromecast Adapter",
   "author": {
     "name": "Vegetto",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.0.0",
-    "castv2-player": "^2.1.0",
+    "castv2-player": "^2.1.1",
     "gulp-cli": "^2.2.0"
   },
   "devDependencies": {
