@@ -15,7 +15,7 @@ Build on top of the following projects:
   * [ioBroker](http://www.iobroker.net)
   * [node-castv2-client](https://github.com/thibauts/node-castv2-client) as Home client library.
 
-## Join the Discord server to discuss everything about ioBroker-enocean integration!
+## Join the Discord server to discuss everything about ioBroker integration!
 
 <a href="https://discord.gg/4EBGwBE"><img src="https://discordapp.com/api/guilds/743167951875604501/widget.png?style=banner2" width="25%"></a>
 
