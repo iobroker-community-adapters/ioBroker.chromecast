@@ -1,9 +1,3 @@
-/**
- *
- * ioBroker Chromecast adapter
- *
- */
-
 /* jshint -W097 */
 /* jshint strict: false */
 /*jslint node: true */
@@ -25,12 +19,11 @@ agent.start({
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core');
 const {LogWrapper} = require("castv2-player"); // Get common adapter utils
-const adapterName = require('./package.json').name.split('.').pop();
 
 let adapter;
 function startAdapter(options) {
     options = options || {};
-    Object.assign(options, {name: adapterName});
+    Object.assign(options, {name: 'chromecast'});
 
     adapter = new utils.Adapter(options);
 
@@ -44,7 +37,6 @@ function startAdapter(options) {
 let scanner = undefined;
 let devices = undefined;
 function ready () {
-
     //Own libraries
     const LogWrapper        = require('castv2-player').LogWrapper;
     const Scanner           = require('castv2-player').Scanner(new LogWrapper(adapter.log));
@@ -68,6 +60,7 @@ function ready () {
 
     //var chromecastDevices = {};
     scanner = new Scanner (connection => {
+        adapter.log.info(JSON.stringify(connection));
       devices.push(new ChromecastDevice(connection));
     });
 

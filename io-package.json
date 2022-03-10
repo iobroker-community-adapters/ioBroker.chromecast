@@ -14,7 +14,7 @@
             "pl": "Strona główna Google",
             "zh-cn": "谷歌主页"
         },
-        "version": "3.0.0",
+        "version": "3.0.1",
         "compact": true,
         "news": {
             "3.0.0": {
