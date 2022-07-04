@@ -19,11 +19,6 @@ Build on top of the following projects:
 
 <a href="https://discord.gg/4EBGwBE"><img src="https://discordapp.com/api/guilds/743167951875604501/widget.png?style=banner2" width="25%"></a>
 
-## [Sponsors](./SPONSORS.md)
-If you like my work, please feel free to provide a personal donation  
-(this is an personal Donate link for Jey Cee, no relation to the ioBroker Project !)  
-[![Donate](https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.wled/master/admin/button.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=95YZN2LR59Q64&source=url)
-
 ## Instructions
 
 1. Install into ioBroker
@@ -68,6 +63,10 @@ If you like my work, please feel free to provide a personal donation
 
 
 ## Changelog
+
+### __WORK IN PROGRESS__
+* (Apollon77) Make adapter compatible with Node.js 16.x
+
 ### 3.0.0 (2021-08-25)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names 
 
