@@ -178,13 +178,11 @@ jobs:
           export SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
           export SENTRY_URL=https://sentry.iobroker.net
           export SENTRY_ORG=iobroker
-          export SENTRY_PROJECT=iobroker-ping
-          export SENTRY_VERSION=iobroker.ping@${{ env.VERSION }}
+          export SENTRY_PROJECT=iobroker-chromecast
+          export SENTRY_VERSION=iobroker.chromecast@${{ env.VERSION }}
           sentry-cli releases new $SENTRY_VERSION
+          sentry-cli releases set-commits $SENTRY_VERSION --auto
           sentry-cli releases finalize $SENTRY_VERSION
-
-        # Add the following line BEFORE finalize if repositories are connected in Sentry
-        # sentry-cli releases set-commits $SENTRY_VERSION --auto
 
         # Add the following line BEFORE finalize if sourcemap uploads are needed
         # sentry-cli releases files $SENTRY_VERSION upload-sourcemaps build

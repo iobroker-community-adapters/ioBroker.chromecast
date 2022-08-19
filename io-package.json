@@ -110,10 +110,20 @@
                 "fr": "Prise en charge du mode compact",
                 "it": "Supporto in modalità compatta",
                 "es": "Soporte de modo compacto",
-                "pl": "Obsługa w trybie kompaktowym"
+                "pl": "Obsługa w trybie kompaktowym",
+                "zh-cn": "紧凑模式支持"
             },
             "2.0.0": {
-                "en": "refactoring"
+                "en": "refactoring",
+                "de": "Refactoring",
+                "ru": "рефакторинг",
+                "pt": "reestruturação",
+                "nl": "refactoring",
+                "fr": "refactorisation",
+                "it": "refactoring",
+                "es": "refactorización",
+                "pl": "refaktoryzacja",
+                "zh-cn": "重构"
             },
             "1.4.3": {
                 "en": "Added enabled flag so some adapters can be ignored",
@@ -124,7 +134,8 @@
                 "fr": "Ajout de l'indicateur activé pour que certaines cartes puissent être ignorées",
                 "it": "Aggiunto flag abilitato così alcuni adattatori possono essere ignorati",
                 "es": "Se agregó una bandera habilitada para que algunos adaptadores puedan ser ignorados",
-                "pl": "Dodano opcję włączoną, dzięki czemu niektóre adaptery można zignorować"
+                "pl": "Dodano opcję włączoną, dzięki czemu niektóre adaptery można zignorować",
+                "zh-cn": "添加了启用标志，因此可以忽略某些适配器"
             },
             "1.4.2": {
                 "en": "Always use volume parameter for announcements",
@@ -135,7 +146,8 @@
                 "fr": "Toujours utiliser le paramètre de volume pour les annonces",
                 "it": "Usa sempre il parametro del volume per gli annunci",
                 "es": "Utiliza siempre el parámetro de volumen para los anuncios",
-                "pl": "Zawsze używaj parametru głośności dla ogłoszeń"
+                "pl": "Zawsze używaj parametru głośności dla ogłoszeń",
+                "zh-cn": "始终使用音量参数进行公告"
             },
             "1.4.1": {
                 "en": "Fix for languages in io-package",
@@ -146,7 +158,8 @@
                 "fr": "Correctif pour les langues dans io-package",
                 "it": "Correzione per le lingue in io-pacchetto",
                 "es": "Solución para idiomas en io-paquete",
-                "pl": "Naprawiono języki w pakiecie io"
+                "pl": "Naprawiono języki w pakiecie io",
+                "zh-cn": "修复 io-package 中的语言"
             },
             "1.4.0": {
                 "en": "Support for additional languages\nSupport for version 3 of the Admin adapter",
@@ -156,7 +169,9 @@
                 "nl": "Ondersteuning voor extra talen\nOndersteuning voor versie 3 van de Admin-adapter",
                 "fr": "Prise en charge de langues supplémentaires\nPrise en charge de la version 3 de l'adaptateur Admin",
                 "it": "Supporto per lingue aggiuntive\nSupporto per la versione 3 dell'adattatore di amministrazione",
-                "es": "Soporte para idiomas adicionales\nSoporte para la versión 3 del adaptador de administración"
+                "es": "Soporte para idiomas adicionales\nSoporte para la versión 3 del adaptador de administración",
+                "pl": "Wsparcie dla dodatkowych języków\nObsługa wersji 3 adaptera administratora",
+                "zh-cn": "支持其他语言\n支持管理适配器的版本 3"
             }
         },
         "license": "MIT",
@@ -171,7 +186,9 @@
             "nl": "Hiermee kunnen bestanden worden gecontroleerd en afgespeeld op Google Home (Chromecast)",
             "fr": "Permet de surveiller et de lire des fichiers sur Google Home (Chromecast)",
             "it": "Permette di monitorare e riprodurre file su Google Home (Chromecast)",
-            "es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)"
+            "es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)",
+            "pl": "Umożliwia monitorowanie i odtwarzanie plików w Google Home (Chromecast)",
+            "zh-cn": "允许监控和播放文件到 Google Home (Chromecast)"
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
@@ -202,8 +219,14 @@
                 "js-controller": ">=3.1.6"
             }
         ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://6c934cead8e048acbdc131f5684e70b0@sentry.iobroker.net/200"
+            }
+        },
         "dataSource": "push",
-        "connectionType": "local"
+        "connectionType": "local",
+        "tier": 2
     },
     "native": {
         "web": "",

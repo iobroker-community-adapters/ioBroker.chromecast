@@ -1,11 +1,15 @@
 ![Logo](admin/home.png)
 # ioBroker.chromecast
 
-![Number of Installations](http://iobroker.live/badges/chromecast-installed.svg) ![Number of Installations](http://iobroker.live/badges/chromecast-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
-[![Build Status](https://travis-ci.org/angelnu/ioBroker.chromecast.svg?branch=master)](https://travis-ci.org/angelnu/ioBroker.chromecast.svg?branch=master)
+![Number of Installations](http://iobroker.live/badges/chromecast-installed.svg)
+![Number of Installations](http://iobroker.live/badges/chromecast-stable.svg)
+[![NPM version](http://img.shields.io/npm/v/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 
-[![NPM](https://nodei.co/npm/iobroker.chromecast.png?downloads=true)](https://nodei.co/npm/iobroker.chromecast/)
+![Test and Release](https://github.com/iobroker-community-adapters/iobroker.chromecast/workflows/Test%20and%20Release/badge.svg)
+[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/chromecast/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
+
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## A Google Home adapter for ioBroker
 
@@ -67,6 +71,7 @@ Build on top of the following projects:
 ### __WORK IN PROGRESS__
 * (Bjoern3003) set album name as song if provided in icy-name
 * (Apollon77/aortmannm) Make compatible with Node.js 16+
+* * (Apollon77) Add Sentry for crash reporting
 
 ### 3.0.0 (2021-08-25)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names 
