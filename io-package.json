@@ -17,18 +17,6 @@
     "version": "3.0.2",
     "compact": true,
     "news": {
-      "3.0.2": {
-        "en": "Breaking change: Object IDs are now mac addresses instead names\nset album name as song if provided in icy-name\nMake compatible with Node.js 16+\nAdd Sentry for crash reporting",
-        "de": "Wechsel: Objekt-IDs sind jetzt Mac-Adressen statt Namen\nalbumname als lied setzen, wenn in icy-name\nKompatibel mit Node.js 16+ machen\nSentry für Crash Reporting hinzufügen",
-        "ru": "Перерыв изменений: ID объекта теперь mac адреса вместо имена\nустановить имя альбома как песня, если предоставлено в icy-name\nСделать совместимость с Node.js 16+\nДобавить Sentry для сообщения о сбоях",
-        "pt": "Mudança de ruptura: IDs de objeto agora são endereços mac em vez de nomes\ndefinir o nome do álbum como canção se fornecido no nome gelado\nFaça compatível com Node.js 16+\nAdicionar Sentry para relatórios de acidente",
-        "nl": "Verandering: Object ID's zijn nu mac adressen in plaats van namen\nplaats een album naam als song als voorzien in icy-naam\nMaak het goed met Node\nAdd Sentry voor crash melding",
-        "fr": "Changement de rupture : Les identifiants d'objet sont maintenant des adresses mac au lieu des noms\ndéfinir le nom de l'album comme chanson si fourni dans icy-name\nCompatible avec Node.js 16+\nAjouter Sentry for crash reporting",
-        "it": "Cambiamento di rottura: Gli ID oggetto sono ora indirizzi mac invece nomi\nset album name come canzone se fornito in icy-name\nRendere compatibile con Node.js 16+\nAggiungi Sentry per la segnalazione di crash",
-        "es": "Cambio de ruptura: ID de objetos ahora son direcciones de mac en lugar de nombres\nponer el nombre del disco como canción si se proporciona en icy-name\nHacer compatible con Node.js 16+\nAdd Sentry for crash reporting",
-        "pl": "Zmiana: Dotyczy to obecnie m.in. n.e\nnazwa albumu została nadana jako piosenka, jeśli została wydana w icy-name\nUmożliwia współpracę z Node.js 16+\nAdd Sentry for crash reporting (ang.)",
-        "zh-cn": "断然变化: 目标国际组织现在只处理名称,而是名称。\n写成的歌唱,如果用词提供\n与Nodejs 16+相容\n事故报告增加"
-      },
       "2.3.1": {
         "en": "Tested compact mode works in Linux and Windows",
         "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
