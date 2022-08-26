@@ -67,8 +67,7 @@ Build on top of the following projects:
 
 
 ## Changelog
-
-### __WORK IN PROGRESS__
+### 3.0.2 (2022-08-26)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names
 * (Bjoern3003) set album name as song if provided in icy-name
 * (Apollon77/aortmannm) Make compatible with Node.js 16+
