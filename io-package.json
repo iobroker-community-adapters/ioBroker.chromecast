@@ -1,268 +1,208 @@
 {
-    "common": {
-        "name": "chromecast",
-        "title": "Google Home",
-        "titleLang": {
-            "en": "Google Home",
-            "de": "Google Home",
-            "ru": "Google Home",
-            "pt": "Página inicial do Google",
-            "nl": "Google huis",
-            "fr": "Google Home",
-            "it": "Google Home",
-            "es": "Página principal de Google",
-            "pl": "Strona główna Google",
-            "zh-cn": "谷歌主页"
+  "common": {
+    "name": "chromecast",
+    "title": "Google Home",
+    "titleLang": {
+      "en": "Google Home",
+      "de": "Google Home",
+      "ru": "Google Home",
+      "pt": "Página inicial do Google",
+      "nl": "Google huis",
+      "fr": "Google Home",
+      "it": "Google Home",
+      "es": "Página principal de Google",
+      "pl": "Strona główna Google",
+      "zh-cn": "谷歌主页"
+    },
+    "version": "3.0.2",
+    "compact": true,
+    "news": {
+      "3.0.2": {
+        "en": "Breaking change: Object IDs are now mac addresses instead names\nset album name as song if provided in icy-name\nMake compatible with Node.js 16+\nAdd Sentry for crash reporting",
+        "de": "Wechsel: Objekt-IDs sind jetzt Mac-Adressen statt Namen\nalbumname als lied setzen, wenn in icy-name\nKompatibel mit Node.js 16+ machen\nSentry für Crash Reporting hinzufügen",
+        "ru": "Перерыв изменений: ID объекта теперь mac адреса вместо имена\nустановить имя альбома как песня, если предоставлено в icy-name\nСделать совместимость с Node.js 16+\nДобавить Sentry для сообщения о сбоях",
+        "pt": "Mudança de ruptura: IDs de objeto agora são endereços mac em vez de nomes\ndefinir o nome do álbum como canção se fornecido no nome gelado\nFaça compatível com Node.js 16+\nAdicionar Sentry para relatórios de acidente",
+        "nl": "Verandering: Object ID's zijn nu mac adressen in plaats van namen\nplaats een album naam als song als voorzien in icy-naam\nMaak het goed met Node\nAdd Sentry voor crash melding",
+        "fr": "Changement de rupture : Les identifiants d'objet sont maintenant des adresses mac au lieu des noms\ndéfinir le nom de l'album comme chanson si fourni dans icy-name\nCompatible avec Node.js 16+\nAjouter Sentry for crash reporting",
+        "it": "Cambiamento di rottura: Gli ID oggetto sono ora indirizzi mac invece nomi\nset album name come canzone se fornito in icy-name\nRendere compatibile con Node.js 16+\nAggiungi Sentry per la segnalazione di crash",
+        "es": "Cambio de ruptura: ID de objetos ahora son direcciones de mac en lugar de nombres\nponer el nombre del disco como canción si se proporciona en icy-name\nHacer compatible con Node.js 16+\nAdd Sentry for crash reporting",
+        "pl": "Zmiana: Dotyczy to obecnie m.in. n.e\nnazwa albumu została nadana jako piosenka, jeśli została wydana w icy-name\nUmożliwia współpracę z Node.js 16+\nAdd Sentry for crash reporting (ang.)",
+        "zh-cn": "断然变化: 目标国际组织现在只处理名称,而是名称。\n写成的歌唱,如果用词提供\n与Nodejs 16+相容\n事故报告增加"
+      },
+      "2.3.1": {
+        "en": "Tested compact mode works in Linux and Windows",
+        "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
+        "ru": "Протестированный компактный режим работает в Linux и Windows",
+        "pt": "O modo compacto testado funciona no Linux e Windows",
+        "nl": "De geteste compacte modus werkt in Linux en Windows",
+        "fr": "Le mode compact testé fonctionne sous Linux et Windows",
+        "it": "La modalità compatta testata funziona in Linux e Windows",
+        "es": "El modo compacto probado funciona en Linux y Windows",
+        "pl": "Testowany tryb kompaktowy działa w systemie Linux i Windows",
+        "zh-cn": "经过测试的压缩模式可在Linux和Windows中使用"
+      },
+      "2.2.3": {
+        "en": "Race condition - fix undefined volume when no status received",
+        "de": "Racebedingung - undefiniertes Volumen korrigieren, wenn kein Status empfangen wurde",
+        "ru": "Состояние гонки - исправить неопределенный объем, когда статус не получен",
+        "pt": "Condição de corrida - corrige o volume indefinido quando nenhum status é recebido",
+        "nl": "Raceconditie - verhelp ongedefinieerd volume wanneer er geen status is ontvangen",
+        "fr": "Condition de concurrence: correction du volume non défini lorsqu'aucun statut n'est reçu",
+        "it": "Condizioni di gara: corregge il volume indefinito quando non viene ricevuto lo stato",
+        "es": "Condición de carrera: corrige el volumen no definido cuando no se recibe ningún estado",
+        "pl": "Warunek wyścigu - napraw niezdefiniowany wolumin, gdy nie odebrano statusu",
+        "zh-cn": "竞争条件 - 未收到状态时修复未定义的音量"
+      },
+      "2.2.2": {
+        "en": "Fix missing reference when mDNS update is received",
+        "de": "Fehlende Referenz behoben, wenn mDNS-Update empfangen wird",
+        "ru": "Исправить отсутствующую ссылку при получении обновления mDNS",
+        "pt": "Corrigir a referência ausente quando a atualização do mDNS é recebida",
+        "nl": "Fix ontbrekende referentie wanneer mDNS update is ontvangen",
+        "fr": "Correction de la référence manquante à la réception de la mise à jour mDNS",
+        "it": "Corregge il riferimento mancante quando viene ricevuto l'aggiornamento mDNS",
+        "es": "Arreglar la referencia que falta cuando se recibe la actualización mDNS",
+        "pl": "Napraw brakujące referencje po otrzymaniu aktualizacji mDNS",
+        "zh-cn": "收到mDNS更新时修复缺少的引用"
+      },
+      "2.2.1": {
+        "en": "Remove mandatory dependency on vis adapter",
+        "de": "Entfernen Sie die obligatorische Abhängigkeit vom vis-Adapter",
+        "ru": "Удалить обязательную зависимость от адаптера vis",
+        "pt": "Remover dependência obrigatória no adaptador vis",
+        "nl": "Verwijder de verplichte afhankelijkheid van vis adapter",
+        "fr": "Supprimer la dépendance obligatoire sur l'adaptateur vis",
+        "it": "Rimuovere la dipendenza obbligatoria da vis adapter",
+        "es": "Eliminar la dependencia obligatoria en el adaptador vis",
+        "pl": "Usuń obowiązkową zależność od adaptera vis",
+        "zh-cn": "删除对vis适配器的强制依赖"
+      },
+      "2.2.0": {
+        "en": "Option to configure device URLs manually (when devices are in a different subnetwork)",
+        "de": "Option zum manuellen Konfigurieren von Geräte-URLs (wenn sich die Geräte in einem anderen Subnetz befinden)",
+        "ru": "Возможность настроить URL-адреса устройств вручную (когда устройства находятся в другой подсети)",
+        "pt": "Opção para configurar URLs de dispositivo manualmente (quando os dispositivos estão em uma sub-rede diferente)",
+        "nl": "Optie om apparaat-URL's handmatig te configureren (wanneer apparaten zich in een ander subnetwerk bevinden)",
+        "fr": "Option pour configurer manuellement les URL de périphérique (lorsque les périphériques se trouvent dans un sous-réseau différent)",
+        "it": "Opzione per configurare manualmente gli URL dei dispositivi (quando i dispositivi si trovano in una sottorete diversa)",
+        "es": "Opción para configurar las URL de los dispositivos manualmente (cuando los dispositivos están en una subred diferente)",
+        "pl": "Możliwość ręcznego konfigurowania adresów URL urządzeń (gdy urządzenia znajdują się w innej podsieci)",
+        "zh-cn": "手动配置设备URL的选项（当设备位于不同的子网中时）"
+      },
+      "2.1.5": {
+        "en": "Reconnect on mDNS updates",
+        "de": "Verbindung bei mDNS-Updates wiederherstellen",
+        "ru": "Переподключаться на обновлениях mDNS",
+        "pt": "Reconectar-se nas atualizações do mDNS",
+        "nl": "Reconnect op mDNS-updates",
+        "fr": "Reconnecter sur les mises à jour mDNS",
+        "it": "Riconnetti sugli aggiornamenti mDNS",
+        "es": "Reconectarse en las actualizaciones de mDNS",
+        "pl": "Połącz się z aktualizacjami mDNS",
+        "zh-cn": "重新连接mDNS更新"
+      }
+    },
+    "license": "MIT",
+    "authors": [
+      "Vegetto <iobroker@angelnu.com>"
+    ],
+    "desc": {
+      "en": "Allows to monitor and play files to Google Home (Chromecast)",
+      "de": "Ermöglicht die Überwachung und Wiedergabe von Dateien in Google Home (Chromecast)",
+      "ru": "Позволяет контролировать и воспроизводить файлы в Google Домой (Chromecast)",
+      "pt": "Permite monitorar e reproduzir arquivos no Google Home (Chromecast)",
+      "nl": "Hiermee kunnen bestanden worden gecontroleerd en afgespeeld op Google Home (Chromecast)",
+      "fr": "Permet de surveiller et de lire des fichiers sur Google Home (Chromecast)",
+      "it": "Permette di monitorare e riprodurre file su Google Home (Chromecast)",
+      "es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)",
+      "pl": "Umożliwia monitorowanie i odtwarzanie plików w Google Home (Chromecast)",
+      "zh-cn": "允许监控和播放文件到 Google Home (Chromecast)"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "chromecast.png",
+    "enabled": true,
+    "keywords": [
+      "chromecast",
+      "Google",
+      "home",
+      "player",
+      "music"
+    ],
+    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.chromecast/master/admin/chromecast.png",
+    "readme": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/blob/master/README.md",
+    "loglevel": "info",
+    "type": "multimedia",
+    "materialize": true,
+    "restartAdapters": [
+      "vis"
+    ],
+    "globalDependencies": [
+      {
+        "net-tools": ">=0.1.5"
+      },
+      {
+        "admin": ">=5.1.28"
+      }
+    ],
+    "dependencies": [
+      {
+        "js-controller": ">=3.1.6"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://6c934cead8e048acbdc131f5684e70b0@sentry.iobroker.net/200"
+      }
+    },
+    "dataSource": "push",
+    "connectionType": "local",
+    "tier": 2,
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<3.0.0",
+            "newVersion>=3.0.0"
+          ]
         },
-        "version": "3.0.1",
-        "compact": true,
-        "news": {
-            "2.3.1": {
-                "en": "Tested compact mode works in Linux and Windows",
-                "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
-                "ru": "Протестированный компактный режим работает в Linux и Windows",
-                "pt": "O modo compacto testado funciona no Linux e Windows",
-                "nl": "De geteste compacte modus werkt in Linux en Windows",
-                "fr": "Le mode compact testé fonctionne sous Linux et Windows",
-                "it": "La modalità compatta testata funziona in Linux e Windows",
-                "es": "El modo compacto probado funciona en Linux y Windows",
-                "pl": "Testowany tryb kompaktowy działa w systemie Linux i Windows",
-                "zh-cn": "经过测试的压缩模式可在Linux和Windows中使用"
-            },
-            "2.2.3": {
-                "en": "Race condition - fix undefined volume when no status received",
-                "de": "Racebedingung - undefiniertes Volumen korrigieren, wenn kein Status empfangen wurde",
-                "ru": "Состояние гонки - исправить неопределенный объем, когда статус не получен",
-                "pt": "Condição de corrida - corrige o volume indefinido quando nenhum status é recebido",
-                "nl": "Raceconditie - verhelp ongedefinieerd volume wanneer er geen status is ontvangen",
-                "fr": "Condition de concurrence: correction du volume non défini lorsqu'aucun statut n'est reçu",
-                "it": "Condizioni di gara: corregge il volume indefinito quando non viene ricevuto lo stato",
-                "es": "Condición de carrera: corrige el volumen no definido cuando no se recibe ningún estado",
-                "pl": "Warunek wyścigu - napraw niezdefiniowany wolumin, gdy nie odebrano statusu",
-                "zh-cn": "竞争条件 - 未收到状态时修复未定义的音量"
-            },
-            "2.2.2": {
-                "en": "Fix missing reference when mDNS update is received",
-                "de": "Fehlende Referenz behoben, wenn mDNS-Update empfangen wird",
-                "ru": "Исправить отсутствующую ссылку при получении обновления mDNS",
-                "pt": "Corrigir a referência ausente quando a atualização do mDNS é recebida",
-                "nl": "Fix ontbrekende referentie wanneer mDNS update is ontvangen",
-                "fr": "Correction de la référence manquante à la réception de la mise à jour mDNS",
-                "it": "Corregge il riferimento mancante quando viene ricevuto l'aggiornamento mDNS",
-                "es": "Arreglar la referencia que falta cuando se recibe la actualización mDNS",
-                "pl": "Napraw brakujące referencje po otrzymaniu aktualizacji mDNS",
-                "zh-cn": "收到mDNS更新时修复缺少的引用"
-            },
-            "2.2.1": {
-                "en": "Remove mandatory dependency on vis adapter",
-                "de": "Entfernen Sie die obligatorische Abhängigkeit vom vis-Adapter",
-                "ru": "Удалить обязательную зависимость от адаптера vis",
-                "pt": "Remover dependência obrigatória no adaptador vis",
-                "nl": "Verwijder de verplichte afhankelijkheid van vis adapter",
-                "fr": "Supprimer la dépendance obligatoire sur l'adaptateur vis",
-                "it": "Rimuovere la dipendenza obbligatoria da vis adapter",
-                "es": "Eliminar la dependencia obligatoria en el adaptador vis",
-                "pl": "Usuń obowiązkową zależność od adaptera vis",
-                "zh-cn": "删除对vis适配器的强制依赖"
-            },
-            "2.2.0": {
-                "en": "Option to configure device URLs manually (when devices are in a different subnetwork)",
-                "de": "Option zum manuellen Konfigurieren von Geräte-URLs (wenn sich die Geräte in einem anderen Subnetz befinden)",
-                "ru": "Возможность настроить URL-адреса устройств вручную (когда устройства находятся в другой подсети)",
-                "pt": "Opção para configurar URLs de dispositivo manualmente (quando os dispositivos estão em uma sub-rede diferente)",
-                "nl": "Optie om apparaat-URL's handmatig te configureren (wanneer apparaten zich in een ander subnetwerk bevinden)",
-                "fr": "Option pour configurer manuellement les URL de périphérique (lorsque les périphériques se trouvent dans un sous-réseau différent)",
-                "it": "Opzione per configurare manualmente gli URL dei dispositivi (quando i dispositivi si trovano in una sottorete diversa)",
-                "es": "Opción para configurar las URL de los dispositivos manualmente (cuando los dispositivos están en una subred diferente)",
-                "pl": "Możliwość ręcznego konfigurowania adresów URL urządzeń (gdy urządzenia znajdują się w innej podsieci)",
-                "zh-cn": "手动配置设备URL的选项（当设备位于不同的子网中时）"
-            },
-            "2.1.5": {
-                "en": "Reconnect on mDNS updates",
-                "de": "Verbindung bei mDNS-Updates wiederherstellen",
-                "ru": "Переподключаться на обновлениях mDNS",
-                "pt": "Reconectar-se nas atualizações do mDNS",
-                "nl": "Reconnect op mDNS-updates",
-                "fr": "Reconnecter sur les mises à jour mDNS",
-                "it": "Riconnetti sugli aggiornamenti mDNS",
-                "es": "Reconectarse en las actualizaciones de mDNS",
-                "pl": "Połącz się z aktualizacjami mDNS",
-                "zh-cn": "重新连接mDNS更新"
-            },
-            "2.0.2": {
-                "en": "Compact mode support",
-                "de": "Unterstützung für kompakten Modus",
-                "ru": "Поддержка компактного режима",
-                "pt": "Suporte ao modo compacto",
-                "nl": "Ondersteuning voor compacte modus",
-                "fr": "Prise en charge du mode compact",
-                "it": "Supporto in modalità compatta",
-                "es": "Soporte de modo compacto",
-                "pl": "Obsługa w trybie kompaktowym",
-                "zh-cn": "紧凑模式支持"
-            },
-            "2.0.0": {
-                "en": "refactoring",
-                "de": "Refactoring",
-                "ru": "рефакторинг",
-                "pt": "reestruturação",
-                "nl": "refactoring",
-                "fr": "refactorisation",
-                "it": "refactoring",
-                "es": "refactorización",
-                "pl": "refaktoryzacja",
-                "zh-cn": "重构"
-            },
-            "1.4.3": {
-                "en": "Added enabled flag so some adapters can be ignored",
-                "de": "Aktiviertes Flag hinzugefügt, so dass einige Adapter ignoriert werden können",
-                "ru": "Добавлен флажок включен, поэтому некоторые адаптеры могут быть проигнорированы",
-                "pt": "Adicionado sinalizador habilitado para que alguns adaptadores possam ser ignorados",
-                "nl": "Toegevoegde vlag toegevoegd, zodat sommige adapters kunnen worden genegeerd",
-                "fr": "Ajout de l'indicateur activé pour que certaines cartes puissent être ignorées",
-                "it": "Aggiunto flag abilitato così alcuni adattatori possono essere ignorati",
-                "es": "Se agregó una bandera habilitada para que algunos adaptadores puedan ser ignorados",
-                "pl": "Dodano opcję włączoną, dzięki czemu niektóre adaptery można zignorować",
-                "zh-cn": "添加了启用标志，因此可以忽略某些适配器"
-            },
-            "1.4.2": {
-                "en": "Always use volume parameter for announcements",
-                "de": "Immer Volume-Parameter für Ansagen verwenden",
-                "ru": "Всегда используйте параметр объема для объявлений",
-                "pt": "Use sempre o parâmetro de volume para anúncios",
-                "nl": "Gebruik altijd de volume parameter voor aankondigingen",
-                "fr": "Toujours utiliser le paramètre de volume pour les annonces",
-                "it": "Usa sempre il parametro del volume per gli annunci",
-                "es": "Utiliza siempre el parámetro de volumen para los anuncios",
-                "pl": "Zawsze używaj parametru głośności dla ogłoszeń",
-                "zh-cn": "始终使用音量参数进行公告"
-            },
-            "1.4.1": {
-                "en": "Fix for languages in io-package",
-                "de": "Fix für Sprachen in io-package",
-                "ru": "Исправить для языков в io-пакете",
-                "pt": "Reparar para idiomas em io-package",
-                "nl": "Fix voor talen in io-pakket",
-                "fr": "Correctif pour les langues dans io-package",
-                "it": "Correzione per le lingue in io-pacchetto",
-                "es": "Solución para idiomas en io-paquete",
-                "pl": "Naprawiono języki w pakiecie io",
-                "zh-cn": "修复 io-package 中的语言"
-            },
-            "1.4.0": {
-                "en": "Support for additional languages\nSupport for version 3 of the Admin adapter",
-                "de": "Unterstützung für zusätzliche Sprachen\nUnterstützung für Version 3 des Admin-Adapters",
-                "ru": "Поддержка дополнительных языков\nПоддержка версии 3 адаптера администратора",
-                "pt": "Suporte para idiomas adicionais\nSuporte para a versão 3 do adaptador de administrador",
-                "nl": "Ondersteuning voor extra talen\nOndersteuning voor versie 3 van de Admin-adapter",
-                "fr": "Prise en charge de langues supplémentaires\nPrise en charge de la version 3 de l'adaptateur Admin",
-                "it": "Supporto per lingue aggiuntive\nSupporto per la versione 3 dell'adattatore di amministrazione",
-                "es": "Soporte para idiomas adicionales\nSoporte para la versión 3 del adaptador de administración",
-                "pl": "Wsparcie dla dodatkowych języków\nObsługa wersji 3 adaptera administratora",
-                "zh-cn": "支持其他语言\n支持管理适配器的版本 3"
-            }
+        "title": {
+          "en": "Object IDs will change!",
+          "de": "Objekt-IDs werden sich ändern!",
+          "ru": "ID объекта изменится!",
+          "pt": "Identificação de objetos vai mudar!",
+          "nl": "ID's zullen veranderen!",
+          "fr": "Les identifiants d'objet changeront !",
+          "it": "Gli ID degli oggetti cambieranno!",
+          "es": "¡Las identificaciones de objetos cambiarán!",
+          "pl": "Zmiana obiektów zmienia się!",
+          "zh-cn": "目标国际组织将改变!"
         },
-        "license": "MIT",
-        "authors": [
-            "Vegetto <iobroker@angelnu.com>"
-        ],
-        "desc": {
-            "en": "Allows to monitor and play files to Google Home (Chromecast)",
-            "de": "Ermöglicht die Überwachung und Wiedergabe von Dateien in Google Home (Chromecast)",
-            "ru": "Позволяет контролировать и воспроизводить файлы в Google Домой (Chromecast)",
-            "pt": "Permite monitorar e reproduzir arquivos no Google Home (Chromecast)",
-            "nl": "Hiermee kunnen bestanden worden gecontroleerd en afgespeeld op Google Home (Chromecast)",
-            "fr": "Permet de surveiller et de lire des fichiers sur Google Home (Chromecast)",
-            "it": "Permette di monitorare e riprodurre file su Google Home (Chromecast)",
-            "es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)",
-            "pl": "Umożliwia monitorowanie i odtwarzanie plików w Google Home (Chromecast)",
-            "zh-cn": "允许监控和播放文件到 Google Home (Chromecast)"
+        "text": {
+          "en": "With v3.x the object IDs will now use MAC-adresses to identify the devices and no longer the IP. Because of this all object IDs will change! The old IDs can be deleted manually before or after the update!",
+          "de": "Mit v3.x werden die Objekt-IDs nun MAC-Adressen verwenden, um die Geräte zu identifizieren und nicht mehr die IP. Dadurch ändern sich alle Objekt-IDs! Die alten IDs können vor oder nach dem Update manuell gelöscht werden!",
+          "ru": "С v3.x ID объекта теперь будут использовать MAC-адреса для идентификации устройств и больше не IP. Из-за этого все ID объекта изменится! Старые ID можно удалить вручную до или после обновления!",
+          "pt": "Com v3.x os IDs de objeto agora usarão MAC-adresses para identificar os dispositivos e não mais o IP. Por causa disso todos os IDs de objetos vão mudar! Os IDs antigos podem ser excluídos manualmente antes ou após a atualização!",
+          "nl": "Met v3.x gebruiken de objecten nu MAC-adressen om de apparaten te identificeren en niet langer de IP. Door dit voorwerp zal alles veranderen! De oude ID's kunnen handmatig verwijderd worden voor of na de update!",
+          "fr": "Avec v3.x, les identifiants d'objets utiliseront désormais des adresses MAC pour identifier les périphériques et plus l'IP. A cause de cela tous les identifiants d'objet changeront! Les anciens identifiants peuvent être supprimés manuellement avant ou après la mise à jour!",
+          "it": "Con v3.x gli ID dell'oggetto utilizzeranno gli indirizzi MAC per identificare i dispositivi e non più l'IP. A causa di questo tutti gli ID oggetto cambieranno! I vecchi ID possono essere eliminati manualmente prima o dopo l'aggiornamento!",
+          "es": "Con v3.x los IDs de objeto utilizarán ahora direcciones MAC para identificar los dispositivos y ya no la IP. ¡Por esto todos los IDs de objetos cambiarán! Los viejos IDs se pueden eliminar manualmente antes o después de la actualización!",
+          "pl": "Z v3.x ID obiekt będzie teraz korzystać z MAC do identyfikacji urządzeń i nie będzie dłużej IP. Z uwagi na to, wszystkie obiekty będą zmieniać się. Stare identyfikatory mogą być usuwane ręcznie przed lub po aktualizacji!",
+          "zh-cn": "目标开发公司现在将使用MAC-adress来查明装置,不再使用IP。 由于所有这些物体的开发者将改变! 旧的开发者可以在更新的五十周年之前或之后在手册上删除。!"
         },
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "chromecast.png",
-        "enabled": true,
-        "keywords": [
-            "chromecast",
-            "Google",
-            "home",
-            "player",
-            "music"
-        ],
-        "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.chromecast/master/admin/chromecast.png",
-        "readme": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/blob/master/README.md",
-        "loglevel": "info",
-        "type": "multimedia",
-        "materialize": true,
-        "restartAdapters": [
-            "vis"
-        ],
-        "globalDependencies": [
-            {
-                "net-tools": ">=0.1.5"
-            },
-            {
-                "admin": ">=5.1.28"
-            }
-        ],
-        "dependencies": [
-            {
-                "js-controller": ">=3.1.6"
-            }
-        ],
-        "plugins": {
-            "sentry": {
-                "dsn": "https://6c934cead8e048acbdc131f5684e70b0@sentry.iobroker.net/200"
-            }
-        },
-        "dataSource": "push",
-        "connectionType": "local",
-        "tier": 2,
-        "messages": [
-            {
-                "condition": {
-                    "operand": "and",
-                    "rules": [
-                        "oldVersion<3.0.0",
-                        "newVersion>=3.0.0"
-                    ]
-                },
-                "title": {
-                    "en": "Object IDs will change!",
-                    "de": "Objekt-IDs werden sich ändern!",
-                    "ru": "ID объекта изменится!",
-                    "pt": "Identificação de objetos vai mudar!",
-                    "nl": "ID's zullen veranderen!",
-                    "fr": "Les identifiants d'objet changeront !",
-                    "it": "Gli ID degli oggetti cambieranno!",
-                    "es": "¡Las identificaciones de objetos cambiarán!",
-                    "pl": "Zmiana obiektów zmienia się!",
-                    "zh-cn": "目标国际组织将改变!"
-                },
-                "text": {
-                    "en": "With v3.x the object IDs will now use MAC-adresses to identify the devices and no longer the IP. Because of this all object IDs will change! The old IDs can be deleted manually before or after the update!",
-                    "de": "Mit v3.x werden die Objekt-IDs nun MAC-Adressen verwenden, um die Geräte zu identifizieren und nicht mehr die IP. Dadurch ändern sich alle Objekt-IDs! Die alten IDs können vor oder nach dem Update manuell gelöscht werden!",
-                    "ru": "С v3.x ID объекта теперь будут использовать MAC-адреса для идентификации устройств и больше не IP. Из-за этого все ID объекта изменится! Старые ID можно удалить вручную до или после обновления!",
-                    "pt": "Com v3.x os IDs de objeto agora usarão MAC-adresses para identificar os dispositivos e não mais o IP. Por causa disso todos os IDs de objetos vão mudar! Os IDs antigos podem ser excluídos manualmente antes ou após a atualização!",
-                    "nl": "Met v3.x gebruiken de objecten nu MAC-adressen om de apparaten te identificeren en niet langer de IP. Door dit voorwerp zal alles veranderen! De oude ID's kunnen handmatig verwijderd worden voor of na de update!",
-                    "fr": "Avec v3.x, les identifiants d'objets utiliseront désormais des adresses MAC pour identifier les périphériques et plus l'IP. A cause de cela tous les identifiants d'objet changeront! Les anciens identifiants peuvent être supprimés manuellement avant ou après la mise à jour!",
-                    "it": "Con v3.x gli ID dell'oggetto utilizzeranno gli indirizzi MAC per identificare i dispositivi e non più l'IP. A causa di questo tutti gli ID oggetto cambieranno! I vecchi ID possono essere eliminati manualmente prima o dopo l'aggiornamento!",
-                    "es": "Con v3.x los IDs de objeto utilizarán ahora direcciones MAC para identificar los dispositivos y ya no la IP. ¡Por esto todos los IDs de objetos cambiarán! Los viejos IDs se pueden eliminar manualmente antes o después de la actualización!",
-                    "pl": "Z v3.x ID obiekt będzie teraz korzystać z MAC do identyfikacji urządzeń i nie będzie dłużej IP. Z uwagi na to, wszystkie obiekty będą zmieniać się. Stare identyfikatory mogą być usuwane ręcznie przed lub po aktualizacji!",
-                    "zh-cn": "目标开发公司现在将使用MAC-adress来查明装置,不再使用IP。 由于所有这些物体的开发者将改变! 旧的开发者可以在更新的五十周年之前或之后在手册上删除。!"
-                },
-                "level": "warn",
-                "buttons": [
-                    "agree",
-                    "cancel"
-                ]
-            }
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
         ]
-    },
-    "native": {
-        "web": "",
-        "webServer": "",
-        "manualDevices": []
-    },
-    "objects": []
+      }
+    ]
+  },
+  "native": {
+    "web": "",
+    "webServer": "",
+    "manualDevices": []
+  },
+  "objects": []
 }
