@@ -69,13 +69,10 @@ Build on top of the following projects:
 ## Changelog
 
 ### __WORK IN PROGRESS__
+* (jey cee) Breaking change: Object IDs are now mac addresses instead names
 * (Bjoern3003) set album name as song if provided in icy-name
 * (Apollon77/aortmannm) Make compatible with Node.js 16+
-* * (Apollon77) Add Sentry for crash reporting
-
-### 3.0.0 (2021-08-25)
-* (jey cee) Breaking change: Object IDs are now mac addresses instead names 
-
+* (Apollon77) Add Sentry for crash reporting
 
 ### 2.3.1 (2019-10-23)
 * (angelnu) Tested compact mode works in Linux and Windows
@@ -227,7 +224,7 @@ Build on top of the following projects:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2021 Vegetto <iobroker@angelnu.com>
+Copyright (c) 2015-2022 Vegetto <iobroker@angelnu.com>, 2022 ioBroker Community Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
