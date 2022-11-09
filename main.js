@@ -69,7 +69,7 @@ async function ready() {
         }
     }
 
-    //var chromecastDevices = {};
+    // var chromecastDevices = {};
     scanner = new Scanner(connection => {
         adapter.log.info(JSON.stringify(connection));
         devices.push(new ChromecastDevice(connection));
