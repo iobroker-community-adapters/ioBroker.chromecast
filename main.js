@@ -43,7 +43,16 @@ async function ready() {
     const LogWrapper = require('castv2-player').LogWrapper;
     const Scanner = require('castv2-player').Scanner(new LogWrapper(adapter.log));
 
-    const ChromecastDevice = await require('./lib/chromecastDevice')(adapter);
+    let webPort;
+    try {
+        const webObj = await adapter.getForeignObjectsAsync(`system.adapter.${adapter.config.web}`);
+        webPort = webObj.native.port;
+    } catch (e) {
+        adapter.log.error(`Cannot get web port: ${e.toString()}`);
+        webPort = 8082;
+    }
+
+    const ChromecastDevice = await require('./lib/chromecastDevice')(adapter, webPort);
 
     devices = [];
 

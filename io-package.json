@@ -139,9 +139,6 @@
     ],
     "globalDependencies": [
       {
-        "net-tools": ">=0.1.5"
-      },
-      {
         "admin": ">=5.1.28"
       }
     ],
