@@ -6,3 +6,4 @@ iobroker-data
 reinstall.js
 tmp
 .npmrc
+package-lock.json

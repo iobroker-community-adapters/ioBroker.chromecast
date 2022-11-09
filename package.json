@@ -42,6 +42,14 @@
   },
   "readmeFilename": "README.md",
   "main": "main.js",
+  "files": [
+    "adimn/",
+    "lib/",
+    "widgets/",
+    "main.js",
+    "io-package.json",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "npm run test:package && npm run test:unit",
     "test:package": "mocha test/package --exit",

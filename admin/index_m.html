@@ -55,12 +55,12 @@
 
             M.updateTextFields();
             if (settings.webServer === '') {
-                onChange(); //Selecting default
+                onChange(); // Selecting default
             }
 
-        } //end of load method
+        } // end of load method
 
-        //Copied from sayit adapter (UNCHANGED)
+        // Copied from sayit adapter (UNCHANGED)
         function checkWeb(elem, current) {
             var web = $('#web').val();
             for (var i = 0; i < webServers.length; i++) {
@@ -98,7 +98,9 @@
                             var $webServer = $('#webServer');
                             if (!err && obj && obj.native) {
                                 for (var iface in obj.native.hardware.networkInterfaces) {
-                                    if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
+                                    if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) {
+                                        continue;
+                                    }
                                     for (var i = 0; i < obj.native.hardware.networkInterfaces[iface].length; i++) {
                                         if (obj.native.hardware.networkInterfaces[iface][i].family === 'IPv6' && !obj.native.hardware.networkInterfaces[iface][i].internal) {
                                             $webServer.append('<option value="' + obj.native.hardware.networkInterfaces[iface][i].address + '">[IPv6] ' + obj.native.hardware.networkInterfaces[iface][i].address + ' - ' + iface + '</option>');
@@ -118,8 +120,9 @@
             }
         }
 
-        //Copied from sayit adapter (removed Sonos check, added set default value)
+        // Copied from sayit adapter (removed Sonos check, added set default value)
         function fillWebServices(elem, current, type, webServer) {
+            var $elem = $(elem);
             socket.emit('getObjectView', 'system', 'instance', {
                 startkey: 'system.adapter.web.',
                 endkey: 'system.adapter.web.\u9999'
@@ -129,16 +132,16 @@
                     for (var i = 0; i < res.rows.length; i++) {
                         var n = res.rows[i].id.replace('system.adapter.', '');
                         var auth = res.rows[i].value.native.auth ? 'data-auth="true"' : '';
-                        $(elem).append('<option value="' + n + '" ' + auth + '>' + n + '</option>');
-                        if (i === 0 || current == n) {
-                            //Select "current" if valid/set else first element
+                        $elem.append('<option value="' + n + '" ' + auth + '>' + n + '</option>');
+                        if (i === 0 || current === n) {
+                            // Select "current" if valid/set else first element
                             $(elem).val(n);
                         }
                     }
                 }
 
                 checkWeb('#web', webServer);
-                $('#web').select();
+                $elem.select();
             });
         }
 
@@ -168,7 +171,7 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s4"><a href="#tab-main"   class="translate active">main settings</a></li>
+                <li class="tab col s4"><a href="#tab-main" class="translate active">main settings</a></li>
                 <li class="tab col s4"><a href="#tab-devices" class="translate">devices</a></li>
             </ul>
         </div>
