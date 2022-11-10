@@ -46,8 +46,8 @@ async function ready() {
     let webPort = 8082;
     if (adapter.config.web) {
         try {
-            const webObj = await adapter.getForeignObjectsAsync(`system.adapter.${adapter.config.web}`);
-            webPort = webObj.native.port;
+           const webObj = await adapter.getForeignObjectAsync(`system.adapter.${adapter.config.web}`);
+           webPort = webObj.native.port;
         } catch (e) {
             adapter.log.error(`Cannot get web port: ${e.toString()}`);
             webPort = 8082;

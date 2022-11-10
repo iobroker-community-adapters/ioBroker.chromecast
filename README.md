@@ -59,6 +59,14 @@ Build on top of the following projects:
 * more testing
 
 ## Changelog
+<!--
+    ### **WORK IN PROGRESS**
+-->
+### **WORK IN PROGRESS**
+* (bluefox) Refactoring done
+* (bluefox) Removed dependency with nettools
+* (bluefox) Added support of web port other than 8082
+
 ### 3.0.3 (2022-08-26)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names
 * (Bjoern3003) set album name as song if provided in icy-name
