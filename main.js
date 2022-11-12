@@ -73,7 +73,7 @@ async function ready() {
 
     // var chromecastDevices = {};
     scanner = new Scanner(connection => {
-        adapter.log.info(JSON.stringify(connection));
+        adapter.log.debug(`New connection: ${JSON.stringify(connection)}`);
         devices.push(new ChromecastDevice(connection));
     });
 
@@ -83,11 +83,9 @@ async function ready() {
 
 function unload(callback) {
     try {
-        adapter.log.info('Unload triggered');
         scanner.destroy();
         devices.forEach(device => device.destroy());
         devices = undefined;
-        adapter.log.info('Unload completed successfully');
     } catch (error) {
         console.error(error);
     }
