@@ -62,7 +62,7 @@ Build on top of the following projects:
 <!--
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.1.0 (2022-11-12)
 * (bluefox) Refactoring done
 * (bluefox) Removed dependency with nettools
 * (bluefox) Added support of web port other than 8082

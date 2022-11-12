@@ -14,9 +14,22 @@
       "pl": "Strona główna Google",
       "zh-cn": "谷歌主页"
     },
-    "version": "3.0.3",
+    "version": "3.1.0",
     "compact": true,
     "news": {
+      "3.1.0": {
+        "en": "Refactoring done\nRemoved dependency with nettools\nAdded support of web port other than 8082",
+        "de": "Herstellung\nEntfernte Abhängigkeit mit Nettools\nUnterstützung von Web-Port, andere als 8082",
+        "ru": "Рефакторинг сделано\nУдаленная зависимость с nettools\nДобавлена поддержка веб-порта, кроме 8082",
+        "pt": "Refactoring feito\nDependência removida com nettools\nAdicionado suporte de porta web diferente de 8082",
+        "nl": "Vergelding gedaan\nVerwijderde afhankelijkheid met nettool\nOndersteuning van web haven, behalve 8082",
+        "fr": "Refactoring done\nDéfaut de dépendance avec les nettools\nAjout du support du port web autre que 8082",
+        "it": "Refactoring done\nRimozione della dipendenza con nettools\nAggiunto il supporto di web port diverso da 8082",
+        "es": "Refactoring done\nRetirada dependencia con nettools\nAgregado soporte de puerto web que no sea 8082",
+        "pl": "Zrekomendowany\nRemove zależności od nettools\nWsparcie dla portalu internetowego poza 8082",
+        "uk": "Рефакторинг\nВилучена залежність від nettools\nДодано підтримку веб-порту, крім 8082",
+        "zh-cn": "修 补\n取消对净工具的依赖\n增加8082年以外网港口的支助"
+      },
       "3.0.3": {
         "en": "Breaking change: Object IDs are now mac addresses instead names\nset album name as song if provided in icy-name\nMake compatible with Node.js 16+\nAdd Sentry for crash reporting",
         "de": "Wechsel: Objekt-IDs sind jetzt Mac-Adressen statt Namen\nalbumname als lied setzen, wenn in icy-name\nKompatibel mit Node.js 16+ machen\nSentry für Crash Reporting hinzufügen",
@@ -88,18 +101,6 @@
         "es": "Opción para configurar las URL de los dispositivos manualmente (cuando los dispositivos están en una subred diferente)",
         "pl": "Możliwość ręcznego konfigurowania adresów URL urządzeń (gdy urządzenia znajdują się w innej podsieci)",
         "zh-cn": "手动配置设备URL的选项（当设备位于不同的子网中时）"
-      },
-      "2.1.5": {
-        "en": "Reconnect on mDNS updates",
-        "de": "Verbindung bei mDNS-Updates wiederherstellen",
-        "ru": "Переподключаться на обновлениях mDNS",
-        "pt": "Reconectar-se nas atualizações do mDNS",
-        "nl": "Reconnect op mDNS-updates",
-        "fr": "Reconnecter sur les mises à jour mDNS",
-        "it": "Riconnetti sugli aggiornamenti mDNS",
-        "es": "Reconectarse en las actualizaciones de mDNS",
-        "pl": "Połącz się z aktualizacjami mDNS",
-        "zh-cn": "重新连接mDNS更新"
       }
     },
     "license": "MIT",
