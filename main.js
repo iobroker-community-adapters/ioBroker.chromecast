@@ -24,7 +24,7 @@ let adapter;
 
 function startAdapter(options) {
     options = options || {};
-    Object.assign(options, {name: 'chromecast'});
+    Object.assign(options, {name: adapterName});
 
     adapter = new utils.Adapter(options);
 
