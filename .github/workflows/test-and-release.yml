@@ -51,7 +51,7 @@ jobs:
           location: './js-controller'
 
       - name: Read node and npm versions from package.json
-        uses: skjnldsv/read-package-engines-version-actions@v1
+        uses: skjnldsv/read-package-engines-version-actions@v2
         with:
           path: "./js-controller"
         id: package-engines-versions
