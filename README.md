@@ -62,6 +62,10 @@ Build on top of the following projects:
 <!--
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (raintonr) Allow YouTube videos ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))
+
 ### 3.1.0 (2022-11-12)
 * (bluefox) Refactoring done
 * (bluefox) Removed dependency with nettools
