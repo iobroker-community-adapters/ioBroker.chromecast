@@ -71,12 +71,12 @@
                     if (webServers[i].value.native.bind === 'localhost' || webServers[i].value.native.bind === '127.0.0.1' || webServers[i].value.native.bind === '::1') {
                         showMessage(_('Cannot use web server only on localhost'), null, 'info');
                     }
+                    $('#webServer').html('').select();
+                    var $webServer = $('#webServer');
                     if (webServers[i].value.native.bind === '0.0.0.0') {
                         $('.web-server').show();
-                        $('#webServer').html('').select();
                         // read all ipv4 addresses of host
                         socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
-                            var $webServer = $('#webServer');
                             if (!err && obj && obj.native) {
                                 for (var iface in obj.native.hardware.networkInterfaces) {
                                     if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) continue;
@@ -93,9 +93,9 @@
                             $webServer.select();
                         });
                     } else if (webServers[i].value.native.bind === '::') {
+                        $('.web-server').show();
                         // read all ipv6 addresses of host
                         socket.emit('getObject', 'system.host.' + webServers[i].value.common.host, function (err, obj) {
-                            var $webServer = $('#webServer');
                             if (!err && obj && obj.native) {
                                 for (var iface in obj.native.hardware.networkInterfaces) {
                                     if (!obj.native.hardware.networkInterfaces.hasOwnProperty(iface)) {
@@ -115,6 +115,8 @@
                         });
                     } else {
                         $('.web-server').hide();
+                        // Set webServer to web instance's single configured value
+                        $webServer.append('<option value="' + webServers[i].value.native.bind + '"></option>');
                     }
                 }
             }
