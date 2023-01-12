@@ -45,7 +45,7 @@
   "readmeFilename": "README.md",
   "main": "main.js",
   "files": [
-    "adimn/",
+    "admin/",
     "lib/",
     "widgets/",
     "main.js",
