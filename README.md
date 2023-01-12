@@ -65,6 +65,7 @@ Build on top of the following projects:
 
 ### **WORK IN PROGRESS**
 * (raintonr) Allow YouTube videos ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))
+* (raintonr) Add appId to status ([#151](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/151))
 
 ### 3.1.0 (2022-11-12)
 * (bluefox) Refactoring done
