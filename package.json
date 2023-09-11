@@ -24,6 +24,9 @@
     "type": "git",
     "url": "git+https://github.com/iobroker-community-adapters/ioBroker.chromecast.git"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.7",
     "castv2-player": "^2.1.3",
