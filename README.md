@@ -77,7 +77,7 @@ Build on top of the following projects:
 
 ### 3.0.3 (2022-08-26)
 * (jey cee) Breaking change: Object IDs are now mac addresses instead names
-* (Bjoern3003) set album name as song if provided in icy-name
+* (Bjoern3003) set album name as song if provided in icy-nlicame
 * (Apollon77/aortmannm) Make compatible with Node.js 16+
 * (Apollon77) Add Sentry for crash reporting
 
@@ -231,7 +231,8 @@ Build on top of the following projects:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2015-2022 Vegetto <iobroker@angelnu.com>, 2022 ioBroker Community Developers
+Copyright (c) 2022-2024 iobroker community developers <mcm57@gmx.at>
+Copyright (c) 2015-2022 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
