@@ -62,8 +62,7 @@ Build on top of the following projects:
 <!--
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.2.0-alpha.0 (2024-01-22)
 - (mcm1957) changed: Testing gas been updsated to use node 16/18/20
 - (mcm1957) changed: dependencies have been updated
 * (raintonr) YouTube videos are allowed now ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))
