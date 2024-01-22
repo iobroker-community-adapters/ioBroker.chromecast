@@ -66,7 +66,7 @@ Build on top of the following projects:
 ### **WORK IN PROGRESS**
 - (mcm1957) changed: Testing gas been updsated to use node 16/18/20
 - (mcm1957) changed: dependencies have been updated
-* (raintonr) YouTube videos are noew allowed ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))
+* (raintonr) YouTube videos are allowed now ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))
 * (raintonr) AppId has been added to status ([#151](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/151))
 * (raintonr) Saving has been corrected if web instance listens on only one address ([#145](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/145))
 
