@@ -25,7 +25,7 @@ Build on top of the following projects:
 
 ## Instructions
 1. Install this adapter into ioBroker
-2(optional) If you plan to stream local files or if your chromecast devices are located in a different subnet, you need to configure the adapter
+2. (optional) If you plan to stream local files or if your chromecast devices are located in a different subnet, you need to configure the adapter
    * you need to have an ioBroker web server instance to stream local files
    * you need to manually add information (name, IP, port, ad type) for each device located in a different subnet than your ioBroker server. If you want names to correspond  to the names of the automatically found devices, use the MAC address as name. You can define any name you want. Make sure, each name is unique! To avoid problems, names should only contain upper case characters A-Z, lower case characters a-z, digits 0-9, - (minus), and _ (underscore).
 3. Check your log: you should see logs about the detected devices
