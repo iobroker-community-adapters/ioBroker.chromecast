@@ -63,7 +63,8 @@ Build on top of the following projects:
 <!--
     ### **WORK IN PROGRESS**
 -->
-### 3.3.0 (2024-XX-YY)
+
+### **WORK IN PROGRESS**
 - (neopholus) Breaking change: Bugfix for ([#154](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/154)) and ([#160](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/160)): manually configured devices in admin pannel (devices tab) are created correctly again (broke with 3.0.3) using the name defined in the admin panel, tab "devices".
 
 ### 3.2.0 (2024-01-22)
