@@ -25,7 +25,7 @@
     "url": "git+https://github.com/iobroker-community-adapters/ioBroker.chromecast.git"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.7",
