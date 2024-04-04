@@ -1,7 +1,6 @@
 {
   "common": {
     "name": "chromecast",
-    "title": "Google Home",
     "titleLang": {
       "en": "Google Home",
       "de": "Google Home",
@@ -104,7 +103,10 @@
         "zh-cn": "删除对vis适配器的强制依赖"
       }
     },
-    "license": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "authors": [
       "Vegetto <iobroker@angelnu.com>"
     ],
@@ -146,7 +148,7 @@
     ],
     "dependencies": [
       {
-        "js-controller": ">=3.1.6"
+        "js-controller": ">=5.0.0"
       }
     ],
     "plugins": {
