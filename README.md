@@ -234,7 +234,7 @@ Build on top of the following projects:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2022-2024 iobroker community developers <mcm57@gmx.at>
+Copyright (c) 2024 iobroker-community-adapters <iobroker-community-adapters@gmx.de>
 Copyright (c) 2015-2022 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
