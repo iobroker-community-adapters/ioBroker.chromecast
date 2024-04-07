@@ -139,16 +139,17 @@
     "type": "multimedia",
     "materialize": true,
     "restartAdapters": [
-      "vis"
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.28"
-      }
+      "vis",
+      "VIS-2"
     ],
     "dependencies": [
       {
         "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
       }
     ],
     "plugins": {
