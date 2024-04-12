@@ -64,8 +64,7 @@ Build on top of the following projects:
     ### **WORK IN PROGRESS**
     - (neopholus) Breaking change: Bugfix for ([#154](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/154)) and ([#160](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/160)): manually configured devices in admin pannel (devices tab) are created correctly again (broke with 3.0.3) using the name defined in the admin panel, tab "devices".
 -->
-
-### **WORK IN PROGRESS**
+### 3.3.0 (2024-04-07)
 * (mcm1957) Adapter requires node.js 18 and js-controller >= 5 now
 * (mcm1957) Dependencies have been updated
 
@@ -237,7 +236,7 @@ Build on top of the following projects:
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2022-2024 iobroker community developers <mcm57@gmx.at>
+Copyright (c) 2024 iobroker-community-adapters <iobroker-community-adapters@gmx.de>
 Copyright (c) 2015-2022 Vegetto <iobroker@angelnu.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

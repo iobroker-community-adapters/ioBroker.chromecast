@@ -13,9 +13,22 @@
       "pl": "Strona główna Google",
       "zh-cn": "谷歌主页"
     },
-    "version": "3.2.0",
+    "version": "3.3.0",
     "compact": true,
     "news": {
+      "3.3.0": {
+        "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
+        "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Адаптер требует node.js 18 и js-controller >= 5 сейчас\nЗависимость обновлена",
+        "pt": "Adapter requer node.js 18 e js-controller >= 5 agora\nAs dependências foram atualizadas",
+        "nl": "Adapter vereist node.js 18 en js-controller Nu 5\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "Adaptateur nécessite node.js 18 et js-controller >= 5 maintenant\nLes dépendances ont été actualisées",
+        "it": "Adattatore richiede node.js 18 e js-controller >= 5 ora\nLe dipendenze sono state aggiornate",
+        "es": "Adaptador requiere node.js 18 y js-controller √= 5 ahora\nSe han actualizado las dependencias",
+        "pl": "Adapter wymaga node.js 18 i sterownika js- > = 5 teraz\nZaktualizowano zależności",
+        "uk": "Адаптер вимагає node.js 18 і js-controller >= 5 тепер\nЗалежність було оновлено",
+        "zh-cn": "适配器需要节点.js 18和js控制器 QQ 现在5号\n依赖关系已更新"
+      },
       "3.2.0": {
         "en": "changed: Testing has been updated to use node.js 16/18/20\nchanged: Dependencies have been updated\nYouTube videos are allowed now ([#75](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))\nAppId has been added to status ([#151](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/151))\nStoring of webserver settings has been corrected if web instance listens on only one address ([#145](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/145))",
         "de": "geändert: Die Prüfung wurde aktualisiert, um node.js 16/18/20 zu verwenden\ngeändert: Abhängigkeiten wurden aktualisiert\nYouTube-Videos sind jetzt erlaubt ([#75](https://github.com/iobroker-community-adapter/ioBroker.chromecast/issues/75)\nAppId wurde zum Status hinzugefügt ([#151](https://github.com/iobroker-community-adapter/ioBroker.chromecast/issues/151))\nDie Speicherung von Webserver-Einstellungen wurde korrigiert, wenn Web-Instanz nur eine Adresse anhört ([#145](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/145))",
@@ -89,18 +102,6 @@
         "es": "Arreglar la referencia que falta cuando se recibe la actualización mDNS",
         "pl": "Napraw brakujące referencje po otrzymaniu aktualizacji mDNS",
         "zh-cn": "收到mDNS更新时修复缺少的引用"
-      },
-      "2.2.1": {
-        "en": "Remove mandatory dependency on vis adapter",
-        "de": "Entfernen Sie die obligatorische Abhängigkeit vom vis-Adapter",
-        "ru": "Удалить обязательную зависимость от адаптера vis",
-        "pt": "Remover dependência obrigatória no adaptador vis",
-        "nl": "Verwijder de verplichte afhankelijkheid van vis adapter",
-        "fr": "Supprimer la dépendance obligatoire sur l'adaptateur vis",
-        "it": "Rimuovere la dipendenza obbligatoria da vis adapter",
-        "es": "Eliminar la dependencia obligatoria en el adaptador vis",
-        "pl": "Usuń obowiązkową zależność od adaptera vis",
-        "zh-cn": "删除对vis适配器的强制依赖"
       }
     },
     "licenseInformation": {
@@ -139,16 +140,17 @@
     "type": "multimedia",
     "materialize": true,
     "restartAdapters": [
-      "vis"
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.28"
-      }
+      "vis",
+      "VIS-2"
     ],
     "dependencies": [
       {
         "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
       }
     ],
     "plugins": {
