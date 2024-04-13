@@ -13,9 +13,22 @@
       "pl": "Strona główna Google",
       "zh-cn": "谷歌主页"
     },
-    "version": "3.3.0",
+    "version": "3.4.0",
     "compact": true,
     "news": {
+      "3.4.0": {
+        "en": "Support for devices located in different subnets has been added. [#154, #160]\nDependencies have been updated",
+        "de": "Unterstützung für Geräte in verschiedenen Subnetzen wurde hinzugefügt. (#154, #160)\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Добавлена поддержка устройств, расположенных в различных подсетях. [#154, #160]\nЗависимость обновлена",
+        "pt": "O suporte para dispositivos localizados em sub-redes diferentes foi adicionado. [#154, #160]\nAs dependências foram atualizadas",
+        "nl": "Ondersteuning voor apparaten in verschillende subnetten is toegevoegd. [#154, #160]\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "La prise en charge des appareils situés dans différents sous-réseaux a été ajoutée. [#154, #160]\nLes dépendances ont été actualisées",
+        "it": "È stato aggiunto il supporto per i dispositivi situati in diverse sottorete. [#154, #160]\nLe dipendenze sono state aggiornate",
+        "es": "Se ha añadido soporte para dispositivos ubicados en diferentes subredes. [#154, #160]\nSe han actualizado las dependencias",
+        "pl": "Dodano wsparcie dla urządzeń znajdujących się w różnych podsieciach. [# 154, # 160]\nZaktualizowano zależności",
+        "uk": "Додано підтримку пристроїв, розташованих в різних підмережах. [#154, #160]\nЗалежність було оновлено",
+        "zh-cn": "添加了对位于不同子网的设备的支持 。 [#154,#160] (中文(简体) )\n依赖关系已更新"
+      },
       "3.3.0": {
         "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
         "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
@@ -90,18 +103,6 @@
         "es": "Condición de carrera: corrige el volumen no definido cuando no se recibe ningún estado",
         "pl": "Warunek wyścigu - napraw niezdefiniowany wolumin, gdy nie odebrano statusu",
         "zh-cn": "竞争条件 - 未收到状态时修复未定义的音量"
-      },
-      "2.2.2": {
-        "en": "Fix missing reference when mDNS update is received",
-        "de": "Fehlende Referenz behoben, wenn mDNS-Update empfangen wird",
-        "ru": "Исправить отсутствующую ссылку при получении обновления mDNS",
-        "pt": "Corrigir a referência ausente quando a atualização do mDNS é recebida",
-        "nl": "Fix ontbrekende referentie wanneer mDNS update is ontvangen",
-        "fr": "Correction de la référence manquante à la réception de la mise à jour mDNS",
-        "it": "Corregge il riferimento mancante quando viene ricevuto l'aggiornamento mDNS",
-        "es": "Arreglar la referencia que falta cuando se recibe la actualización mDNS",
-        "pl": "Napraw brakujące referencje po otrzymaniu aktualizacji mDNS",
-        "zh-cn": "收到mDNS更新时修复缺少的引用"
       }
     },
     "licenseInformation": {
