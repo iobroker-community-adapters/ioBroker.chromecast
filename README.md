@@ -63,8 +63,7 @@ Build on top of the following projects:
 <!--
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.4.1 (2024-07-02)
 * (foxriver76) migrated binary state to file
 
 ### 3.4.0 (2024-04-13)

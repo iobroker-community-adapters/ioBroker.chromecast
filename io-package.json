@@ -13,9 +13,22 @@
       "pl": "Strona główna Google",
       "zh-cn": "谷歌主页"
     },
-    "version": "3.4.0",
+    "version": "3.4.1",
     "compact": true,
     "news": {
+      "3.4.1": {
+        "en": "migrated binary state to file",
+        "de": "binärzustand in datei migriert",
+        "ru": "мигрирует двоичное состояние в файл",
+        "pt": "estado binário migrado para arquivo",
+        "nl": "gemigreerde binaire status naar bestand",
+        "fr": "état binaire migré vers un fichier",
+        "it": "stato binario migrato a file",
+        "es": "migrated binario state to file",
+        "pl": "migrowany stan binarny do pliku",
+        "uk": "мігрований бінарний стан для файлу",
+        "zh-cn": "迁移二进制状态到文件"
+      },
       "3.4.0": {
         "en": "Support for devices located in different subnets has been added. [#154, #160]\nDependencies have been updated",
         "de": "Unterstützung für Geräte in verschiedenen Subnetzen wurde hinzugefügt. (#154, #160)\nAbhängigkeiten wurden aktualisiert",
@@ -91,18 +104,6 @@
         "es": "El modo compacto probado funciona en Linux y Windows",
         "pl": "Testowany tryb kompaktowy działa w systemie Linux i Windows",
         "zh-cn": "经过测试的压缩模式可在Linux和Windows中使用"
-      },
-      "2.2.3": {
-        "en": "Race condition - fix undefined volume when no status received",
-        "de": "Racebedingung - undefiniertes Volumen korrigieren, wenn kein Status empfangen wurde",
-        "ru": "Состояние гонки - исправить неопределенный объем, когда статус не получен",
-        "pt": "Condição de corrida - corrige o volume indefinido quando nenhum status é recebido",
-        "nl": "Raceconditie - verhelp ongedefinieerd volume wanneer er geen status is ontvangen",
-        "fr": "Condition de concurrence: correction du volume non défini lorsqu'aucun statut n'est reçu",
-        "it": "Condizioni di gara: corregge il volume indefinito quando non viene ricevuto lo stato",
-        "es": "Condición de carrera: corrige el volumen no definido cuando no se recibe ningún estado",
-        "pl": "Warunek wyścigu - napraw niezdefiniowany wolumin, gdy nie odebrano statusu",
-        "zh-cn": "竞争条件 - 未收到状态时修复未定义的音量"
       }
     },
     "licenseInformation": {
