@@ -68,19 +68,6 @@
         "uk": "змінено: Тестування було оновлено до використання node.js 16/18/20\nзмінено: Залежність було оновлено\nДопускається відео YouTube ([#75] (https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/75))\nДодаток до статусу ([#151](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/151))\nНалаштування веб-сервера було виправлено, якщо веб- екземпляр слухає лише одну адресу ([#145](https://github.com/iobroker-community-adapters/ioBroker.chromecast/issues/145))",
         "zh-cn": "已更改 : 测试已更新为使用节点 16/18/20\n已更改 : 依赖关系已更新\n现在允许使用YouTube视频([#75](https://github.com/iobroster-community-adapters/ioBroker.chromecast/issues/75))\nAppId已添加到状态([#151](https://github.com/iobroster-community-adapters/ioBroker.chromecast/issues/151))\n如果网页实例只收听一个地址([#145] (https://github.com/iobroster-community-adapters/ioBroker.chromecast/issues/145)),则网页服务器设置的存储已被纠正"
       },
-      "3.1.0": {
-        "en": "Refactoring done\nRemoved dependency with nettools\nAdded support of web port other than 8082",
-        "de": "Herstellung\nEntfernte Abhängigkeit mit Nettools\nUnterstützung von Web-Port, andere als 8082",
-        "ru": "Рефакторинг сделано\nУдаленная зависимость с nettools\nДобавлена поддержка веб-порта, кроме 8082",
-        "pt": "Refactoring feito\nDependência removida com nettools\nAdicionado suporte de porta web diferente de 8082",
-        "nl": "Vergelding gedaan\nVerwijderde afhankelijkheid met nettool\nOndersteuning van web haven, behalve 8082",
-        "fr": "Refactoring done\nDéfaut de dépendance avec les nettools\nAjout du support du port web autre que 8082",
-        "it": "Refactoring done\nRimozione della dipendenza con nettools\nAggiunto il supporto di web port diverso da 8082",
-        "es": "Refactoring done\nRetirada dependencia con nettools\nAgregado soporte de puerto web que no sea 8082",
-        "pl": "Zrekomendowany\nRemove zależności od nettools\nWsparcie dla portalu internetowego poza 8082",
-        "uk": "Рефакторинг\nВилучена залежність від nettools\nДодано підтримку веб-порту, крім 8082",
-        "zh-cn": "修 补\n取消对净工具的依赖\n增加8082年以外网港口的支助"
-      },
       "3.0.3": {
         "en": "Breaking change: Object IDs are now mac addresses instead names\nset album name as song if provided in icy-name\nMake compatible with Node.js 16+\nAdd Sentry for crash reporting",
         "de": "Wechsel: Objekt-IDs sind jetzt Mac-Adressen statt Namen\nalbumname als lied setzen, wenn in icy-name\nKompatibel mit Node.js 16+ machen\nSentry für Crash Reporting hinzufügen",
