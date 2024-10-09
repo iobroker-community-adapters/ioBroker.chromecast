@@ -5,12 +5,13 @@
       "en": "Google Home",
       "de": "Google Home",
       "ru": "Google Home",
-      "pt": "Página inicial do Google",
-      "nl": "Google huis",
+      "pt": "Google Home",
+      "nl": "Google Home",
       "fr": "Google Home",
       "it": "Google Home",
-      "es": "Página principal de Google",
-      "pl": "Strona główna Google",
+      "es": "Google Home",
+      "pl": "Google Home",
+      "uk": "Google Home",
       "zh-cn": "谷歌主页"
     },
     "version": "3.4.1",
@@ -110,6 +111,7 @@
       "it": "Permette di monitorare e riprodurre file su Google Home (Chromecast)",
       "es": "Permite monitorear y reproducir archivos en Google Home (Chromecast)",
       "pl": "Umożliwia monitorowanie i odtwarzanie plików w Google Home (Chromecast)",
+      "uk": "Дозволяє відстежувати та відтворювати файли в Google Home (Chromecast)",
       "zh-cn": "允许监控和播放文件到 Google Home (Chromecast)"
     },
     "platform": "Javascript/Node.js",
@@ -134,7 +136,7 @@
     ],
     "dependencies": [
       {
-        "js-controller": ">=5.0.0"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [
