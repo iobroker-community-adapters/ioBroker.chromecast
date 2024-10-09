@@ -60,8 +60,7 @@ Build on top of the following projects:
 * more testing
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 4.0.0 (2024-10-09)
 * (neopholus) Release 3.4.0 added support for devices located in adifferent subnet. This introduced a problem due to changing some state-ids reported at issue #274. This problem has been fixed. This might be considered a breaking change for some people. 
 * (mcm1957) Testing for node.js 22.x has been added.
 * (mcm1957) Several issues reported by adapter checker have been fixed.
