@@ -60,9 +60,10 @@ Build on top of the following projects:
 * more testing
 
 ## Changelog
-<!--
-    ### **WORK IN PROGRESS**
--->
+
+### **WORK IN PROGRESS**
+* (neopholus) Fixed #274 which was introduced in 3.4.0 enabling support for devices located in different subnets has been added. Possibly a breaking change for some people. 
+
 ### 3.4.1 (2024-07-02)
 * (foxriver76) migrated binary state to file
 

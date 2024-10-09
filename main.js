@@ -67,14 +67,14 @@ async function ready() {
             // Emulate registerForUpdates
             device.registerForUpdates = function () {};
 
-            devices.push(new ChromecastDevice(device));
+            devices.push(new ChromecastDevice(device, true));
         }
     }
 
     // var chromecastDevices = {};
     scanner = new Scanner(connection => {
         adapter.log.debug(`New connection: ${JSON.stringify(connection)}`);
-        devices.push(new ChromecastDevice(connection));
+        devices.push(new ChromecastDevice(connection, false));
     });
 
     // in this template all states changes inside the adapters namespace are subscribed
