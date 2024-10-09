@@ -63,6 +63,9 @@ Build on top of the following projects:
 
 ### **WORK IN PROGRESS**
 * (neopholus) Fixed #274 which was introduced in 3.4.0 enabling support for devices located in different subnets has been added. Possibly a breaking change for some people. 
+* (mcm1957) Testing for node.js 22.x has been added.
+* (mcm1957) Several issues reported by adapter checker have been fixed.
+* (mcm1957) Dependencies have been updated
 
 ### 3.4.1 (2024-07-02)
 * (foxriver76) migrated binary state to file
