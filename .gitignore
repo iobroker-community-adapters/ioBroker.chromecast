@@ -6,3 +6,6 @@ iobroker-data
 reinstall.js
 tmp
 .npmrc
+
+#ignore .commitinfo created by ioBroker release script
+.commitinfo
