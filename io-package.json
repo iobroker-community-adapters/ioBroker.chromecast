@@ -112,7 +112,8 @@
       "type": "free"
     },
     "authors": [
-      "Vegetto <iobroker@angelnu.com>"
+      "Vegetto <iobroker@angelnu.com>",
+      "iobroker-community-adapters <iobroker-community-adapters@gmx.de>"
     ],
     "desc": {
       "en": "Allows to monitor and play files to Google Home (Chromecast)",
@@ -149,12 +150,12 @@
     ],
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=5.1.28"
+        "admin": ">=7.6.17"
       }
     ],
     "plugins": {
