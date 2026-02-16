@@ -58,8 +58,10 @@ Build on top of the following projects:
 ## Changelog
 
 ### **WORK IN PROGRESS**
+- (mcm1957) Adapetr requires node.js >= 20 now
 - (copilot) Adapter requires js-controller >= 6.0.11 now
 - (copilot) Adapter requires admin >= 7.6.17 now
+- (mcm1957) Dependencies have been updated
 
 ### 4.0.0 (2024-10-09)
 * (neopholus) Release 3.4.0 added support for devices located in adifferent subnet. This introduced a problem due to changing some state-ids reported at issue #274. This problem has been fixed. This might be considered a breaking change for some people. 
