@@ -14,9 +14,22 @@
       "uk": "Google Home",
       "zh-cn": "谷歌主页"
     },
-    "version": "4.0.0",
+    "version": "4.1.0",
     "compact": true,
     "news": {
+      "4.1.0": {
+        "en": "Adapetr requires node.js >= 20 now\nAdapter requires js-controller >= 6.0.11 now\nAdapter requires admin >= 7.6.17 now\nDependencies have been updated",
+        "de": "Adapetr benötigt node.js >= 20 jetzt\nAdapter benötigt jetzt js-controller >= 6.0.11\nAdapter benötigt admin >= 7.6.17 jetzt\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Adapetr требует node.js >= 20 сейчас\nАдаптер требует js-контроллер >= 6.0.11\nАдаптер требует администратора >= 7.6.17\nЗависимости были обновлены",
+        "pt": "Adapetr requer node.js >= 20 agora\nAdaptador requer js-controlador >= 6.0.11 agora\nAdaptador requer admin >= 7.6.17 agora\nAs dependências foram atualizadas",
+        "nl": "Adapetr vereist node.js < 20 nu\nAdapter vereist js-controller > 6,0.11 nu\nVoor adapter is admin < 7.6.17 nu nodig\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "Adapter nécessite node.js >= 20 maintenant\nAdaptateur nécessite js-controller >= 6.0.11 maintenant\nAdaptateur nécessite admin >= 7.6.17 maintenant\nLes dépendances ont été actualisées",
+        "it": "Adapetr richiede node.js >= 20 ora\nAdattatore richiede js-controller >= 6.0.11 ora\nAdattatore richiede admin >= 7.6.17 ora\nLe dipendenze sono state aggiornate",
+        "es": "Adapetr requiere node.js = 20 ahora\nAdaptador requiere js-controller >= 6.0.11\nAdaptador requiere administración= 7.6.17 ahora\nSe han actualizado las dependencias",
+        "pl": "Adapetr wymaga node.js > = 20\nAdapter wymaga sterownika js- > = 6.0.11\nAdapter wymaga admin > = 7.6.17\nZaktualizowano zależności",
+        "uk": "Adapetr вимагає node.js >= 20 тепер\nАдаптер вимагає js-controller >=6.0.11 тепер\nАдаптер вимагає адмін >= 7.6.17 тепер\nЗалежність було оновлено",
+        "zh-cn": "Adapetr 需要节点.js 20 现在\n适配器需要js控制器 现在6.0.11\n适任者需要行政主管 现在7.6.17\n依赖关系已更新"
+      },
       "4.0.0": {
         "en": "Release 3.4.0 added support for devices located in adifferent subnet. This introduced a problem due to changing some state-ids reported at issue #274. This problem has been fixed. This might be considered a breaking change for some people. \nTesting for node.js 22.x has been added.\nSeveral issues reported by adapter checker have been fixed.\nDependencies have been updated",
         "de": "Release 3.4.0 fügte Unterstützung für Geräte in einem anderen Subnetz liegen hinzu. Dies führte zu einem Problem durch die Änderung einiger State-Ids laut Fehlermeldung #274. Dieses Problem wurde behoben. Dies könnte für einige User als eine breaking Veränderung darstellen.\nDie Prüfung auf node.js 22.x wurde hinzugefügt.\nMehrere Probleme, die von Adapter Checker gemeldet wurden, wurden behoben.\nAbhängigkeiten wurden aktualisiert",
@@ -93,18 +106,6 @@
         "es": "Cambio de ruptura: ID de objetos ahora son direcciones de mac en lugar de nombres\nponer el nombre del disco como canción si se proporciona en icy-name\nHacer compatible con Node.js 16+\nAdd Sentry for crash reporting",
         "pl": "Zmiana: Dotyczy to obecnie m.in. n.e\nnazwa albumu została nadana jako piosenka, jeśli została wydana w icy-name\nUmożliwia współpracę z Node.js 16+\nAdd Sentry for crash reporting (ang.)",
         "zh-cn": "断然变化: 目标国际组织现在只处理名称,而是名称。\n写成的歌唱,如果用词提供\n与Nodejs 16+相容\n事故报告增加"
-      },
-      "2.3.1": {
-        "en": "Tested compact mode works in Linux and Windows",
-        "de": "Der getestete Kompaktmodus funktioniert unter Linux und Windows",
-        "ru": "Протестированный компактный режим работает в Linux и Windows",
-        "pt": "O modo compacto testado funciona no Linux e Windows",
-        "nl": "De geteste compacte modus werkt in Linux en Windows",
-        "fr": "Le mode compact testé fonctionne sous Linux et Windows",
-        "it": "La modalità compatta testata funziona in Linux e Windows",
-        "es": "El modo compacto probado funciona en Linux y Windows",
-        "pl": "Testowany tryb kompaktowy działa w systemie Linux i Windows",
-        "zh-cn": "经过测试的压缩模式可在Linux和Windows中使用"
       }
     },
     "licenseInformation": {
