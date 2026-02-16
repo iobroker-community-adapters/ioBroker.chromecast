@@ -55,7 +55,14 @@ Build on top of the following projects:
 * add retries: sometimes the Google Home fails to respond to a request
 * more testing
 
+<!--
+  Placeholder for the next version (at the beginning of the line):
+  ### **WORK IN PROGRESS**
+-->
 ## Changelog
+### **WORK IN PROGRESS**
+- (mcm1957) Linting has been updated to @iobroker/eslint-config
+
 ### 4.1.0 (2026-02-16)
 - (mcm1957) Adapetr requires node.js >= 20 now
 - (copilot) Adapter requires js-controller >= 6.0.11 now
