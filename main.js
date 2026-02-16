@@ -24,7 +24,7 @@ let adapter;
 
 function startAdapter(options) {
     options = options || {};
-    Object.assign(options, {name: adapterName});
+    Object.assign(options, { name: adapterName });
 
     adapter = new utils.Adapter(options);
 
@@ -46,8 +46,8 @@ async function ready() {
     let webPort = 8082;
     if (adapter.config.web) {
         try {
-           const webObj = await adapter.getForeignObjectAsync(`system.adapter.${adapter.config.web}`);
-           webPort = webObj.native.port;
+            const webObj = await adapter.getForeignObjectAsync(`system.adapter.${adapter.config.web}`);
+            webPort = webObj.native.port;
         } catch (e) {
             adapter.log.error(`Cannot get web port: ${e.toString()}`);
             webPort = 8082;
@@ -94,7 +94,7 @@ function unload(callback) {
 }
 
 // If started as allInOne/compact mode => return function to create instance
-if (typeof module !== undefined && module.parent) {
+if (typeof module !== 'undefined' && module.parent) {
     module.exports = startAdapter;
 } else {
     // or start the instance directly
