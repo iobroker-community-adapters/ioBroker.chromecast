@@ -60,7 +60,7 @@ Build on top of the following projects:
   ### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 4.1.1 (2026-02-16)
 - (mcm1957) Linting has been updated to @iobroker/eslint-config
 
 ### 4.1.0 (2026-02-16)
@@ -80,10 +80,6 @@ Build on top of the following projects:
 
 ### 3.4.0 (2024-04-13)
 * (neopholus) Support for devices located in different subnets has been added. [#154, #160]
-* (mcm1957) Dependencies have been updated
-
-### 3.3.0 (2024-04-07)
-* (mcm1957) Adapter requires node.js 18 and js-controller >= 5 now
 * (mcm1957) Dependencies have been updated
 
 ## License
