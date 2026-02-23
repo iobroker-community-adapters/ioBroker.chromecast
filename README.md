@@ -61,6 +61,7 @@ Build on top of the following projects:
 -->
 ## Changelog
 ### **WORK IN PROGRESS**
+- (copilot) Adapter requires admin >= 7.7.22 now
 - (mcm1957) Logging technical deatils reduced to debug level
 
 ### 4.1.1 (2026-02-16)
