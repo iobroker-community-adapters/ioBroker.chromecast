@@ -87,6 +87,8 @@ Build on top of the following projects:
 * (neopholus) Support for devices located in different subnets has been added. [#154, #160]
 * (mcm1957) Dependencies have been updated
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 The MIT License (MIT)
 
