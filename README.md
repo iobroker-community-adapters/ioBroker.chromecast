@@ -64,7 +64,8 @@ Build on top of the following projects:
 - (copilot) Adapter requires node.js >= 22 now
 - (copilot) Adapter requires admin >= 7.7.22 now
 - (mcm1957) Logging technical deatils reduced to debug level
-
+- (mcm1957) Dependencies have been updated
+- 
 ### 4.1.1 (2026-02-16)
 - (mcm1957) Linting has been updated to @iobroker/eslint-config
 
