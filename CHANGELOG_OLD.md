@@ -1,4 +1,10 @@
 # Older changes
+## 3.4.0 (2024-04-13)
+* (neopholus) Support for devices located in different subnets has been added. [#154, #160]
+* (mcm1957) Dependencies have been updated
+
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## 3.3.0 (2024-04-07)
 * (mcm1957) Adapter requires node.js 18 and js-controller >= 5 now
 * (mcm1957) Dependencies have been updated
