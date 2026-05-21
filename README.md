@@ -60,6 +60,9 @@ Build on top of the following projects:
   ### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+- (copilot) **ENHANCED**: Migrated adapter admin settings UI to jsonConfig with preserved configuration keys.
+
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now
 - (copilot) Adapter requires admin >= 7.7.22 now
