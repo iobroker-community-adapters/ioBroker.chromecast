@@ -1,0 +1,96 @@
+{
+    "type": "tabs",
+    "items": {
+        "main": {
+            "type": "panel",
+            "label": "Main settings",
+            "items": {
+                "web": {
+                    "type": "instance",
+                    "adapter": "web",
+                    "label": "Web instance:",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "webServer": {
+                    "type": "text",
+                    "label": "Web server IP:",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                }
+            }
+        },
+        "devices": {
+            "type": "panel",
+            "label": "Devices",
+            "items": {
+                "manualDevicesInfo": {
+                    "type": "staticText",
+                    "text": "The adapter will try to detect Google Home adapters in the same subnetwork using mDNS but you can also manually add devices below. Automatically detected devices have their MAC address as their name, but you can define any name you want.",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "manualDevices": {
+                    "type": "table",
+                    "label": "Manual devices",
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "name",
+                            "width": "30%"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "host",
+                            "title": "ip",
+                            "width": "30%"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "port",
+                            "title": "port",
+                            "width": "20%"
+                        },
+                        {
+                            "type": "select",
+                            "attr": "type",
+                            "title": "type",
+                            "width": "20%",
+                            "options": [
+                                {
+                                    "label": "Chromecast",
+                                    "value": "Chromecast"
+                                },
+                                {
+                                    "label": "Chromecast Audio",
+                                    "value": "Chromecast Audio"
+                                },
+                                {
+                                    "label": "Google Cast Group",
+                                    "value": "Google Cast Group"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
