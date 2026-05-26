@@ -145,7 +145,6 @@
     "readme": "https://github.com/iobroker-community-adapters/ioBroker.chromecast/blob/master/README.md",
     "loglevel": "info",
     "type": "multimedia",
-    "materialize": true,
     "restartAdapters": [
       "vis",
       "VIS-2"
@@ -207,7 +206,10 @@
           "cancel"
         ]
       }
-    ]
+    ],
+    "adminUI": {
+      "config": "materialize"
+    }
   },
   "native": {
     "web": "",
