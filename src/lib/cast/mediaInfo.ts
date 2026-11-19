@@ -70,20 +70,28 @@ export class MediaInfo extends EventEmitter {
                 try {
                     const con = MediaInfo.getRequestOptions(this.url);
 
-                    this.icyConnection = icy.get(con, res => {
+                    const request = icy.get(con, res => {
                         res.headers = res.headers || res.res?.headers;
                         const statusCode = res.statusCode || 0;
                         if (statusCode >= 300 && statusCode < 400) {
                             this.log.info(
                                 `${this.name} - Detected redirection (${statusCode}) to ${res.headers.location}`,
                             );
-                            this.url = res.headers.location as string;
+                            // The location may be relative to the URL that answered
+                            this.url = resolveUrl(this.url, res.headers.location as string);
+                            // The answer of the redirect is not needed
+                            this.closeIcyConnection();
                             connect();
                         } else {
                             resolve([this.url, res]);
                         }
                     });
-                    this.icyConnection.on('error', err => {
+                    this.icyConnection = request;
+                    request.on('error', err => {
+                        // An error of a request that was replaced (redirect) or closed is not ours any more
+                        if (this.icyConnection !== request) {
+                            return;
+                        }
                         // the JS version forgot the call here
                         this.closeIcyConnection();
                         reject(new Error(String(err)));
@@ -190,8 +198,23 @@ export class MediaInfo extends EventEmitter {
                 // Each element of the list gets a promise; they add their items directly to this.items
                 const itemPromises: Promise<void>[] = [];
 
+                // An HLS playlist (some servers send it as application/x-mpegURL) is one stream for the device: its
+                // lines are segments or variants, not titles
+                if (parser === M3U && body.includes('#EXT-X-')) {
+                    this.log.info(`${this.name} - Detected HLS -> play as stream`);
+                    this.addItem(this.url, this.contentType, { title: this.url });
+                    this.icyConnection = undefined;
+                    resolve(this.items);
+                    return;
+                }
+
                 const playlist = parser.parse(body);
                 for (const entry of playlist) {
+                    // playlist-parser returns undefined for M3U lines it does not understand, and a PLS entry may
+                    // have no file. castv2-player read entry.file anyway: an uncaught exception, the adapter crashed.
+                    if (!entry?.file) {
+                        continue;
+                    }
                     const theUrl = resolveUrl(baseUrl, entry.file);
                     const title = entry.title ? entry.title : entry.file;
                     const artist = entry.artist ? entry.artist : 'unknown';
@@ -205,9 +228,13 @@ export class MediaInfo extends EventEmitter {
                         // It did not work -> we need to access the URL directly (slower)
                         const itemMediaInfo = new MediaInfo(this.name, theUrl, this.log);
                         itemPromises.push(
-                            itemMediaInfo.getInfoPromise().then(itemList => {
-                                this.items = this.items.concat(itemList);
-                            }),
+                            itemMediaInfo
+                                .getInfoPromise()
+                                .then(itemList => {
+                                    this.items = this.items.concat(itemList);
+                                })
+                                // castv2-player never closed it: a radio stream in a playlist was downloaded forever
+                                .finally(() => itemMediaInfo.close()),
                         );
                     }
                 }

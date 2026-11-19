@@ -88,6 +88,12 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: local files can be played again ("is not an object of type meta", and the URL pointed to a folder that the web server does not know) [#323]
 - (bluefox) README: what mDNS discovery needs (firewall, Docker, subnets) [#164]
 - (bluefox) The library castv2-player (archived) is now part of the adapter, in TypeScript
+- (bluefox) Fixed: "Error disconnecting - TypeError: Cannot read properties of null (reading 'socket')" when a device closes the connection [#474, #204, #377]; the player is detached only once
+- (bluefox) Fixed: a disabled device connected again when its address changed; the adapter could crash when the address of a device changed
+- (bluefox) Fixed: an M3U playlist with lines the parser does not understand (e.g. HLS `.m3u8`) crashed the adapter; HLS is now played as one stream
+- (bluefox) Fixed: a radio stream in a playlist was downloaded until the adapter stopped; a redirect to a relative URL failed
+- (bluefox) Fixed: every played URL left a listener behind (MaxListenersExceededWarning after 10 URLs, more memory and CPU)
+- (bluefox) Fixed: `player.mute` was emptied on every volume change; a command that could not reconnect within 10 seconds logged the error `undefined`
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

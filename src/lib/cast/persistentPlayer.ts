@@ -54,6 +54,7 @@ export class PersistentPlayer extends EventEmitter {
     playUrl(url: string, options?: PlayOptions): Promise<void> {
         this.log.info(`${this.name} - Try to play url - ${url}`);
 
+        this.playlist.destroy();
         this.playlist = new Playlist(this.name, this, this.log);
 
         return this.playlist.addUrlPromise(url, options).catch(err => {
@@ -455,19 +456,22 @@ export class PersistentPlayer extends EventEmitter {
     }
 
     private detachPlayer(): void {
-        if (this.player) {
+        const player = this.player;
+        if (player) {
+            // Cleared first: close() emits "close", which calls detachPlayer() again (castv2-player then logged
+            // "Detached player" and emitted the events twice)
+            this.player = undefined;
+
             if (this.getStatusTimeout) {
                 clearTimeout(this.getStatusTimeout);
             }
 
             // Try to close in case we triggered the close
             try {
-                this.player.close();
+                player.close();
             } catch {
                 // ignore
             }
-
-            this.player = undefined;
 
             this.log.info(`${this.name} - Detached player`);
             this.status = undefined;

@@ -111,7 +111,6 @@ running instance via `sendTo`, handled in `onMessage()`:
 
 - `player.shuffleMode` cannot be written (the handler checks `player.shuffelMode`); documented in `help.ts`.
 - `player.state` is 1 (play) also while paused or idle: the device reports `playing`, never `play`.
-- `MediaPlayer.isMuted()` is always `undefined` (as in castv2-player); the real mute value comes with the player status.
 - If the MAC address of a found device cannot be read, the device ends up below `<namespace>.undefined`.
 - The default of `player.url2play` is `http:/example.org/playme.mp3` (one slash).
 - Metadata numbers (track, season, episode) are written as numbers into string states.

@@ -12,7 +12,10 @@ export interface CastConnection extends CastAddress {
     id: string;
     /** 'Chromecast', 'Chromecast Audio', 'Google Cast Group', ... */
     type: string;
-    /** The scanner calls the (last) registered callback whenever it sees the device again */
+    /**
+     * The scanner calls the (last) registered callback whenever it sees the device again. The device (not the media
+     * player) registers and passes the connection on to MediaPlayer.updateDevice().
+     */
     registerForUpdates(callback: (connection: CastConnection) => void): void;
 }
 
@@ -41,8 +44,8 @@ export class MediaPlayer extends EventEmitter {
 
         log.debug(`New device ${connection.name} at ${connection.host}:${connection.port}`);
 
-        // Register for updates
-        connection.registerForUpdates(device => this.updateDevice(device));
+        // castv2-player registered updateDevice() here. That replaced the callback of the device (there is only one),
+        // so after a device was enabled again, the scanner reconnected the media player that disabling had closed.
 
         this.client = new PersistentClient(connection, log);
 
@@ -77,9 +80,11 @@ export class MediaPlayer extends EventEmitter {
         return this.player.playUrl(url, options);
     }
 
+    /** Disconnects; the events of the disconnect are the last ones */
     close(): void {
         this.player.close();
         this.client.close();
+        this.removeAllListeners();
     }
 
     // CLIENT ACTIONS
@@ -89,12 +94,9 @@ export class MediaPlayer extends EventEmitter {
         return this.client.getVolume();
     }
 
-    /**
-     * Should be the mute flag, but castv2-player read `.muted` from the number that getVolume() returns, so it was
-     * always `undefined`. Kept as it was.
-     */
-    isMuted(): boolean | undefined {
-        return undefined;
+    /** Mute flag from the cached receiver status (castv2-player read `.muted` from the number of getVolume(): undefined) */
+    isMuted(): boolean {
+        return this.client.getIsMuted();
     }
 
     setVolumePromise(volume: number): Promise<number> {

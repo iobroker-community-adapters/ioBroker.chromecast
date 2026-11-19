@@ -14,13 +14,22 @@ export class Playlist {
     private mediaList: CastQueueItem[] = [];
     private mediaListById: Record<number, CastQueueItem> | undefined;
     private idToIndex: Record<number, number> | undefined;
+    private readonly onPlayerStatus = (status?: CastPlayerStatus): void => this.gotPlayerStatus(status);
 
     constructor(
         private readonly name: string,
         private readonly player: PersistentPlayer,
         private readonly log: CastLogger,
     ) {
-        player.on(player.EVENT_STATUS, (status?: CastPlayerStatus) => this.gotPlayerStatus(status));
+        player.on(player.EVENT_STATUS, this.onPlayerStatus);
+    }
+
+    /**
+     * Stops following the status of the player. castv2-player never did: each played URL left its playlist behind,
+     * which compared its list with every status (MaxListenersExceededWarning after 10 URLs, more memory and CPU).
+     */
+    destroy(): void {
+        this.player.removeListener(this.player.EVENT_STATUS, this.onPlayerStatus);
     }
 
     /** Reads the URL (a media file, a stream or a playlist) and loads its items as the new queue of the device */

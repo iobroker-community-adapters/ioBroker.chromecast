@@ -696,7 +696,7 @@ export class ChromecastDevice {
                 val: this.mediaPlayer.getVolume(),
                 ack: true,
             });
-            // isMuted() is always undefined (as in castv2-player); the real value comes with the player status
+            // the mute flag of the receiver (castv2-player always gave undefined here)
             await this.adapter.setStateAsync(`${this.id}.player.mute`, {
                 val: this.mediaPlayer.isMuted(),
                 ack: true,

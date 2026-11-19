@@ -31,6 +31,8 @@ export class PersistentClient extends EventEmitter {
     castClient: Client | undefined;
     private connectingCastClient: Client | undefined;
     private clientTimeout: NodeJS.Timeout | undefined;
+    /** Removes the listener that reconnects when the device closes the connection */
+    private removeCloseListener: (() => void) | undefined;
 
     private status: CastClientStatus | undefined;
     private previousStatus: CastClientStatus | undefined;
@@ -134,15 +136,18 @@ export class PersistentClient extends EventEmitter {
     }
 
     getIsMuted(): boolean {
-        if (this.status) {
-            return (this.status.volume as CastVolume).muted;
-        }
-        return false;
+        return this.status?.volume ? this.status.volume.muted : false;
     }
+
+    /** castv2-client emits "error"; without a listener that is an uncaught exception */
+    private readonly ignoreError = (err: Error): void => {
+        this.log.debug(`${this.name} - Error of a closed connection (ignored) - ${err}`);
+    };
 
     private closeClient(): void {
         if (this.connectingCastClient) {
             this.connectingCastClient.removeAllListeners('error');
+            this.connectingCastClient.on('error', this.ignoreError);
             try {
                 this.connectingCastClient.close();
             } catch (e) {
@@ -153,13 +158,21 @@ export class PersistentClient extends EventEmitter {
 
         // If the connection is open, try to close it
         if (this.castClient) {
+            // Closed by us: do not reconnect. (castv2-player tried this with removeListener() of a new bound function on
+            // the wrong object, so a disabled device connected again at once.)
+            this.removeCloseListener?.();
+            this.removeCloseListener = undefined;
+
             try {
                 // We do not want to retry on the error
                 this.castClient.removeAllListeners('error');
+                this.castClient.on('error', this.ignoreError);
 
-                // Close the connection. castv2-client sets `client` to null when the device closed the connection.
-                this.castClient.client!.socket!.destroy();
-                this.castClient.close();
+                // When the device closed the connection, castv2-client has cleaned up already and set `client` to null
+                // (castv2-player read client.socket here: "Cannot read properties of null (reading 'socket')")
+                if (this.castClient.client?.socket) {
+                    this.castClient.close();
+                }
             } catch (e) {
                 this.log.error(`${this.name} - Error disconnecting - ${e}`);
             }
@@ -210,17 +223,27 @@ export class PersistentClient extends EventEmitter {
                 this.castClient = connectingClient;
                 this.connectingCastClient = undefined;
 
-                // If the connection closes afterwards, open it again
-                connectingClient.client!.once('close', () => {
+                // If the device closes the connection, open it again
+                const channel = connectingClient.client!;
+                const onClose = (): void => {
+                    this.removeCloseListener = undefined;
                     this.closeClient();
                     this.connectClient();
-                });
+                };
+                channel.once('close', onClose);
+                this.removeCloseListener = () => channel.removeListener('close', onClose);
 
                 // Register for status updates
                 connectingClient.on('status', (status: CastClientStatus) => this.updateStatus(status));
 
-                // Trigger a status update
-                connectingClient.getStatus((_err, status) => this.updateStatus(status as CastClientStatus));
+                // Trigger a status update (without status on an error, which the player could not handle)
+                connectingClient.getStatus((err, status) => {
+                    if (err) {
+                        this.log.warn(`${this.name} - Cannot get the status - ${err}`);
+                    } else {
+                        this.updateStatus(status as CastClientStatus);
+                    }
+                });
 
                 this.emit(this.EVENT_CONNECTED);
             });
@@ -256,16 +279,21 @@ export class PersistentClient extends EventEmitter {
         this.log.warn(`${this.name} - Waiting up to ${CONNECTION_TIMEOUT / 1000} seconds for connection to chromecast`);
 
         return new Promise((resolve, reject) => {
-            const timeout = setTimeout(
-                reject.bind(new Error('Could not connect after 10 seconds')),
-                CONNECTION_TIMEOUT,
-            );
-            this.once(this.EVENT_STATUS, () => {
+            // castv2-player rejected with undefined (reject.bind(error) sets `this`, not the argument) and left the
+            // listener behind, which later logged "Reconnected" for a request that had failed long ago
+            // eslint-disable-next-line prefer-const -- the listener clears it, the timeout removes the listener
+            let timeout: NodeJS.Timeout | undefined;
+            const onStatus = (): void => {
                 // If we receive a client status, we are connected
                 clearTimeout(timeout);
                 resolve(this.castClient as Client);
                 this.log.warn(`${this.name} - Reconnected -> continue`);
-            });
+            };
+            this.once(this.EVENT_STATUS, onStatus);
+            timeout = setTimeout(() => {
+                this.removeListener(this.EVENT_STATUS, onStatus);
+                reject(new Error('Could not connect after 10 seconds'));
+            }, CONNECTION_TIMEOUT);
         });
     }
 
