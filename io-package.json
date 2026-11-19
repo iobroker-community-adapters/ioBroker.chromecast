@@ -209,6 +209,9 @@
     ],
     "adminUI": {
       "config": "materialize"
+    },
+    "supportedMessages": {
+      "help": true
     }
   },
   "native": {

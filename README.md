@@ -50,6 +50,11 @@ Build on top of the following projects:
   * Note: this does not work with SSDP -> disable by default in adapter settings
 * Play again last played stream: just set _chromecast.0.`<your device>`.status.playing_ to _true_
 
+## Messages for scripts and AI agents
+`sendTo('chromecast.0', 'help', {})` answers `{ help, commands }`: a description of the device states that play a URL or an
+announcement, control the player and show what plays, for AI agents (e.g. ioBroker.pi-agent) and script authors. `commands`
+lists every message the instance answers with `write: true` for the ones that change something (`help` is the only one).
+
 ## What is missing?
 * add state machine to track states: detected ->connected -> player loader -> playing
 * add retries: sometimes the Google Home fails to respond to a request
@@ -64,6 +69,7 @@ Build on top of the following projects:
 ### **WORK IN PROGRESS**
 - (copilot) Adapter requires node.js >= 22.19.0 now
 - (raintonr) Move castv2-player 'info' logging to 'debug' [#550]
+- (bluefox) Added the message "help": a description of the states for AI agents (e.g. pi-agent), and common.supportedMessages.help
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

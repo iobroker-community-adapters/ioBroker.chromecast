@@ -19,6 +19,7 @@ agent.start({
 // you have to require the utils module and call adapter function
 const utils = require('@iobroker/adapter-core');
 const adapterName = require('./package.json').name.split('.').pop();
+const { COMMANDS, HELP } = require('./lib/help');
 
 let adapter;
 
@@ -30,6 +31,7 @@ function startAdapter(options) {
 
     adapter.on('ready', ready);
     adapter.on('unload', unload);
+    adapter.on('message', onMessage);
 
     return adapter;
 }
@@ -79,6 +81,20 @@ async function ready() {
 
     // in this template all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
+}
+
+/**
+ * Only "help": everything else is done by writing states
+ *
+ * @param {ioBroker.Message} obj the message
+ */
+function onMessage(obj) {
+    if (obj?.command === 'help') {
+        // A description of the adapter and its states for AI agents and script authors
+        if (obj.callback) {
+            adapter.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+        }
+    }
 }
 
 function unload(callback) {
