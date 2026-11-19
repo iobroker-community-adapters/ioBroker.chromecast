@@ -431,7 +431,8 @@ export class ChromecastDevice {
             // Playlist channel
             'playlist.list': {
                 name: `${channels.playlist.name as string} list`,
-                def: [],
+                // js-controller wants the default of an array state stringified
+                def: '[]',
                 type: 'array',
                 read: true,
                 write: false,
@@ -592,6 +593,12 @@ export class ChromecastDevice {
                 common,
                 native: {},
             });
+        }
+
+        // Older versions created playlist.list with the default [] (not stringified), which js-controller warns about
+        const listObj = await this.adapter.getObjectAsync(`${this.id}.playlist.list`);
+        if (listObj && typeof (listObj.common as ioBroker.StateCommon).def !== 'string') {
+            await this.adapter.extendObjectAsync(`${this.id}.playlist.list`, { common: { def: '[]' } });
         }
 
         // Set some objects

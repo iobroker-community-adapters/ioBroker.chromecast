@@ -75,6 +75,7 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: the adapter crashed when the connection closed after a YouTube video, and the ack of `url2play` for YouTube went to `undefined.player.url2play`
 - (bluefox) Fixed: a disabled device can be enabled again, the acks of `enabled`, `status.playing` and `playlist.jump` are written to the device, and a device no longer reacts to the states of another device whose name starts with its name
 - (bluefox) Fixed: `vis-2` is restarted after an update of the adapter (`restartAdapters` said `VIS-2`)
+- (bluefox) Fixed: warning "Default value has to be stringified" for `playlist.list`; existing objects are corrected [#333]
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now
