@@ -28,6 +28,14 @@ Build on top of the following projects:
 4. Write a URL such as [http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3](http://edge.live.mp3.mdn.newmedia.nacamar.net/ps-dieneue_rock/livestream_hi.mp3) to the chromecast.0.`<your chromecast name>`.player.url2play
 5. The URL should start playing on your device
 
+### No device found?
+The devices are found with mDNS (multicast DNS: UDP port 5353, group 224.0.0.251). The adapter controls them over TCP
+port 8009.
+* Allow incoming UDP port 5353 in the firewall of the ioBroker host (e.g. `sudo ufw allow 5353/udp`).
+* Docker: run the container with the network mode `host` (or macvlan); multicast does not pass the default bridge network.
+* mDNS does not pass routers: devices in another subnet or VLAN are only found with an mDNS reflector on the router.
+  Otherwise, add them by hand in the tab "Devices" of the settings.
+
 ## Features
 * detect devices with multicast-dns
   * optionally add additional manually configured devices in admin pannel, tab "devices"
@@ -78,6 +86,7 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: warning "Default value has to be stringified" for `playlist.list`; existing objects are corrected [#333]
 - (bluefox) Fixed: endless status requests (hundreds of log lines per second, high CPU load) while an app plays that reports no playlist, e.g. Android TV apps [#241]; "not enabled" is logged only once per disabled device; no more "Cannot get status" after the start for devices that play nothing
 - (bluefox) Fixed: local files can be played again ("is not an object of type meta", and the URL pointed to a folder that the web server does not know) [#323]
+- (bluefox) README: what mDNS discovery needs (firewall, Docker, subnets) [#164]
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now
