@@ -149,7 +149,7 @@
     "type": "multimedia",
     "restartAdapters": [
       "vis",
-      "VIS-2"
+      "vis-2"
     ],
     "dependencies": [
       {
