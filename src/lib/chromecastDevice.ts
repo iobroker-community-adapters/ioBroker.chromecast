@@ -977,10 +977,8 @@ export class ChromecastDevice {
                             this.adapter.log.error(`Error loading Youtube: ${err}`);
                         } else {
                             this.adapter.log.debug('Youtube should be playing!');
-                            // The JS version wrote to `${this.mac}.player.url2play`, but `mac` never existed.
-                            // Kept as it was, see the separate bug fix commit.
                             this.adapter
-                                .setStateAsync('undefined.player.url2play', { val: originalUrl, ack: true })
+                                .setStateAsync(`${this.id}.player.url2play`, { val: originalUrl, ack: true })
                                 .catch(e => this.adapter.log.error(`${this.name} - ${e}`));
                         }
                     });

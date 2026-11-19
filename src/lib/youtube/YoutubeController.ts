@@ -22,10 +22,8 @@ export class YoutubeController extends RequestResponseController {
 
     constructor(client: unknown, sourceId: string, destinationId: string) {
         super(client, sourceId, destinationId, YOUTUBE_URN);
-
-        // Legacy (copied from chromecast-api): RequestResponseController has no stop(), so this throws when the
-        // channel closes. Kept 1:1 in the TypeScript translation, see the separate bug fix commit.
-        this.once('close', () => (this as unknown as { stop: () => void }).stop());
+        // The original (chromecast-api) called this.stop() on "close", which does not exist on a controller and threw
+        // an uncaught TypeError when the connection to the device closed. There is nothing to stop.
     }
 
     load(videoId: string, callback?: Callback): void {
@@ -79,16 +77,14 @@ export class YoutubeController extends RequestResponseController {
 
         this.controlRequest({ type: 'getMdxSessionStatus' }, (err, body) => {
             if (err) {
-                // Legacy (copied from chromecast-api): no return here, so the callback is called a second time below
-                cb(err);
+                return cb(err);
             }
 
-            try {
-                // throws if there is no body or no body.data
-                this.screenId = (body as MdxMessage).data!.screenId as string;
-            } catch {
+            const screenId = body?.data?.screenId;
+            if (!screenId) {
                 return cb(new Error('Failed to fetch screen ID'));
             }
+            this.screenId = screenId;
 
             cb(null, this.screenId);
         });
