@@ -1,0 +1,15 @@
+{
+    "Main settings": "主要设置",
+    "Devices": "设备",
+    "Web instance": "Web 实例",
+    "Used to play local files: they are copied into the file storage of the adapter and served by this web instance": "用于播放本地文件：文件会被复制到适配器的文件存储中，并由此 Web 实例提供",
+    "Web server IP": "Web 服务器 IP",
+    "The adapter finds Google Cast devices in the same subnet via mDNS. Devices in other subnets can be added here by hand.": "适配器通过 mDNS 查找同一子网中的 Google Cast 设备。其他子网中的设备可以在此手动添加。",
+    "Found devices get their MAC address as ID, devices added by hand the name entered here.": "找到的设备以其 MAC 地址作为 ID，手动添加的设备以此处输入的名称作为 ID。",
+    "Name": "名称",
+    "IP address": "IP 地址",
+    "Port": "端口",
+    "Type": "类型",
+    "Cannot use web server with authentication": "无法使用带身份验证的 Web 服务器",
+    "Cannot use web server only on localhost": "无法使用仅在 localhost 上监听的 Web 服务器"
+}
