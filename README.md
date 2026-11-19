@@ -9,6 +9,9 @@
 [![Translation status](https://weblate.iobroker.net/widgets/adapters/-/chromecast/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.chromecast.svg)](https://www.npmjs.com/package/iobroker.chromecast)
 
+> [!IMPORTANT]
+> This adapter cannot be installed from github
+
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## A Google Home adapter for ioBroker
@@ -99,6 +102,8 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 - (bluefox) Fixed: a radio stream in a playlist was downloaded until the adapter stopped; a redirect to a relative URL failed
 - (bluefox) Fixed: every played URL left a listener behind (MaxListenersExceededWarning after 10 URLs, more memory and CPU)
 - (bluefox) Fixed: `player.mute` was emptied on every volume change; a command that could not reconnect within 10 seconds logged the error `undefined`
+- (bluefox) Fixed: writing `player.shuffleMode` switches shuffle on and off (it only logged "update not supported"), and `player.shuffleMode` shows the shuffle of the device
+- (bluefox) Fixed: `player.state` was always 1 (play); it is 0 while paused and 2 while idle
 - (bluefox) mime-types 3: without a content type from the server, `.aac` is played as `audio/aac` and `.wav` as `audio/wav`; `.mts`, `.m2ts` and `.m4b` are known now
 - (bluefox) Fixed: titles of M3U playlists: `#EXTINF:-1,Radio Bob` showed "-1,Radio Bob"; attributes (`tvg-logo=…`) and lines like `#EXTVLCOPT` ended up in the title, and "Artist - Song - Remastered" was split at the last dash
 - (bluefox) Fixed: an entry of a playlist without file extension (e.g. the URL of a radio station) showed its URL instead of the title of the playlist; without an artist in the playlist the artist is "--" (was "unknown")
