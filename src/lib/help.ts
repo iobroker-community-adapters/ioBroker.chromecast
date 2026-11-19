@@ -30,7 +30,7 @@ Play (each replaces what plays, except the announcement):
   webm, HLS, internet radio); an M3U, PLS or ASX playlist (loaded as a queue for next / prev); or a YouTube video URL
   (youtube.com/watch?v=<id>, youtu.be/<id>, music.youtube.com/watch?v=<id>: starts the YouTube app). Text without
   http = the path of a file on the ioBroker host, only if the web server is set in the settings of the adapter.
-  When the device has loaded it, url2play is acknowledged with the URL (not for YouTube).
+  When the device has loaded it (YouTube: the video), url2play is acknowledged with the URL.
 - player.announcement (string, http(s) URL of a sound or a speech file): plays it now, then the playlist that played
   before goes on; acknowledged with the URL when done. Speech from a text: the adapter sayit (output Chromecast).
 - status.playing = true: plays the last URL (player.contentId, else url2play) again; false: stops.
