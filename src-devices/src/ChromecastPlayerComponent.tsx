@@ -4,8 +4,8 @@
 // stop. The states, relative to the device `chromecast.<n>.<device>`:
 //
 //     status.connected                 boolean  the adapter is connected to the device
-//     status.playerState               string   playing, paused, buffering, idle or stop: the state to trust
-//                                               (`player.state` is 1 = play also while paused, a kept quirk)
+//     status.playerState               string   playing, paused, buffering, idle or stop (`player.state` does
+//                                               not tell buffering from playing)
 //     status.displayName               string   the app that casts (Backdrop = the idle screen)
 //     status.text                      string   the status text of the app
 //     metadata.title|artist|album|cover          what plays, if the app reports it

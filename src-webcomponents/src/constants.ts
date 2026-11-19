@@ -15,8 +15,8 @@ export const COMPONENT = {
 export const MODULE_FOLDER = 'webcomponents';
 
 /**
- * The states of a Cast device the player reads, below `chromecast.<n>.<device>`. `status.playerState` is the state
- * to trust: `player.state` is 1 (play) also while paused, a quirk the adapter keeps.
+ * The states of a Cast device the player reads, below `chromecast.<n>.<device>`. `status.playerState` tells playing,
+ * paused, buffering and idle apart (`player.state` does not tell buffering from playing).
  */
 export const PLAYER_STATES = [
     'status.connected',

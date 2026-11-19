@@ -128,13 +128,11 @@ running instance via `sendTo`, handled in `onMessage()`:
 The settings of the devices widget pick the device with `selectSendTo` `chromecast:getDevices` (answered by
 `getDeviceOptions()`: the device objects of the instance, value = the ID below the namespace). The web component uses
 an `objectId` picker (`types: device`, `root: chromecast`) instead, so it works without a running instance. Both derive
-playing / paused from `status.playerState` (not `player.state`), "play" writes `player.play` when paused and
-`status.playing` (play the last URL again) otherwise.
+playing / paused / buffering from `status.playerState` (it tells buffering from playing, `player.state` does not),
+"play" writes `player.play` when paused and `status.playing` (play the last URL again) otherwise.
 
 ## Known quirks (kept on purpose so that existing installations do not change)
 
-- `player.shuffleMode` cannot be written (the handler checks `player.shuffelMode`); documented in `help.ts`.
-- `player.state` is 1 (play) also while paused or idle: the device reports `playing`, never `play`.
 - If the MAC address of a found device cannot be read, the device ends up below `<namespace>.undefined`.
 - The default of `player.url2play` is `http:/example.org/playme.mp3` (one slash).
 - Metadata numbers (track, season, episode) are written as numbers into string states.
