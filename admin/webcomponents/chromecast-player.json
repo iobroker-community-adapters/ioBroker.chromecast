@@ -1,0 +1,182 @@
+{
+    "$schema": "https://raw.githubusercontent.com/ioBroker/web-components/main/schemas/manifest.json",
+    "manifestVersion": 1,
+    "tag": "iob-chromecast-player",
+    "name": {
+        "en": "Cast player",
+        "de": "Cast-Player",
+        "ru": "Cast-плеер",
+        "pt": "Leitor Cast",
+        "nl": "Cast-speler",
+        "fr": "Lecteur Cast",
+        "it": "Lettore Cast",
+        "es": "Reproductor Cast",
+        "pl": "Odtwarzacz Cast",
+        "uk": "Cast-плеєр",
+        "zh-cn": "Cast 播放器"
+    },
+    "description": {
+        "en": "What a Google Cast device plays, with play, pause and stop",
+        "de": "Was ein Google-Cast-Gerät abspielt, mit Abspielen, Pause und Stopp",
+        "ru": "Что воспроизводит устройство Google Cast, с кнопками воспроизведения, паузы и стопа",
+        "pt": "O que um dispositivo Google Cast reproduz, com reproduzir, pausa e parar",
+        "nl": "Wat een Google Cast-apparaat afspeelt, met afspelen, pauze en stoppen",
+        "fr": "Ce que lit un appareil Google Cast, avec lecture, pause et arrêt",
+        "it": "Cosa riproduce un dispositivo Google Cast, con riproduci, pausa e stop",
+        "es": "Lo que reproduce un dispositivo Google Cast, con reproducir, pausa y detener",
+        "pl": "Co odtwarza urządzenie Google Cast, z odtwarzaniem, pauzą i zatrzymaniem",
+        "uk": "Що відтворює пристрій Google Cast, з відтворенням, паузою та зупинкою",
+        "zh-cn": "Google Cast 设备正在播放的内容，带播放、暂停和停止"
+    },
+    "icon": "../dm-widgets/player.png",
+    "module": "chromecast-player.js",
+    "size": {
+        "width": 400,
+        "height": 220
+    },
+    "settings": {
+        "type": "panel",
+        "items": {
+            "device": {
+                "type": "objectId",
+                "types": "device",
+                "root": "chromecast",
+                "label": {
+                    "en": "Cast device",
+                    "de": "Cast-Gerät",
+                    "ru": "Cast-устройство",
+                    "pt": "Dispositivo Cast",
+                    "nl": "Cast-apparaat",
+                    "fr": "Appareil Cast",
+                    "it": "Dispositivo Cast",
+                    "es": "Dispositivo Cast",
+                    "pl": "Urządzenie Cast",
+                    "uk": "Cast-пристрій",
+                    "zh-cn": "Cast 设备"
+                },
+                "help": {
+                    "en": "A Cast device or speaker group of an instance of the adapter",
+                    "de": "Ein Cast-Gerät oder eine Lautsprechergruppe einer Instanz des Adapters",
+                    "ru": "Cast-устройство или группа колонок экземпляра адаптера",
+                    "pt": "Um dispositivo Cast ou grupo de colunas de uma instância do adaptador",
+                    "nl": "Een Cast-apparaat of luidsprekergroep van een instantie van de adapter",
+                    "fr": "Un appareil Cast ou un groupe d’enceintes d’une instance de l’adaptateur",
+                    "it": "Un dispositivo Cast o un gruppo di altoparlanti di un’istanza dell’adattatore",
+                    "es": "Un dispositivo Cast o grupo de altavoces de una instancia del adaptador",
+                    "pl": "Urządzenie Cast lub grupa głośników instancji adaptera",
+                    "uk": "Cast-пристрій або група колонок екземпляра адаптера",
+                    "zh-cn": "适配器实例的 Cast 设备或扬声器组"
+                }
+            },
+            "title": {
+                "type": "text",
+                "label": {
+                    "en": "Name",
+                    "de": "Name",
+                    "ru": "Имя",
+                    "pt": "Nome",
+                    "nl": "Naam",
+                    "fr": "Nom",
+                    "it": "Nome",
+                    "es": "Nombre",
+                    "pl": "Nazwa",
+                    "uk": "Назва",
+                    "zh-cn": "名称"
+                },
+                "help": {
+                    "en": "Empty: the name of the Cast device",
+                    "de": "Leer: der Name des Cast-Geräts",
+                    "ru": "Пусто: имя Cast-устройства",
+                    "pt": "Vazio: o nome do dispositivo Cast",
+                    "nl": "Leeg: de naam van het Cast-apparaat",
+                    "fr": "Vide : le nom de l’appareil Cast",
+                    "it": "Vuoto: il nome del dispositivo Cast",
+                    "es": "Vacío: el nombre del dispositivo Cast",
+                    "pl": "Puste: nazwa urządzenia Cast",
+                    "uk": "Порожньо: назва Cast-пристрою",
+                    "zh-cn": "留空：Cast 设备的名称"
+                }
+            },
+            "showCover": {
+                "type": "checkbox",
+                "default": true,
+                "label": {
+                    "en": "Show cover",
+                    "de": "Cover anzeigen",
+                    "ru": "Показывать обложку",
+                    "pt": "Mostrar capa",
+                    "nl": "Hoes tonen",
+                    "fr": "Afficher la pochette",
+                    "it": "Mostra copertina",
+                    "es": "Mostrar carátula",
+                    "pl": "Pokaż okładkę",
+                    "uk": "Показувати обкладинку",
+                    "zh-cn": "显示封面"
+                }
+            },
+            "showSkip": {
+                "type": "checkbox",
+                "default": true,
+                "label": {
+                    "en": "Show previous / next",
+                    "de": "Zurück / Weiter anzeigen",
+                    "ru": "Показывать «назад / вперёд»",
+                    "pt": "Mostrar anterior / seguinte",
+                    "nl": "Vorige / volgende tonen",
+                    "fr": "Afficher précédent / suivant",
+                    "it": "Mostra precedente / successivo",
+                    "es": "Mostrar anterior / siguiente",
+                    "pl": "Pokaż poprzedni / następny",
+                    "uk": "Показувати «назад / далі»",
+                    "zh-cn": "显示上一个 / 下一个"
+                }
+            },
+            "showVolume": {
+                "type": "checkbox",
+                "default": true,
+                "label": {
+                    "en": "Show volume",
+                    "de": "Lautstärke anzeigen",
+                    "ru": "Показывать громкость",
+                    "pt": "Mostrar volume",
+                    "nl": "Volume tonen",
+                    "fr": "Afficher le volume",
+                    "it": "Mostra volume",
+                    "es": "Mostrar volumen",
+                    "pl": "Pokaż głośność",
+                    "uk": "Показувати гучність",
+                    "zh-cn": "显示音量"
+                }
+            },
+            "accent": {
+                "type": "color",
+                "label": {
+                    "en": "Accent color",
+                    "de": "Akzentfarbe",
+                    "ru": "Цвет акцента",
+                    "pt": "Cor de destaque",
+                    "nl": "Accentkleur",
+                    "fr": "Couleur d’accent",
+                    "it": "Colore di accento",
+                    "es": "Color de acento",
+                    "pl": "Kolor akcentu",
+                    "uk": "Колір акценту",
+                    "zh-cn": "强调色"
+                },
+                "help": {
+                    "en": "Color of the slider and of the active button; empty: the color of the theme",
+                    "de": "Farbe des Reglers und der aktiven Taste; leer: die Farbe des Themes",
+                    "ru": "Цвет ползунка и активной кнопки; пусто: цвет темы",
+                    "pt": "Cor do controlo deslizante e do botão ativo; vazio: a cor do tema",
+                    "nl": "Kleur van de schuifregelaar en de actieve knop; leeg: de kleur van het thema",
+                    "fr": "Couleur du curseur et du bouton actif ; vide : la couleur du thème",
+                    "it": "Colore del cursore e del pulsante attivo; vuoto: il colore del tema",
+                    "es": "Color del control deslizante y del botón activo; vacío: el color del tema",
+                    "pl": "Kolor suwaka i aktywnego przycisku; puste: kolor motywu",
+                    "uk": "Колір повзунка та активної кнопки; порожньо: колір теми",
+                    "zh-cn": "滑块和活动按钮的颜色；留空：主题颜色"
+                }
+            }
+        }
+    }
+}

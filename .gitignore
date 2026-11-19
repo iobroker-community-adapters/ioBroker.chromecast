@@ -13,3 +13,10 @@ tmp
 # TypeScript output
 build
 *.tsbuildinfo
+
+# devices widget and web component: the sources build into admin/dm-widgets and admin/webcomponents, which ARE committed
+src-devices/build
+src-devices/node_modules
+src-devices/.__mf__temp/
+src-webcomponents/build
+src-webcomponents/node_modules
