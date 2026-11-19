@@ -1000,7 +1000,8 @@ export class ChromecastDevice {
         const namespace = `${this.adapter.namespace}.${this.id}`;
 
         if (
-            fullId.indexOf(namespace) !== 0 ||
+            // with the dot: device "Kitchen" must not get the states of device "Kitchen_2"
+            !fullId.startsWith(`${namespace}.`) ||
             !state ||
             // you can use the ack flag to detect if it is status (true) or command (false)
             state.ack ||
@@ -1015,18 +1016,19 @@ export class ChromecastDevice {
         // Warning, state can be null if it was deleted
         this.adapter.log.debug(`${name} - device stateChange ${id} ${JSON.stringify(state)}`);
 
+        // "enabled" must work without a media player, otherwise a disabled device could never be enabled again
+        if (id === 'enabled') {
+            await this.initMediaPlayer();
+            await this.adapter.setStateAsync(`${this.id}.enabled`, { val: state.val, ack: true });
+            return;
+        }
+
         if (!this.mediaPlayer) {
             this.adapter.log.info(`${name} - adapter disabled - ignoring  stateChange ${id} ${JSON.stringify(state)}`);
             return;
         }
 
         switch (id) {
-            case 'enabled':
-                await this.initMediaPlayer();
-                // Legacy: relative id => writes "<namespace>.enabled", not the state of the device
-                await this.adapter.setStateAsync(id, { val: state.val, ack: true });
-                break;
-
             case 'player.volume':
                 this.mediaPlayer
                     .setVolumePromise(state.val as number)
@@ -1063,8 +1065,7 @@ export class ChromecastDevice {
                             await this.playURL(url2playState.val);
                         } else {
                             // Could not find a valid link to play -> set to false again
-                            // Legacy: relative id => writes "<namespace>.status.playing"
-                            await this.adapter.setStateAsync(id, false);
+                            await this.adapter.setStateAsync(`${this.id}.status.playing`, { val: false, ack: true });
                         }
                     }
                 } else {
@@ -1127,8 +1128,7 @@ export class ChromecastDevice {
             case 'playlist.jump':
                 this.mediaPlayer
                     .jumpInPlaylistPromise(state.val as number)
-                    // Legacy: relative id => writes "<namespace>.playlist.jump"
-                    .then(() => this.adapter.setStateAsync(id, { val: state.val, ack: true }))
+                    .then(() => this.adapter.setStateAsync(`${this.id}.playlist.jump`, { val: state.val, ack: true }))
                     .catch(err => this.adapter.log.error(`${name} - Could not jump: ${err}`));
                 break;
 
