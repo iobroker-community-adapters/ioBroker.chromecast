@@ -76,6 +76,7 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: a disabled device can be enabled again, the acks of `enabled`, `status.playing` and `playlist.jump` are written to the device, and a device no longer reacts to the states of another device whose name starts with its name
 - (bluefox) Fixed: `vis-2` is restarted after an update of the adapter (`restartAdapters` said `VIS-2`)
 - (bluefox) Fixed: warning "Default value has to be stringified" for `playlist.list`; existing objects are corrected [#333]
+- (bluefox) Fixed: endless status requests (hundreds of log lines per second, high CPU load) while an app plays that reports no playlist, e.g. Android TV apps [#241]; "not enabled" is logged only once per disabled device; no more "Cannot get status" after the start for devices that play nothing
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

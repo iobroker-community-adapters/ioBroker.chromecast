@@ -57,6 +57,10 @@ export class ChromecastDevice {
     /** ID below the adapter namespace: MAC address without ":", groups.<id> or the name from the settings */
     private id = '';
     private mediaPlayer: CastMediaPlayer | undefined;
+    /** A full status (with the playlist) was requested; reset when one arrives or the player is detached */
+    private statusRequested = false;
+    /** "not enabled" was logged; the scanner reports the device on every mDNS answer, so log it only once */
+    private notEnabledLogged = false;
 
     private readonly stateChangeHandler = (id: string, state: ioBroker.State | null | undefined): void => {
         this.onStateChange(id, state).catch(e => this.adapter.log.error(`${this.name} - ${e}`));
@@ -137,8 +141,14 @@ export class ChromecastDevice {
         }
 
         if (state && !state.val) {
-            this.adapter.log.info(`${this.name} - not enabled`);
+            if (!this.notEnabledLogged) {
+                this.notEnabledLogged = true;
+                this.adapter.log.info(`${this.name} - not enabled`);
+            }
         } else {
+            this.notEnabledLogged = false;
+            this.statusRequested = false;
+
             // Create media player
             const mediaPlayer = new this.MediaPlayer(this.connection);
             this.mediaPlayer = mediaPlayer;
@@ -731,6 +741,8 @@ export class ChromecastDevice {
     }
 
     private async stoppedPlayerStatus(): Promise<void> {
+        // The player was detached: the next player may need a full status again
+        this.statusRequested = false;
         await this.adapter.setStateAsync(`${this.id}.status.playing`, { val: false, ack: true });
     }
 
@@ -791,15 +803,20 @@ export class ChromecastDevice {
 
         // Playlist
         if (status.items && status.items.length > 0 && status.items[0] && status.items[0].media) {
+            this.statusRequested = false;
             await this.setStateIfChanged(
                 `${this.id}.playlist.list`,
                 { val: JSON.stringify(status.items), ack: true },
                 JSON.stringify(cachedStatus.items),
             );
-        } else {
-            // Uncompleted status - trigger a new one - this happens after the playlist starts again
+        } else if (this.mediaPlayer && !this.statusRequested && Object.keys(status).length) {
+            // Uncompleted status - trigger a new one - this happens after the playlist starts again.
+            // Only once: apps that never report a playlist (Android TV apps, Prime Video, ...) answer with another
+            // status without playlist, which requested the next one - hundreds of requests per second.
+            // An empty status is the reset at start: nothing plays, so the request would only time out.
+            this.statusRequested = true;
             this.mediaPlayer
-                ?.getStatusPromise()
+                .getStatusPromise()
                 .catch(err => this.adapter.log.error(`${this.name}- Cannot get status: ${err}`));
         }
 
