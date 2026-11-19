@@ -51,7 +51,7 @@ two front-ends with `@iobroker/build-tools`. CI does not build them: run `build:
 | --- | --- |
 | `src/main.ts` | `ChromecastAdapter extends utils.Adapter`: config, mDNS scanner, devices, `onMessage` |
 | `src/lib/chromecastDevice.ts` | `ChromecastDevice`: objects/states of one Cast device and its `MediaPlayer` |
-| `src/lib/cast/` | port of the archived castv2-player 2.1.3: `Scanner` (mDNS); `MediaPlayer` = `PersistentClient` (receiver connection, reconnects) + `PersistentPlayer` (media app, announcements) + `Playlist`/`MediaInfo` (read URLs, M3U/PLS/ASX, ICY) |
+| `src/lib/cast/` | port of the archived castv2-player 2.1.3: `Scanner` (mDNS); `MediaPlayer` = `PersistentClient` (receiver connection, reconnects) + `PersistentPlayer` (media app, announcements) + `Playlist`/`MediaInfo` (read URLs, M3U/PLS/ASX, ICY); `m3u.ts` = own M3U parser |
 | `src/lib/youtube/Youtube.ts` | castv2-client `Application` for the YouTube receiver app (`APP_ID` 233637DE) |
 | `src/lib/youtube/YoutubeController.ts` | MDX channel controller; starts videos via `youtube-remote` |
 | `src/lib/help.ts` | text and command list of the message `help` (for AI agents / script authors) |
@@ -85,6 +85,9 @@ All Cast libraries are CommonJS without typings; `src/types/*.d.ts` declare only
 - castv2-client's `Sender.createController()` calls controller constructors ES5-style (without `new`). An ES class
   throws there, so `YoutubeController` is passed as the factory `createYoutubeController()`.
 - `node-arp.getMAC()` calls back with `(true, message)` on error.
+- playlist-parser: only its PLS and ASX parsers are used. Its M3U expression understood only
+  `#EXTINF:<length>,<artist> - <title>` (else the length stayed in the title: "-1,Radio Bob"), so M3U is parsed by
+  `src/lib/cast/m3u.ts` (attributes, `#EXTVLCOPT`, BOM, CRLF).
 - `MediaPlayer.castClient` (the castv2-client platform sender) launches the YouTube app.
 
 ### Devices and IDs

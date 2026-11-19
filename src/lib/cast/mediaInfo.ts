@@ -5,10 +5,11 @@ import { urlToHttpOptions } from 'node:url';
 import { inspect } from 'node:util';
 import * as icy from 'icy';
 import { lookup } from 'mime-types';
-import { ASX, M3U, PLS, type PlaylistParser } from 'playlist-parser';
+import { ASX, PLS, type PlaylistParser } from 'playlist-parser';
 
 import type { CastMetadata } from '../types';
 import type { CastLogger } from './castLogger';
+import { M3U } from './m3u';
 
 /** Content types that the devices cannot play. They seem to play ogg if the contentType is given. */
 const MIME_BLACKLIST: string[] = [];
@@ -210,8 +211,9 @@ export class MediaInfo extends EventEmitter {
 
                 const playlist = parser.parse(body);
                 for (const entry of playlist) {
-                    // playlist-parser returns undefined for M3U lines it does not understand, and a PLS entry may
-                    // have no file. castv2-player read entry.file anyway: an uncaught exception, the adapter crashed.
+                    // A PLS entry may have no file (and the M3U parser of playlist-parser, which castv2-player used,
+                    // returned undefined for lines it did not understand). castv2-player read entry.file anyway: an
+                    // uncaught exception, the adapter crashed.
                     if (!entry?.file) {
                         continue;
                     }

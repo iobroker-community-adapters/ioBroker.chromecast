@@ -1,4 +1,4 @@
-// Minimal typings for playlist-parser (CommonJS, no own typings)
+// Minimal typings for playlist-parser (CommonJS, no own typings). Its M3U parser is replaced by src/lib/cast/m3u.ts
 declare module 'playlist-parser' {
     export interface PlaylistEntry {
         /** Missing in a PLS entry without "FileN=" */
@@ -10,11 +10,9 @@ declare module 'playlist-parser' {
 
     export interface PlaylistParser {
         name: string;
-        /** M3U: undefined for each entry it cannot parse (e.g. HLS tags) */
         parse(playlist: string): (PlaylistEntry | undefined)[];
     }
 
-    export const M3U: PlaylistParser;
     export const PLS: PlaylistParser;
     export const ASX: PlaylistParser;
 }
