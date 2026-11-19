@@ -42,7 +42,7 @@ Build on top of the following projects:
     * tested with MP3
       * Full list of formats [here](https://developers.google.com/cast/docs/media).
     * when the url does not start with http then assume that this is a local file
-      * export file via ioBroker web server
+      * export file via ioBroker web server: it is copied to the file storage (`chromecast.0/<device id>/exportedMedia.mp3`) and played from there
     * it only plays fist file from playlist files such as .m3u
 * Vis widget
   * NOTE: requires [patched vis adapter](https://github.com/angelnu/ioBroker.vis).
@@ -77,6 +77,7 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: `vis-2` is restarted after an update of the adapter (`restartAdapters` said `VIS-2`)
 - (bluefox) Fixed: warning "Default value has to be stringified" for `playlist.list`; existing objects are corrected [#333]
 - (bluefox) Fixed: endless status requests (hundreds of log lines per second, high CPU load) while an app plays that reports no playlist, e.g. Android TV apps [#241]; "not enabled" is logged only once per disabled device; no more "Cannot get status" after the start for devices that play nothing
+- (bluefox) Fixed: local files can be played again ("is not an object of type meta", and the URL pointed to a folder that the web server does not know) [#323]
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

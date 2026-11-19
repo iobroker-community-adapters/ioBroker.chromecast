@@ -85,8 +85,9 @@ All Cast libraries are CommonJS without typings; `src/types/*.d.ts` declare only
 ### Local files
 
 A `player.url2play` that does not start with `http` is read from disk, written to the file storage
-`chromecast.0.files/<id>/exportedMedia.mp3` (the instance name is fixed, also for other instances) and played via
-`http://<native.webServer>:<port of native.web>/…`. Port 8082 is assumed when no web instance is configured.
+`<namespace>/<id>/exportedMedia.mp3` (meta object `<namespace>`, created on first use) and played via
+`http://<native.webServer>:<port of native.web>/<namespace>/<id>/exportedMedia.mp3`. Port 8082 is assumed when no web
+instance is configured.
 
 ### Admin configuration
 

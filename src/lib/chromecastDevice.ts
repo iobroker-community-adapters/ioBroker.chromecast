@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { getMAC } from 'node-arp';
 import type { AdapterInstance } from '@iobroker/adapter-core';
 import type { CastConnection, CastMediaPlayer, CastMediaPlayerClass, RepeatMode } from 'castv2-player';
@@ -963,20 +963,26 @@ export class ChromecastDevice {
                 return;
             }
 
-            // "chromecast.0" is fixed, also for other instances, as it always was
-            const exportedFilePath = `chromecast.0.files/${this.id}/exportedMedia.mp3`;
-            // Try to load in a local state
+            // The web instance serves the files of the meta object <namespace> under http://<ip>:<port>/<namespace>/...
+            const namespace = this.adapter.namespace;
+            const exportedFilePath = `${this.id}/exportedMedia.mp3`;
             try {
                 try {
-                    await this.adapter.writeFileAsync(this.adapter.namespace, exportedFilePath, readFileSync(url2play));
+                    // writeFile needs a meta object to store the file in
+                    await this.adapter.setForeignObjectNotExistsAsync(namespace, {
+                        type: 'meta',
+                        common: { name: 'Local files played by the Cast devices', type: 'meta.user' },
+                        native: {},
+                    });
+                    await this.adapter.writeFileAsync(namespace, exportedFilePath, await readFile(url2play));
                 } catch (err) {
                     this.adapter.log.error(
-                        `${this.name} - Cannot store file "${url2play}" into ${exportedFilePath}: ${err.toString()}`,
+                        `${this.name} - Cannot store file "${url2play}" into ${namespace}/${exportedFilePath}: ${err.toString()}`,
                     );
                     return;
                 }
                 // Calculate the exported URL
-                const exportedUrl = `http://${this.adapter.config.webServer}:${this.webPort}/${exportedFilePath}`;
+                const exportedUrl = `http://${this.adapter.config.webServer}:${this.webPort}/${namespace}/${exportedFilePath}`;
                 this.adapter.log.debug(`Exported as ${exportedUrl}`);
                 await this.playURL(exportedUrl, originalUrl);
             } catch (err) {
