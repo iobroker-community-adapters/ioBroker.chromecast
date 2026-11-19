@@ -40,15 +40,15 @@ Control:
 - player.next, player.prev (buttons): next / previous item of the queue; playlist.jump (number): jump that many
   items (negative = back).
 - player.volume (0-100 %): the volume of the device. player.mute (true / false).
-- player.repeatMode: 0 none, 1 all, 2 one. player.shuffleMode only shows shuffle: writing it does not work.
+- player.repeatMode: 0 none, 1 all, 2 one. player.shuffleMode = true: shuffle (sets repeat mode all); false: off.
 - enabled: false = the adapter leaves this device alone (a setting, not for agents).
 What plays (read):
 - status.connected: the adapter is connected to the device. status.isStandBy, status.isActiveInput: the TV is in
   standby / shows the Chromecast input (HDMI devices only).
 - status.displayName: the app that casts (e.g. Default Media Receiver, Spotify, YouTube; Backdrop = idle screen),
   status.text: its status text, status.appId.
-- status.playerState: playing, paused, buffering, idle or stop: the state to trust (player.state says 1 = play also
-  while paused or idle; player.paused true = paused).
+- status.playerState: playing, paused, buffering, idle or stop. player.state: 1 play (also buffering), 0 pause, 2 stop
+  (also idle). player.paused true = paused.
 - metadata.title, metadata.artist, metadata.album (a radio: the station), metadata.cover (URL of the picture),
   metadata.trackNumber, metadata.episodeNumber, metadata.seasonNumber, metadata.broadcastDate: filled when the
   playing app reports them. player.contentId: the URL or ID that plays; media.contentType (e.g. audio/mpeg);

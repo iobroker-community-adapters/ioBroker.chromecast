@@ -97,6 +97,8 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: a radio stream in a playlist was downloaded until the adapter stopped; a redirect to a relative URL failed
 - (bluefox) Fixed: every played URL left a listener behind (MaxListenersExceededWarning after 10 URLs, more memory and CPU)
 - (bluefox) Fixed: `player.mute` was emptied on every volume change; a command that could not reconnect within 10 seconds logged the error `undefined`
+- (bluefox) Fixed: writing `player.shuffleMode` switches shuffle on and off (it only logged "update not supported"), and `player.shuffleMode` shows the shuffle of the device
+- (bluefox) Fixed: `player.state` was always 1 (play); it is 0 while paused and 2 while idle
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

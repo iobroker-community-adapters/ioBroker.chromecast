@@ -747,13 +747,11 @@ export class ChromecastDevice {
     }
 
     static chromecastPlayerState2IobState(chState: string, pause: boolean): number {
-        // The device reports "playing", never "play", so the PAUSE branch is never reached: player.state is
-        // 1 (play) also while paused or idle (documented in help.ts). The JS version even returned
-        // `PLAYER_STATE.pause` (undefined) there.
-        if (chState === 'stop') {
+        // chState: playing, paused, buffering or idle (lower case), stop without status
+        if (chState === 'stop' || chState === 'idle') {
             return PLAYER_STATE.STOP;
         }
-        return chState === 'play' && pause ? PLAYER_STATE.PAUSE : PLAYER_STATE.PLAY;
+        return pause ? PLAYER_STATE.PAUSE : PLAYER_STATE.PLAY;
     }
 
     static chromecastRepeat2IobRepeat(chState: string | undefined): number {
@@ -835,11 +833,12 @@ export class ChromecastDevice {
             ChromecastDevice.chromecastRepeat2IobRepeat(cachedStatus.repeatMode),
         );
 
-        this.shuffle = status.shuffleMode === 'REPEAT_ALL_AND_SHUFFLE';
+        // the Cast status has no shuffleMode: shuffle is the repeat mode REPEAT_ALL_AND_SHUFFLE
+        this.shuffle = status.repeatMode === 'REPEAT_ALL_AND_SHUFFLE';
         await this.setStateIfChanged(
             `${this.id}.player.shuffleMode`,
             { val: this.shuffle, ack: true },
-            cachedStatus.shuffleMode === 'REPEAT_ALL_AND_SHUFFLE',
+            cachedStatus.repeatMode === 'REPEAT_ALL_AND_SHUFFLE',
         );
 
         // volume
@@ -1180,15 +1179,14 @@ export class ChromecastDevice {
                 break;
             }
 
-            // Typo kept from the JS version: the state is "player.shuffleMode", so writing it ends in "default" and
-            // shuffle cannot be set (documented in help.ts).
-            case 'player.shuffelMode': {
+            case 'player.shuffleMode': {
                 let chromecastRepeatMode: RepeatMode;
                 if (state.val) {
                     chromecastRepeatMode = 'REPEAT_ALL_AND_SHUFFLE';
                     this.shuffle = true;
                     await this.setStateIfChanged(`${namespace}.player.repeatMode`, { val: 1, ack: true }, this.repeat);
                 } else {
+                    // the repeat mode stays as it is
                     this.shuffle = false;
                     if (this.repeat === REPEAT_MODE.ALL) {
                         chromecastRepeatMode = 'REPEAT_ALL';
@@ -1197,11 +1195,6 @@ export class ChromecastDevice {
                     } else {
                         chromecastRepeatMode = 'REPEAT_OFF';
                     }
-                    await this.setStateIfChanged(
-                        `${namespace}.player.repeatMode`,
-                        { val: chromecastRepeatMode, ack: true },
-                        this.repeat,
-                    );
                 }
                 this.mediaPlayer
                     .setRepeatModePromise(chromecastRepeatMode)
