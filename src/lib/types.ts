@@ -1,4 +1,4 @@
-// Shapes of the data this adapter receives from the Cast devices (via castv2-player) and from its configuration
+// Shapes of the data this adapter receives from the Cast devices (via lib/cast) and from its configuration
 
 /** One row of the table "devices" in the settings */
 export interface ManualDevice {
@@ -22,6 +22,8 @@ export interface CastApplication {
     statusText?: string;
     sessionId?: string;
     transportId?: string;
+    /** Missing for the MultizoneLeader of a speaker group */
+    namespaces?: { name: string }[];
 }
 
 /** Receiver status (event "clientStatus") */
@@ -64,9 +66,12 @@ export interface CastMedia {
 }
 
 export interface CastQueueItem {
-    itemId: number;
+    /** Given by the device; missing in items this adapter has not sent yet */
+    itemId?: number;
     media?: CastMedia;
     autoplay?: boolean;
+    /** Seconds to start at (resume after an announcement) */
+    startTime?: number;
 }
 
 /**

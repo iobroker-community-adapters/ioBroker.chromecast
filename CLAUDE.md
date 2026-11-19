@@ -41,13 +41,14 @@ widgets in `widgets/` are static files.
 | Path | Content |
 | --- | --- |
 | `src/main.ts` | `ChromecastAdapter extends utils.Adapter`: config, mDNS scanner, devices, `onMessage` |
-| `src/lib/chromecastDevice.ts` | `ChromecastDevice`: objects/states of one Cast device and its castv2-player `MediaPlayer` |
+| `src/lib/chromecastDevice.ts` | `ChromecastDevice`: objects/states of one Cast device and its `MediaPlayer` |
+| `src/lib/cast/` | port of the archived castv2-player 2.1.3: `Scanner` (mDNS); `MediaPlayer` = `PersistentClient` (receiver connection, reconnects) + `PersistentPlayer` (media app, announcements) + `Playlist`/`MediaInfo` (read URLs, M3U/PLS/ASX, ICY) |
 | `src/lib/youtube/Youtube.ts` | castv2-client `Application` for the YouTube receiver app (`APP_ID` 233637DE) |
 | `src/lib/youtube/YoutubeController.ts` | MDX channel controller; starts videos via `youtube-remote` |
 | `src/lib/help.ts` | text and command list of the message `help` (for AI agents / script authors) |
 | `src/lib/types.ts` | Cast status shapes (client/player status, media, metadata) and the manual device row |
 | `src/lib/adapter-config.d.ts` | augments `ioBroker.AdapterConfig` |
-| `src/types/*.d.ts` | hand-written typings for `castv2-player`, `castv2-client`, `node-arp`, `youtube-remote` |
+| `src/types/*.d.ts` | hand-written typings for `castv2-client`, `icy`, `mime-types`, `multicast-dns`, `node-arp`, `playlist-parser`, `youtube-remote` |
 | `admin/jsonConfig.json` | the configuration dialog (`common.adminUI.config = "json"`) |
 | `widgets/` | vis widget (static, shipped via `files`) |
 
@@ -58,14 +59,18 @@ widgets in `widgets/` are static files.
 
 All Cast libraries are CommonJS without typings; `src/types/*.d.ts` declare only what is used. Details that bite:
 
-- `castv2-player` exports **factories**: `MediaPlayer(logger)` / `Scanner(logger)` return the class bound to a logger.
-  The device logger maps castv2-player `info` to the adapter's `debug` (it is chatty).
-- `castv2-client` is used directly (YouTube) and is therefore a direct dependency, not only a transitive one.
+- `src/lib/cast` was the npm package castv2-player (archived, so it is part of the adapter now). Its classes get a
+  `CastLogger`: the media player logger maps `info` to the adapter's `debug` (it is chatty), the scanner logs as is.
+  `ChromecastDeviceContext.createMediaPlayer` creates the player (a test can pass a fake there).
+- castv2-client `Client` (the platform sender): when the device closes the connection, its own `close` handler runs
+  first and sets `client` to `null` (`Sender.close()`), so a later `close` handler must not use `client.socket`.
+- The answer to the media `getStatus()` only comes as event `playerStatus` if the device broadcasts it. Some Android TV
+  apps do, and answer every request with another status without playlist (hence `statusRequested` in the device).
+- mime-types stays on 2.x like castv2-player did (3.x resolves extension conflicts differently).
 - castv2-client's `Sender.createController()` calls controller constructors ES5-style (without `new`). An ES class
   throws there, so `YoutubeController` is passed as the factory `createYoutubeController()`.
 - `node-arp.getMAC()` calls back with `(true, message)` on error.
-- `MediaPlayer._client._client` (castv2-client platform sender) and `MediaPlayer._updateDevice()` are private in
-  castv2-player but used (YouTube launch, address changes from the scanner).
+- `MediaPlayer.castClient` (the castv2-client platform sender) launches the YouTube app.
 
 ### Devices and IDs
 
@@ -106,7 +111,7 @@ running instance via `sendTo`, handled in `onMessage()`:
 
 - `player.shuffleMode` cannot be written (the handler checks `player.shuffelMode`); documented in `help.ts`.
 - `player.state` is 1 (play) also while paused or idle: the device reports `playing`, never `play`.
-- `castv2-player`'s `isMuted()` is always `undefined`; the real mute value comes with the player status.
+- `MediaPlayer.isMuted()` is always `undefined` (as in castv2-player); the real mute value comes with the player status.
 - If the MAC address of a found device cannot be read, the device ends up below `<namespace>.undefined`.
 - The default of `player.url2play` is `http:/example.org/playme.mp3` (one slash).
 - Metadata numbers (track, season, episode) are written as numbers into string states.

@@ -2,8 +2,9 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import * as utils from '@iobroker/adapter-core';
-import { LogWrapper, MediaPlayer, Scanner, type CastConnection, type CastScanner } from 'castv2-player';
-
+import type { CastLogger } from './lib/cast/castLogger';
+import { MediaPlayer, type CastConnection } from './lib/cast/mediaPlayer';
+import { Scanner } from './lib/cast/scanner';
 import { ChromecastDevice, type ChromecastDeviceContext } from './lib/chromecastDevice';
 import { COMMANDS, HELP } from './lib/help';
 import type { SelectOption } from './lib/types';
@@ -12,7 +13,7 @@ import type { SelectOption } from './lib/types';
 const LOCALHOST_BINDS = ['localhost', '127.0.0.1', '::1'];
 
 class ChromecastAdapter extends utils.Adapter {
-    private scanner: CastScanner | undefined;
+    private scanner: Scanner | undefined;
     private devices: ChromecastDevice[] | undefined;
     /** Translations of the admin i18n file in the system language (for the texts the settings dialog asks for) */
     private i18n: Record<string, string> | null = null;
@@ -26,8 +27,6 @@ class ChromecastAdapter extends utils.Adapter {
     }
 
     private async onReady(): Promise<void> {
-        const ScannerClass = Scanner(new LogWrapper(this.log));
-
         let webPort = 8082;
         if (this.config.web) {
             try {
@@ -42,17 +41,17 @@ class ChromecastAdapter extends utils.Adapter {
             }
         }
 
+        const mediaPlayerLog: CastLogger = {
+            error: msg => this.log.error(msg),
+            warn: msg => this.log.warn(msg),
+            // the media player is too chatty so map its info to our debug
+            info: msg => this.log.debug(msg),
+            debug: msg => this.log.debug(msg),
+        };
+
         const context: ChromecastDeviceContext = {
             adapter: this,
-            MediaPlayer: MediaPlayer(
-                new LogWrapper({
-                    error: (msg: string) => this.log.error(msg),
-                    warn: (msg: string) => this.log.warn(msg),
-                    // castv2-player is too chatty so map its info to our debug
-                    info: (msg: string) => this.log.debug(msg),
-                    debug: (msg: string) => this.log.debug(msg),
-                }),
-            ),
+            createMediaPlayer: connection => new MediaPlayer(connection, mediaPlayerLog),
             webPort,
             knownDeviceIds: [],
         };
@@ -76,7 +75,7 @@ class ChromecastAdapter extends utils.Adapter {
             }
         }
 
-        this.scanner = new ScannerClass(connection => {
+        this.scanner = new Scanner(this.log, connection => {
             this.log.debug(`New connection: ${JSON.stringify(connection)}`);
             devices.push(new ChromecastDevice(context, connection, false));
         });

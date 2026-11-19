@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { getMAC } from 'node-arp';
 import type { AdapterInstance } from '@iobroker/adapter-core';
-import type { CastConnection, CastMediaPlayer, CastMediaPlayerClass, RepeatMode } from 'castv2-player';
 import type { ApplicationClass } from 'castv2-client';
 
+import type { CastConnection, MediaPlayer, RepeatMode } from './cast/mediaPlayer';
 import Youtube from './youtube/Youtube';
 import type { CastClientStatus, CastPlayerStatus } from './types';
 
@@ -31,8 +31,8 @@ function getMac(ip: string): Promise<string> {
 /** What all devices of one adapter instance share */
 export interface ChromecastDeviceContext {
     adapter: AdapterInstance;
-    /** MediaPlayer class of castv2-player bound to the logger of the adapter */
-    MediaPlayer: CastMediaPlayerClass;
+    /** Creates the media player of a device (with the logger of the adapter) */
+    createMediaPlayer: (connection: CastConnection) => MediaPlayer;
     /** Port of the configured web instance (8082 if none) */
     webPort: number;
     /** IDs of all devices of this instance, to detect duplicates */
@@ -42,7 +42,7 @@ export interface ChromecastDeviceContext {
 /** One Cast device (or speaker group): its states below `<namespace>.<id>` and the castv2-player MediaPlayer */
 export class ChromecastDevice {
     private readonly adapter: AdapterInstance;
-    private readonly MediaPlayer: CastMediaPlayerClass;
+    private readonly createMediaPlayer: (connection: CastConnection) => MediaPlayer;
     private readonly webPort: number;
     private readonly knownDeviceIds: string[];
 
@@ -56,7 +56,7 @@ export class ChromecastDevice {
     private readonly isManuallyAddedDevice: boolean;
     /** ID below the adapter namespace: MAC address without ":", groups.<id> or the name from the settings */
     private id = '';
-    private mediaPlayer: CastMediaPlayer | undefined;
+    private mediaPlayer: MediaPlayer | undefined;
     /** A full status (with the playlist) was requested; reset when one arrives or the player is detached */
     private statusRequested = false;
     /** "not enabled" was logged; the scanner reports the device on every mDNS answer, so log it only once */
@@ -68,7 +68,7 @@ export class ChromecastDevice {
 
     constructor(context: ChromecastDeviceContext, connection: CastConnection, isManuallyAddedDevice: boolean) {
         this.adapter = context.adapter;
-        this.MediaPlayer = context.MediaPlayer;
+        this.createMediaPlayer = context.createMediaPlayer;
         this.webPort = context.webPort;
         this.knownDeviceIds = context.knownDeviceIds;
 
@@ -150,7 +150,7 @@ export class ChromecastDevice {
             this.statusRequested = false;
 
             // Create media player
-            const mediaPlayer = new this.MediaPlayer(this.connection);
+            const mediaPlayer = this.createMediaPlayer(this.connection);
             this.mediaPlayer = mediaPlayer;
 
             const onError = (e: Error): void => this.adapter.log.error(`${this.name} - ${e}`);
@@ -696,7 +696,7 @@ export class ChromecastDevice {
                 val: this.mediaPlayer.getVolume(),
                 ack: true,
             });
-            // isMuted() of castv2-player is always undefined; the real value comes with the player status
+            // isMuted() is always undefined (as in castv2-player); the real value comes with the player status
             await this.adapter.setStateAsync(`${this.id}.player.mute`, {
                 val: this.mediaPlayer.isMuted(),
                 ack: true,
@@ -1237,7 +1237,7 @@ export class ChromecastDevice {
     private networkScannerChange(connection: CastConnection): void {
         this.adapter.log.debug(`${connection.name} - refreshing connection`);
         if (this.mediaPlayer) {
-            this.mediaPlayer._updateDevice(connection);
+            this.mediaPlayer.updateDevice(connection);
         } else {
             this.initMediaPlayer().catch(e =>
                 this.adapter.log.error(`${connection.name} - Could not init media player: ${e}`),
@@ -1246,7 +1246,7 @@ export class ChromecastDevice {
     }
 
     private launch<T>(app: ApplicationClass<T>, callback: (err: Error | null, player?: T) => void): void {
-        const client = this.mediaPlayer?._client._client;
+        const client = this.mediaPlayer?.castClient;
         if (!client) {
             return;
         }
