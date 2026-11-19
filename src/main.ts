@@ -85,7 +85,8 @@ class ChromecastAdapter extends utils.Adapter {
     }
 
     /**
-     * "help" for agents and script authors; "getWebServerIps" and "checkWebInstance" for the settings dialog.
+     * "help" for agents and script authors; "getWebServerIps" and "checkWebInstance" for the settings dialog;
+     * "chromecast:getDevices" for the settings of the devices widget and the web component.
      * Everything else is done by writing states.
      */
     private onMessage(obj: ioBroker.Message): void {
@@ -93,6 +94,15 @@ class ChromecastAdapter extends utils.Adapter {
             // A description of the adapter and its states for AI agents and script authors
             if (obj.callback) {
                 this.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+            }
+        } else if (obj?.command === 'chromecast:getDevices') {
+            if (obj.callback) {
+                void this.getDeviceOptions()
+                    .catch(e => {
+                        this.log.warn(`Cannot list the devices: ${e}`);
+                        return [];
+                    })
+                    .then(list => this.sendTo(obj.from, obj.command, list, obj.callback));
             }
         } else if (obj?.command === 'getWebServerIps') {
             if (obj.callback) {
@@ -120,6 +130,26 @@ class ChromecastAdapter extends utils.Adapter {
                     );
             }
         }
+    }
+
+    /**
+     * The Cast devices of this instance, for a `selectSendTo`: value = the device below the namespace (`dce55b6815a6`,
+     * `groups.<id>`, the name of a device added by hand), label = its name
+     */
+    private async getDeviceOptions(): Promise<SelectOption[]> {
+        const prefix = `${this.namespace}.`;
+        const view = await this.getObjectViewAsync('system', 'device', {
+            startkey: prefix,
+            endkey: `${prefix}香`,
+        });
+        return view.rows
+            .map(row => {
+                const value = row.id.substring(prefix.length);
+                const name = row.value?.common?.name;
+                const label = typeof name === 'string' ? name : name?.en || value;
+                return { value, label: label === value ? value : `${label} (${value})` };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label));
     }
 
     /** The web instance the settings dialog asks about: `{ web: "web.0" }` */
