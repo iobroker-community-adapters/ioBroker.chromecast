@@ -99,6 +99,7 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 - (bluefox) Fixed: a radio stream in a playlist was downloaded until the adapter stopped; a redirect to a relative URL failed
 - (bluefox) Fixed: every played URL left a listener behind (MaxListenersExceededWarning after 10 URLs, more memory and CPU)
 - (bluefox) Fixed: `player.mute` was emptied on every volume change; a command that could not reconnect within 10 seconds logged the error `undefined`
+- (bluefox) mime-types 3: without a content type from the server, `.aac` is played as `audio/aac` and `.wav` as `audio/wav`; `.mts`, `.m2ts` and `.m4b` are known now
 - (bluefox) Added the widget "Cast player" for ioBroker.devices (what plays, play, pause, stop) and the web component `<iob-chromecast-player>` for vis-2, devices, Aura and admin
 
 ### 4.2.0 (2026-05-04)

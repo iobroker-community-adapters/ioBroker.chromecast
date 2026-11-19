@@ -78,7 +78,10 @@ All Cast libraries are CommonJS without typings; `src/types/*.d.ts` declare only
   first and sets `client` to `null` (`Sender.close()`), so a later `close` handler must not use `client.socket`.
 - The answer to the media `getStatus()` only comes as event `playerStatus` if the device broadcasts it. Some Android TV
   apps do, and answer every request with another status without playlist (hence `statusRequested` in the device).
-- mime-types stays on 2.x like castv2-player did (3.x resolves extension conflicts differently).
+- mime-types 3 (`lookup()` only: the content type when a server sends none, and of the entries of a playlist). Not
+  3.0.0: it resolved `.mp4` to `application/mp4`. Compared with the 2.x of castv2-player: `.aac` is `audio/aac` (was
+  `audio/x-aac`), `.wav` `audio/wav` (was `audio/wave`), `.mts` `video/mp2t`, and `.m2ts`, `.m4b`, `.adts` are known;
+  the playlist types (`.m3u`, `.asx`, `.asf`) are the same.
 - castv2-client's `Sender.createController()` calls controller constructors ES5-style (without `new`). An ES class
   throws there, so `YoutubeController` is passed as the factory `createYoutubeController()`.
 - `node-arp.getMAC()` calls back with `(true, message)` on error.
