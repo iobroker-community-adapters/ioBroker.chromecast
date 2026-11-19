@@ -5,10 +5,11 @@ import { urlToHttpOptions } from 'node:url';
 import { inspect } from 'node:util';
 import * as icy from 'icy';
 import { lookup } from 'mime-types';
-import { ASX, M3U, PLS, type PlaylistParser } from 'playlist-parser';
+import { ASX, PLS, type PlaylistParser } from 'playlist-parser';
 
 import type { CastMetadata } from '../types';
 import type { CastLogger } from './castLogger';
+import { M3U } from './m3u';
 
 /** Content types that the devices cannot play. They seem to play ogg if the contentType is given. */
 const MIME_BLACKLIST: string[] = [];
@@ -173,9 +174,14 @@ export class MediaInfo extends EventEmitter {
         return !MIME_BLACKLIST.includes(contentType as string);
     }
 
-    private addItem(url: string, contentType: string | false | undefined, metadata: CastMetadata): void {
+    private addItem(
+        url: string,
+        contentType: string | false | undefined,
+        metadata: CastMetadata,
+        target: MediaInfoItem[] = this.items,
+    ): void {
         if (MediaInfo.validContentType(contentType)) {
-            this.items.push({ url, contentType, metadata });
+            target.push({ url, contentType, metadata });
         } else {
             this.log.error(`${this.name} - Not supported type (${contentType}) for ${url}`);
         }
@@ -195,9 +201,6 @@ export class MediaInfo extends EventEmitter {
             res.on('data', (chunk: Buffer) => (body += chunk.toString()));
 
             res.on('end', () => {
-                // Each element of the list gets a promise; they add their items directly to this.items
-                const itemPromises: Promise<void>[] = [];
-
                 // An HLS playlist (some servers send it as application/x-mpegURL) is one stream for the device: its
                 // lines are segments or variants, not titles
                 if (parser === M3U && body.includes('#EXT-X-')) {
@@ -208,30 +211,49 @@ export class MediaInfo extends EventEmitter {
                     return;
                 }
 
+                // The items of each entry, in the order of the playlist. castv2-player appended the items of an
+                // entry that needs a request when its answer came: the queue did not keep the order of the file.
+                const entryItems: Promise<MediaInfoItem[]>[] = [];
                 const playlist = parser.parse(body);
                 for (const entry of playlist) {
-                    // playlist-parser returns undefined for M3U lines it does not understand, and a PLS entry may
-                    // have no file. castv2-player read entry.file anyway: an uncaught exception, the adapter crashed.
+                    // A PLS entry may have no file (and the M3U parser of playlist-parser, which castv2-player used,
+                    // returned undefined for lines it did not understand). castv2-player read entry.file anyway: an
+                    // uncaught exception, the adapter crashed.
                     if (!entry?.file) {
                         continue;
                     }
                     const theUrl = resolveUrl(baseUrl, entry.file);
-                    const title = entry.title ? entry.title : entry.file;
-                    const artist = entry.artist ? entry.artist : 'unknown';
+                    // "--" if the playlist names no artist: the same in every language (castv2-player set "unknown",
+                    // which the device and metadata.artist showed)
+                    const metadata: CastMetadata = { title: entry.title || entry.file, artist: entry.artist || '--' };
 
                     // Try to guess the content type from the extension
                     const contentType = lookup(theUrl);
 
                     if (contentType) {
-                        this.addItem(theUrl, contentType, { title, artist });
+                        const items: MediaInfoItem[] = [];
+                        this.addItem(theUrl, contentType, metadata, items);
+                        entryItems.push(Promise.resolve(items));
                     } else {
                         // It did not work -> we need to access the URL directly (slower)
                         const itemMediaInfo = new MediaInfo(this.name, theUrl, this.log);
-                        itemPromises.push(
+                        entryItems.push(
                             itemMediaInfo
                                 .getInfoPromise()
                                 .then(itemList => {
-                                    this.items = this.items.concat(itemList);
+                                    // One stream or file (e.g. a radio station without extension in the URL): it
+                                    // gets the title of the playlist, not the URL (and beside the station name of
+                                    // ICY). castv2-player dropped the title. A playlist in the playlist keeps its
+                                    // own titles.
+                                    const item = itemList.length === 1 ? itemList[0] : undefined;
+                                    if (
+                                        entry.title &&
+                                        item &&
+                                        (!item.metadata.title || item.metadata.title === item.url)
+                                    ) {
+                                        item.metadata = { ...item.metadata, ...metadata };
+                                    }
+                                    return itemList;
                                 })
                                 // castv2-player never closed it: a radio stream in a playlist was downloaded forever
                                 .finally(() => itemMediaInfo.close()),
@@ -240,8 +262,13 @@ export class MediaInfo extends EventEmitter {
                 }
                 this.icyConnection = undefined;
 
-                // When all promises are done, this.items is complete
-                resolve(Promise.all(itemPromises).then(() => this.items));
+                // When all entries are read, their items go into this.items in the order of the playlist
+                resolve(
+                    Promise.all(entryItems).then(lists => {
+                        this.items = this.items.concat(...lists);
+                        return this.items;
+                    }),
+                );
             });
 
             res.on('error', err => {

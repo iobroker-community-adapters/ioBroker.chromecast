@@ -7,6 +7,7 @@
 /** The commands onMessage answers. write: true if the command has an effect */
 export const COMMANDS: { command: string; write: boolean }[] = [
     { command: 'help', write: false },
+    { command: 'chromecast:getDevices', write: false },
     { command: 'getWebServerIps', write: false },
     { command: 'checkWebInstance', write: false },
 ];
@@ -18,6 +19,8 @@ the volume. All of that is done by writing states; the only message an agent nee
 
 Commands (sendTo chromecast.0):
 - help: this text; answer {help, commands: [{command, write}]}.
+- chromecast:getDevices: the devices of the instance, [{value: <device>, label: "<name> (<device>)"}]; used by the
+  settings of the devices widget and of the web component.
 - getWebServerIps, checkWebInstance: used by the settings dialog, not needed by agents.
 
 States (chromecast.0.<device>.*): one object of type device per Cast device; common.name = the name of the device

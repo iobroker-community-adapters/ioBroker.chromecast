@@ -214,7 +214,65 @@
     },
     "supportedMessages": {
       "help": true
-    }
+    },
+    "deviceWidgets": {
+      "components": [
+        {
+          "name": "ChromecastPlayerComponent",
+          "label": {
+            "en": "Cast player",
+            "de": "Cast-Player",
+            "ru": "Cast-плеер",
+            "pt": "Leitor Cast",
+            "nl": "Cast-speler",
+            "fr": "Lecteur Cast",
+            "it": "Lettore Cast",
+            "es": "Reproductor Cast",
+            "pl": "Odtwarzacz Cast",
+            "uk": "Cast-плеєр",
+            "zh-cn": "Cast 播放器"
+          },
+          "description": {
+            "en": "What a Google Cast device plays, with play, pause and stop",
+            "de": "Was ein Google-Cast-Gerät abspielt, mit Abspielen, Pause und Stopp",
+            "ru": "Что воспроизводит устройство Google Cast, с кнопками воспроизведения, паузы и стопа",
+            "pt": "O que um dispositivo Google Cast reproduz, com reproduzir, pausa e parar",
+            "nl": "Wat een Google Cast-apparaat afspeelt, met afspelen, pauze en stoppen",
+            "fr": "Ce que lit un appareil Google Cast, avec lecture, pause et arrêt",
+            "it": "Cosa riproduce un dispositivo Google Cast, con riproduci, pausa e stop",
+            "es": "Lo que reproduce un dispositivo Google Cast, con reproducir, pausa y detener",
+            "pl": "Co odtwarza urządzenie Google Cast, z odtwarzaniem, pauzą i zatrzymaniem",
+            "uk": "Що відтворює пристрій Google Cast, з відтворенням, паузою та зупинкою",
+            "zh-cn": "Google Cast 设备正在播放的内容，带播放、暂停和停止"
+          },
+          "icon": "player.png"
+        }
+      ]
+    },
+    "webComponents": [
+      {
+        "manifest": "webcomponents/chromecast-player.json",
+        "tag": "iob-chromecast-player",
+        "name": {
+          "en": "Cast player",
+          "de": "Cast-Player",
+          "ru": "Cast-плеер",
+          "pt": "Leitor Cast",
+          "nl": "Cast-speler",
+          "fr": "Lecteur Cast",
+          "it": "Lettore Cast",
+          "es": "Reproductor Cast",
+          "pl": "Odtwarzacz Cast",
+          "uk": "Cast-плеєр",
+          "zh-cn": "Cast 播放器"
+        },
+        "icon": "../dm-widgets/player.png",
+        "size": {
+          "width": 400,
+          "height": 220
+        }
+      }
+    ]
   },
   "native": {
     "web": "",

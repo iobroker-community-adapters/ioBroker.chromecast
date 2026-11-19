@@ -1,0 +1,1 @@
+export{t as default}from"./translations-DxWiA-3B.js";

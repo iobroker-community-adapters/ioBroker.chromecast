@@ -55,6 +55,10 @@ port 8009.
     * when the url does not start with http then assume that this is a local file
       * export file via ioBroker web server: it is copied to the file storage (`chromecast.0/<device id>/exportedMedia.mp3`) and played from there
     * it only plays fist file from playlist files such as .m3u
+* Widget "Cast player" for [ioBroker.devices](https://github.com/ioBroker/ioBroker.devices): what a device plays
+  (cover, title, artist or the app) with play, pause and stop; choose the instance and the device in its settings
+* Web component `<iob-chromecast-player>` for vis-2, devices, Aura and admin: what plays with the progress, play /
+  pause, stop, previous / next, volume and mute; choose the device (`chromecast.0.<device>`) in its settings
 * Vis widget
   * NOTE: requires [patched vis adapter](https://github.com/angelnu/ioBroker.vis).
 * Initial support for Chromecast audio groups
@@ -65,7 +69,8 @@ port 8009.
 `sendTo('chromecast.0', 'help', {})` answers `{ help, commands }`: a description of the device states that play a URL or an
 announcement, control the player and show what plays, for AI agents (e.g. ioBroker.pi-agent) and script authors. `commands`
 lists every message the instance answers with `write: true` for the ones that change something (none does: besides `help`
-there are only `getWebServerIps` and `checkWebInstance`, which the settings dialog uses).
+there are only `chromecast:getDevices`, which lists the devices for the settings of the devices widget, and
+`getWebServerIps` and `checkWebInstance`, which the settings dialog uses).
 
 ## What is missing?
 * add state machine to track states: detected ->connected -> player loader -> playing
@@ -99,6 +104,11 @@ there are only `getWebServerIps` and `checkWebInstance`, which the settings dial
 - (bluefox) Fixed: `player.mute` was emptied on every volume change; a command that could not reconnect within 10 seconds logged the error `undefined`
 - (bluefox) Fixed: writing `player.shuffleMode` switches shuffle on and off (it only logged "update not supported"), and `player.shuffleMode` shows the shuffle of the device
 - (bluefox) Fixed: `player.state` was always 1 (play); it is 0 while paused and 2 while idle
+- (bluefox) mime-types 3: without a content type from the server, `.aac` is played as `audio/aac` and `.wav` as `audio/wav`; `.mts`, `.m2ts` and `.m4b` are known now
+- (bluefox) Fixed: titles of M3U playlists: `#EXTINF:-1,Radio Bob` showed "-1,Radio Bob"; attributes (`tvg-logo=…`) and lines like `#EXTVLCOPT` ended up in the title, and "Artist - Song - Remastered" was split at the last dash
+- (bluefox) Fixed: an entry of a playlist without file extension (e.g. the URL of a radio station) showed its URL instead of the title of the playlist; without an artist in the playlist the artist is "--" (was "unknown")
+- (bluefox) Fixed: the queue of a playlist keeps the order of the file (entries without file extension came last, in the order their servers answered)
+- (bluefox) Added the widget "Cast player" for ioBroker.devices (what plays, play, pause, stop) and the web component `<iob-chromecast-player>` for vis-2, devices, Aura and admin
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now
