@@ -174,9 +174,14 @@ export class MediaInfo extends EventEmitter {
         return !MIME_BLACKLIST.includes(contentType as string);
     }
 
-    private addItem(url: string, contentType: string | false | undefined, metadata: CastMetadata): void {
+    private addItem(
+        url: string,
+        contentType: string | false | undefined,
+        metadata: CastMetadata,
+        target: MediaInfoItem[] = this.items,
+    ): void {
         if (MediaInfo.validContentType(contentType)) {
-            this.items.push({ url, contentType, metadata });
+            target.push({ url, contentType, metadata });
         } else {
             this.log.error(`${this.name} - Not supported type (${contentType}) for ${url}`);
         }
@@ -196,9 +201,6 @@ export class MediaInfo extends EventEmitter {
             res.on('data', (chunk: Buffer) => (body += chunk.toString()));
 
             res.on('end', () => {
-                // Each element of the list gets a promise; they add their items directly to this.items
-                const itemPromises: Promise<void>[] = [];
-
                 // An HLS playlist (some servers send it as application/x-mpegURL) is one stream for the device: its
                 // lines are segments or variants, not titles
                 if (parser === M3U && body.includes('#EXT-X-')) {
@@ -209,6 +211,9 @@ export class MediaInfo extends EventEmitter {
                     return;
                 }
 
+                // The items of each entry, in the order of the playlist. castv2-player appended the items of an
+                // entry that needs a request when its answer came: the queue did not keep the order of the file.
+                const entryItems: Promise<MediaInfoItem[]>[] = [];
                 const playlist = parser.parse(body);
                 for (const entry of playlist) {
                     // A PLS entry may have no file (and the M3U parser of playlist-parser, which castv2-player used,
@@ -226,11 +231,13 @@ export class MediaInfo extends EventEmitter {
                     const contentType = lookup(theUrl);
 
                     if (contentType) {
-                        this.addItem(theUrl, contentType, metadata);
+                        const items: MediaInfoItem[] = [];
+                        this.addItem(theUrl, contentType, metadata, items);
+                        entryItems.push(Promise.resolve(items));
                     } else {
                         // It did not work -> we need to access the URL directly (slower)
                         const itemMediaInfo = new MediaInfo(this.name, theUrl, this.log);
-                        itemPromises.push(
+                        entryItems.push(
                             itemMediaInfo
                                 .getInfoPromise()
                                 .then(itemList => {
@@ -246,7 +253,7 @@ export class MediaInfo extends EventEmitter {
                                     ) {
                                         item.metadata = { ...item.metadata, ...metadata };
                                     }
-                                    this.items = this.items.concat(itemList);
+                                    return itemList;
                                 })
                                 // castv2-player never closed it: a radio stream in a playlist was downloaded forever
                                 .finally(() => itemMediaInfo.close()),
@@ -255,8 +262,13 @@ export class MediaInfo extends EventEmitter {
                 }
                 this.icyConnection = undefined;
 
-                // When all promises are done, this.items is complete
-                resolve(Promise.all(itemPromises).then(() => this.items));
+                // When all entries are read, their items go into this.items in the order of the playlist
+                resolve(
+                    Promise.all(entryItems).then(lists => {
+                        this.items = this.items.concat(...lists);
+                        return this.items;
+                    }),
+                );
             });
 
             res.on('error', err => {

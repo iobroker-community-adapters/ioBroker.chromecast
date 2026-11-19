@@ -102,6 +102,7 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 - (bluefox) mime-types 3: without a content type from the server, `.aac` is played as `audio/aac` and `.wav` as `audio/wav`; `.mts`, `.m2ts` and `.m4b` are known now
 - (bluefox) Fixed: titles of M3U playlists: `#EXTINF:-1,Radio Bob` showed "-1,Radio Bob"; attributes (`tvg-logo=…`) and lines like `#EXTVLCOPT` ended up in the title, and "Artist - Song - Remastered" was split at the last dash
 - (bluefox) Fixed: an entry of a playlist without file extension (e.g. the URL of a radio station) showed its URL instead of the title of the playlist; without an artist in the playlist the artist is "--" (was "unknown")
+- (bluefox) Fixed: the queue of a playlist keeps the order of the file (entries without file extension came last, in the order their servers answered)
 - (bluefox) Added the widget "Cast player" for ioBroker.devices (what plays, play, pause, stop) and the web component `<iob-chromecast-player>` for vis-2, devices, Aura and admin
 
 ### 4.2.0 (2026-05-04)
