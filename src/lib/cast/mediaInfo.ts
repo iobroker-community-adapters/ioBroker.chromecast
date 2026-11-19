@@ -218,14 +218,15 @@ export class MediaInfo extends EventEmitter {
                         continue;
                     }
                     const theUrl = resolveUrl(baseUrl, entry.file);
-                    const title = entry.title ? entry.title : entry.file;
-                    const artist = entry.artist ? entry.artist : 'unknown';
+                    // "--" if the playlist names no artist: the same in every language (castv2-player set "unknown",
+                    // which the device and metadata.artist showed)
+                    const metadata: CastMetadata = { title: entry.title || entry.file, artist: entry.artist || '--' };
 
                     // Try to guess the content type from the extension
                     const contentType = lookup(theUrl);
 
                     if (contentType) {
-                        this.addItem(theUrl, contentType, { title, artist });
+                        this.addItem(theUrl, contentType, metadata);
                     } else {
                         // It did not work -> we need to access the URL directly (slower)
                         const itemMediaInfo = new MediaInfo(this.name, theUrl, this.log);
@@ -233,6 +234,18 @@ export class MediaInfo extends EventEmitter {
                             itemMediaInfo
                                 .getInfoPromise()
                                 .then(itemList => {
+                                    // One stream or file (e.g. a radio station without extension in the URL): it
+                                    // gets the title of the playlist, not the URL (and beside the station name of
+                                    // ICY). castv2-player dropped the title. A playlist in the playlist keeps its
+                                    // own titles.
+                                    const item = itemList.length === 1 ? itemList[0] : undefined;
+                                    if (
+                                        entry.title &&
+                                        item &&
+                                        (!item.metadata.title || item.metadata.title === item.url)
+                                    ) {
+                                        item.metadata = { ...item.metadata, ...metadata };
+                                    }
                                     this.items = this.items.concat(itemList);
                                 })
                                 // castv2-player never closed it: a radio stream in a playlist was downloaded forever
