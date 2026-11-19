@@ -53,7 +53,8 @@ Build on top of the following projects:
 ## Messages for scripts and AI agents
 `sendTo('chromecast.0', 'help', {})` answers `{ help, commands }`: a description of the device states that play a URL or an
 announcement, control the player and show what plays, for AI agents (e.g. ioBroker.pi-agent) and script authors. `commands`
-lists every message the instance answers with `write: true` for the ones that change something (`help` is the only one).
+lists every message the instance answers with `write: true` for the ones that change something (none does: besides `help`
+there are only `getWebServerIps` and `checkWebInstance`, which the settings dialog uses).
 
 ## What is missing?
 * add state machine to track states: detected ->connected -> player loader -> playing
@@ -70,6 +71,7 @@ lists every message the instance answers with `write: true` for the ones that ch
 - (copilot) Adapter requires node.js >= 22.19.0 now
 - (raintonr) Move castv2-player 'info' logging to 'debug' [#550]
 - (bluefox) Added the message "help": a description of the states for AI agents (e.g. pi-agent), and common.supportedMessages.help
+- (bluefox) The adapter was refactored to TypeScript and the settings dialog to JsonConfig
 
 ### 4.2.0 (2026-05-04)
 - (copilot) Adapter requires node.js >= 22 now

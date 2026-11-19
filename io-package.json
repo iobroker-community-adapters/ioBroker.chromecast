@@ -16,6 +16,7 @@
     },
     "version": "4.2.0",
     "compact": true,
+    "nogit": true,
     "news": {
       "4.2.0": {
         "en": "Adapter requires node.js >= 22 now\nAdapter requires admin >= 7.7.22 now\nLogging technical deatils reduced to debug level\nDependencies have been updated\n",
@@ -132,6 +133,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
+    "messagebox": true,
     "icon": "chromecast.png",
     "enabled": true,
     "keywords": [
@@ -208,7 +210,7 @@
       }
     ],
     "adminUI": {
-      "config": "materialize"
+      "config": "json"
     },
     "supportedMessages": {
       "help": true

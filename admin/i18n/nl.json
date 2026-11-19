@@ -1,0 +1,15 @@
+{
+    "Main settings": "Hoofdinstellingen",
+    "Devices": "Apparaten",
+    "Web instance": "Web-instantie",
+    "Used to play local files: they are copied into the file storage of the adapter and served by this web instance": "Wordt gebruikt om lokale bestanden af te spelen: ze worden naar de bestandsopslag van de adapter gekopieerd en door deze web-instantie aangeboden",
+    "Web server IP": "IP van de webserver",
+    "The adapter finds Google Cast devices in the same subnet via mDNS. Devices in other subnets can be added here by hand.": "De adapter vindt Google Cast-apparaten in hetzelfde subnet via mDNS. Apparaten in andere subnetten kunnen hier handmatig worden toegevoegd.",
+    "Found devices get their MAC address as ID, devices added by hand the name entered here.": "Gevonden apparaten krijgen hun MAC-adres als ID, handmatig toegevoegde apparaten de hier ingevoerde naam.",
+    "Name": "Naam",
+    "IP address": "IP-adres",
+    "Port": "Poort",
+    "Type": "Type",
+    "Cannot use web server with authentication": "Een webserver met authenticatie kan niet worden gebruikt",
+    "Cannot use web server only on localhost": "Een webserver die alleen op localhost luistert kan niet worden gebruikt"
+}

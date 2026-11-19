@@ -1,0 +1,15 @@
+{
+    "Main settings": "Haupteinstellungen",
+    "Devices": "Geräte",
+    "Web instance": "Web-Instanz",
+    "Used to play local files: they are copied into the file storage of the adapter and served by this web instance": "Wird zum Abspielen lokaler Dateien benutzt: sie werden in den Dateispeicher des Adapters kopiert und von dieser Web-Instanz ausgeliefert",
+    "Web server IP": "IP des Webservers",
+    "The adapter finds Google Cast devices in the same subnet via mDNS. Devices in other subnets can be added here by hand.": "Der Adapter findet Google-Cast-Geräte im selben Subnetz per mDNS. Geräte in anderen Subnetzen können hier von Hand hinzugefügt werden.",
+    "Found devices get their MAC address as ID, devices added by hand the name entered here.": "Gefundene Geräte bekommen ihre MAC-Adresse als ID, von Hand hinzugefügte Geräte den hier eingetragenen Namen.",
+    "Name": "Name",
+    "IP address": "IP-Adresse",
+    "Port": "Port",
+    "Type": "Typ",
+    "Cannot use web server with authentication": "Ein Webserver mit Authentifizierung kann nicht benutzt werden",
+    "Cannot use web server only on localhost": "Ein Webserver, der nur auf localhost lauscht, kann nicht benutzt werden"
+}
