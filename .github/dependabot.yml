@@ -14,12 +14,13 @@ updates:
     open-pull-requests-limit: 15
 
   - package-ecosystem: 'npm'
-    directory: '/'
+    directories: 
+      - '**/*'
     schedule:
       interval: 'cron'
       timezone: 'Europe/Berlin'
       cronjob: '57 1 11 * *'
-    open-pull-requests-limit: 20
+    open-pull-requests-limit: 25
     versioning-strategy: 'increase'
     cooldown:
       default-days: 7
