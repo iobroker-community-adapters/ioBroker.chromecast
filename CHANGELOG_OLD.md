@@ -1,4 +1,7 @@
 # Older changes
+## 3.4.1 (2024-07-02)
+* (foxriver76) migrated binary state to file
+
 ## 3.4.0 (2024-04-13)
 * (neopholus) Support for devices located in different subnets has been added. [#154, #160]
 * (mcm1957) Dependencies have been updated

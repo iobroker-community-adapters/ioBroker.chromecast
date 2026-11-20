@@ -82,8 +82,7 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
   ### **WORK IN PROGRESS**
 -->
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 4.3.0 (2026-11-20)
 - (copilot) Adapter requires node.js >= 22.19.0 now
 - (raintonr) Move castv2-player 'info' logging to 'debug' [#550]
 - (bluefox) Added the message "help": a description of the states for AI agents (e.g. pi-agent), and common.supportedMessages.help
@@ -130,9 +129,6 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 * (mcm1957) Testing for node.js 22.x has been added.
 * (mcm1957) Several issues reported by adapter checker have been fixed.
 * (mcm1957) Dependencies have been updated
-
-### 3.4.1 (2024-07-02)
-* (foxriver76) migrated binary state to file
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
