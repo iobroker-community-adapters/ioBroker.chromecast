@@ -4,6 +4,7 @@ import { DefaultMediaReceiver, type Callback, type CastSession } from 'castv2-cl
 
 import type { CastApplication, CastClientStatus, CastPlayerStatus, CastQueueItem } from '../types';
 import type { CastLogger } from './castLogger';
+import type { CastTimers } from './castTimers';
 import type { PersistentClient } from './persistentClient';
 import { Playlist, type PlayOptions } from './playlist';
 
@@ -30,12 +31,13 @@ export class PersistentPlayer extends EventEmitter {
     private currentApplicationId: string | undefined;
     private status: CastPlayerStatus | undefined;
     private previousStatus: CastPlayerStatus | undefined;
-    private getStatusTimeout: NodeJS.Timeout | undefined;
+    private getStatusTimeout: ioBroker.Timeout | undefined;
 
     constructor(
         private readonly name: string,
         private readonly client: PersistentClient,
         private readonly log: CastLogger,
+        private readonly timers: CastTimers,
     ) {
         super();
 
@@ -463,7 +465,7 @@ export class PersistentPlayer extends EventEmitter {
             this.player = undefined;
 
             if (this.getStatusTimeout) {
-                clearTimeout(this.getStatusTimeout);
+                this.timers.clearTimeout(this.getStatusTimeout);
             }
 
             // Try to close in case we triggered the close
@@ -507,9 +509,9 @@ export class PersistentPlayer extends EventEmitter {
         p.getStatus(getStatusHandler);
         // Query the status if not queried in the last STATUS_QUERY_TIME ms
         if (this.getStatusTimeout) {
-            clearTimeout(this.getStatusTimeout);
+            this.timers.clearTimeout(this.getStatusTimeout);
         }
-        this.getStatusTimeout = setTimeout(() => p.getStatus(getStatusHandler), STATUS_QUERY_TIME);
+        this.getStatusTimeout = this.timers.setTimeout(() => p.getStatus(getStatusHandler), STATUS_QUERY_TIME);
 
         this.emit(this.EVENT_CONNECTED);
     }
@@ -541,14 +543,14 @@ export class PersistentPlayer extends EventEmitter {
 
         return new Promise((resolve, reject) => {
             // eslint-disable-next-line prefer-const -- the listener clears it, the timeout removes the listener
-            let timeout: NodeJS.Timeout | undefined;
+            let timeout: ioBroker.Timeout | undefined;
             const listenerCallback = (): void => {
                 // Received the connected event
-                clearTimeout(timeout);
+                this.timers.clearTimeout(timeout);
                 resolve(this.player as DefaultMediaReceiver);
             };
             this.once(this.EVENT_CONNECTED, listenerCallback);
-            timeout = setTimeout(() => {
+            timeout = this.timers.setTimeout(() => {
                 this.removeListener(this.EVENT_CONNECTED, listenerCallback);
                 reject(new Error('Could not connect after 10 seconds'));
             }, 10000);

@@ -1,6 +1,7 @@
 import mdns from 'multicast-dns';
 
 import type { CastLogger } from './castLogger';
+import type { CastTimers } from './castTimers';
 import type { CastConnection } from './mediaPlayer';
 
 export interface ScannerOptions {
@@ -53,17 +54,19 @@ function decodeTxt(bufs: Buffer[]): Record<string, string | true> {
 
 /** Finds the Cast devices (and speaker groups) in the network via mDNS and reports new and seen-again devices */
 export class Scanner {
-    private intervalHandler: NodeJS.Timeout | undefined;
-    private timeoutHandler: NodeJS.Timeout | undefined;
+    private intervalHandler: ioBroker.Interval | undefined;
+    private timeoutHandler: ioBroker.Timeout | undefined;
     private readonly browser = mdns({});
 
     /**
      * @param log Logger
+     * @param timers Timers (the adapter)
      * @param onNewDevice Called once per new device; afterwards the callback that the device registered is called
      * @param options Options
      */
     constructor(
         private readonly log: CastLogger,
+        private readonly timers: CastTimers,
         onNewDevice: (device: CastConnection) => void,
         options: ScannerOptions = {},
     ) {
@@ -126,10 +129,10 @@ export class Scanner {
 
         if (scanInterval > 0) {
             // Trigger periodic scans
-            this.intervalHandler = setInterval(() => this.sendQuery(), scanInterval);
+            this.intervalHandler = this.timers.setInterval(() => this.sendQuery(), scanInterval);
         } else {
             // Destroy 15 seconds after we found all devices
-            this.timeoutHandler = setTimeout(() => this.destroy(), 15000);
+            this.timeoutHandler = this.timers.setTimeout(() => this.destroy(), 15000);
         }
     }
 
@@ -145,10 +148,10 @@ export class Scanner {
         this.browser.removeAllListeners('response');
         this.browser.destroy();
         if (this.intervalHandler) {
-            clearInterval(this.intervalHandler);
+            this.timers.clearInterval(this.intervalHandler);
         }
         if (this.timeoutHandler) {
-            clearTimeout(this.timeoutHandler);
+            this.timers.clearTimeout(this.timeoutHandler);
         }
     }
 }

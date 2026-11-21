@@ -3,6 +3,7 @@ import { Client, type ApplicationClass, type CastSession } from 'castv2-client';
 
 import type { CastClientStatus, CastVolume } from '../types';
 import type { CastLogger } from './castLogger';
+import type { CastTimers } from './castTimers';
 
 const MAX_CONNECTION_RETRIES = 100;
 /** The actual delay is connectionRetries * DELAY_CONNECTION_RETRY */
@@ -30,7 +31,7 @@ export class PersistentClient extends EventEmitter {
     /** The connected castv2-client */
     castClient: Client | undefined;
     private connectingCastClient: Client | undefined;
-    private clientTimeout: NodeJS.Timeout | undefined;
+    private clientTimeout: ioBroker.Timeout | undefined;
     /** Removes the listener that reconnects when the device closes the connection */
     private removeCloseListener: (() => void) | undefined;
 
@@ -40,6 +41,7 @@ export class PersistentClient extends EventEmitter {
     constructor(
         device: CastAddress,
         private readonly log: CastLogger,
+        private readonly timers: CastTimers,
     ) {
         super();
 
@@ -187,7 +189,7 @@ export class PersistentClient extends EventEmitter {
 
         // If we were trying to connect -> abort
         if (this.clientTimeout) {
-            clearTimeout(this.clientTimeout);
+            this.timers.clearTimeout(this.clientTimeout);
         }
     }
 
@@ -254,7 +256,10 @@ export class PersistentClient extends EventEmitter {
                 this.close();
 
                 // Try to reconnect after some time
-                this.clientTimeout = setTimeout(() => launchRetry(), connectionRetries * DELAY_CONNECTION_RETRY);
+                this.clientTimeout = this.timers.setTimeout(
+                    () => launchRetry(),
+                    connectionRetries * DELAY_CONNECTION_RETRY,
+                );
             });
         };
 
@@ -282,15 +287,15 @@ export class PersistentClient extends EventEmitter {
             // castv2-player rejected with undefined (reject.bind(error) sets `this`, not the argument) and left the
             // listener behind, which later logged "Reconnected" for a request that had failed long ago
             // eslint-disable-next-line prefer-const -- the listener clears it, the timeout removes the listener
-            let timeout: NodeJS.Timeout | undefined;
+            let timeout: ioBroker.Timeout | undefined;
             const onStatus = (): void => {
                 // If we receive a client status, we are connected
-                clearTimeout(timeout);
+                this.timers.clearTimeout(timeout);
                 resolve(this.castClient as Client);
                 this.log.warn(`${this.name} - Reconnected -> continue`);
             };
             this.once(this.EVENT_STATUS, onStatus);
-            timeout = setTimeout(() => {
+            timeout = this.timers.setTimeout(() => {
                 this.removeListener(this.EVENT_STATUS, onStatus);
                 reject(new Error('Could not connect after 10 seconds'));
             }, CONNECTION_TIMEOUT);

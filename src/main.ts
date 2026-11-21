@@ -51,7 +51,7 @@ class ChromecastAdapter extends utils.Adapter {
 
         const context: ChromecastDeviceContext = {
             adapter: this,
-            createMediaPlayer: connection => new MediaPlayer(connection, mediaPlayerLog),
+            createMediaPlayer: connection => new MediaPlayer(connection, mediaPlayerLog, this),
             webPort,
             knownDeviceIds: [],
         };
@@ -75,7 +75,7 @@ class ChromecastAdapter extends utils.Adapter {
             }
         }
 
-        this.scanner = new Scanner(this.log, connection => {
+        this.scanner = new Scanner(this.log, this, connection => {
             this.log.debug(`New connection: ${JSON.stringify(connection)}`);
             devices.push(new ChromecastDevice(context, connection, false));
         });
