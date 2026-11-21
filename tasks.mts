@@ -9,9 +9,10 @@
  *                                                 Aura and admin (`common.webComponents`): one ES module and its
  *                                                 manifest
  *
- * `npm run build` builds only the adapter (that is what CI runs). The results of the two front-ends are committed
- * instead of being built on install or in CI: run `npm run build:devices` / `npm run build:wc` and commit
- * `admin/dm-widgets` / `admin/webcomponents` whenever something under `src-devices/` or `src-webcomponents/` changed.
+ * `npm run build` builds everything: the adapter and both front-ends (that is what CI runs). `npm run build:ts`,
+ * `npm run build:devices` and `npm run build:wc` build the single parts. The results of the two front-ends are still
+ * committed: commit `admin/dm-widgets` / `admin/webcomponents` whenever something under `src-devices/` or
+ * `src-webcomponents/` changed.
  * `build:wc` also writes the short form of the manifest into `common.webComponents` of io-package.json.
  *
  * This file is run straight from source - `node tasks.mts` - by the type stripping node brings along, so it must
