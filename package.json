@@ -60,7 +60,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "npm run build:ts && npm run build:front",
+    "build:ts": "tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch",
     "check": "tsc -p tsconfig.json --noEmit",
     "build:devices": "node tasks.mts --devices",

@@ -18,8 +18,9 @@ the integration tests. Two front-ends live next to it, each a vite project with 
 ## Commands
 
 ```bash
-npm run build                             # tsc -p tsconfig.build.json  -> build/
-npm run watch                             # same in watch mode
+npm run build                             # everything: build:ts + build:front
+npm run build:ts                          # tsc -p tsconfig.build.json  -> build/
+npm run watch                             # build:ts in watch mode
 npm run check                             # type check only (tsconfig.json, noEmit)
 npm run lint                              # eslint (@iobroker/eslint-config, flat config)
 npx eslint -c eslint.config.mjs --fix src # autofix + prettier formatting
@@ -38,10 +39,11 @@ npm run release-patch                     # @alcalzone/release-script, moves REA
 There is deliberately **no `prepare` script** — `npm ci`/`npm install` does not build. Because `build/` is neither
 committed nor built on install, `common.nogit` is `true` in `io-package.json`: the adapter can only be installed from
 npm, not from GitHub. The integration test requires that **no** js-controller is running on the machine, otherwise it
-aborts with "JS-Controller is already running!". There is no gulp: `npm run build` is plain `tsc` (that is what CI
-runs), the vis widgets in `widgets/` are static files, and `tasks.mts` (run by node directly, type stripping) builds the
-two front-ends with `@iobroker/build-tools`. CI does not build them: run `build:devices` / `build:wc` and commit
-`admin/dm-widgets` / `admin/webcomponents` whenever `src-devices/` or `src-webcomponents/` changed.
+aborts with "JS-Controller is already running!". There is no gulp: `npm run build` (that is what CI
+runs) is `tsc` plus `tasks.mts` (run by node directly, type stripping), which builds the two front-ends with
+`@iobroker/build-tools`; the vis widgets in `widgets/` are static files. The front-end output is still committed: run
+`build` (or `build:devices` / `build:wc`) and commit `admin/dm-widgets` / `admin/webcomponents` whenever `src-devices/`
+or `src-webcomponents/` changed.
 
 ## Architecture
 
