@@ -2,6 +2,7 @@ import { EventEmitter } from 'node:events';
 import type { Client } from 'castv2-client';
 
 import type { CastLogger } from './castLogger';
+import type { CastTimers } from './castTimers';
 import { PersistentClient, type CastAddress } from './persistentClient';
 import { PersistentPlayer } from './persistentPlayer';
 import type { PlayOptions } from './playlist';
@@ -39,6 +40,7 @@ export class MediaPlayer extends EventEmitter {
     constructor(
         readonly connection: CastConnection,
         log: CastLogger,
+        timers: CastTimers,
     ) {
         super();
 
@@ -47,7 +49,7 @@ export class MediaPlayer extends EventEmitter {
         // castv2-player registered updateDevice() here. That replaced the callback of the device (there is only one),
         // so after a device was enabled again, the scanner reconnected the media player that disabling had closed.
 
-        this.client = new PersistentClient(connection, log);
+        this.client = new PersistentClient(connection, log, timers);
 
         // Forward some client events
         this.client.on(this.client.EVENT_STATUS, (...args: unknown[]) => this.emit(this.EVENT_CLIENT_STATUS, ...args));
@@ -58,7 +60,7 @@ export class MediaPlayer extends EventEmitter {
             this.emit(this.EVENT_CLIENT_DISCONNECTED, ...args),
         );
 
-        this.player = new PersistentPlayer(connection.name, this.client, log);
+        this.player = new PersistentPlayer(connection.name, this.client, log, timers);
 
         // Forward some player events
         this.player.on(this.player.EVENT_STATUS, (...args: unknown[]) => this.emit(this.EVENT_PLAYER_STATUS, ...args));
