@@ -74,9 +74,11 @@ via mDNS just like Google Home / Chromecast devices and are therefore discovered
 ## Messages for scripts and AI agents
 `sendTo('chromecast.0', 'help', {})` answers `{ help, commands }`: a description of the device states that play a URL or an
 announcement, control the player and show what plays, for AI agents (e.g. ioBroker.pi-agent) and script authors. `commands`
-lists every message the instance answers with `write: true` for the ones that change something (none does: besides `help`
-there are only `chromecast:getDevices`, which lists the devices for the settings of the devices widget, and
-`getWebServerIps` and `checkWebInstance`, which the settings dialog uses).
+lists every message the instance answers with `write: true` for the ones that change something. `getPlayers`, `play {uri?,
+device?}` and `playSound {url | file, device?, volume?}` follow the shared catalog of sendTo commands (`standard`:
+media.getPlayers, media.play, speech.playSound): `play` and `playSound` answer `{ok: true, device}` when the device plays
+(or `{error, reason}`). Besides these, `chromecast:getDevices` lists the devices for the settings of the devices widget,
+and `getWebServerIps` and `checkWebInstance` are used by the settings dialog.
 
 ## What is missing?
 * add state machine to track states: detected ->connected -> player loader -> playing
@@ -89,6 +91,7 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 -->
 ## Changelog
 ### **WORK IN PROGRESS**
+- (GermanBluefox) Added the standard commands of the shared catalog: media.getPlayers, media.play, speech.playSound (`getPlayers`, `play`, `playSound`; play and playSound answer when the device plays); unknown commands are answered with `NOT_SUPPORTED`
 - (meistermopper) README: document how to disable unwanted Cast devices (e.g. HEOS) [#377]
 - (GermanBluefox) `npm run build` builds the complete adapter now: TypeScript, the devices widget and the web component (#573)
 - (GermanBluefox) Used adapter timers in the cast classes and added dependabot entries for src-devices/src-webcomponents [#569]

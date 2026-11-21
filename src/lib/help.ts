@@ -4,9 +4,15 @@
  * src/main.ts and onStateChange in src/lib/chromecastDevice.ts.
  */
 
-/** The commands onMessage answers. write: true if the command has an effect */
-export const COMMANDS: { command: string; write: boolean }[] = [
+/**
+ * The commands onMessage answers. write: true if the command has an effect; standard: the command of the shared
+ * catalog of sendTo commands (family.command) that it follows
+ */
+export const COMMANDS: { command: string; write: boolean; standard?: string }[] = [
     { command: 'help', write: false },
+    { command: 'getPlayers', write: false, standard: 'media.getPlayers' },
+    { command: 'play', write: true, standard: 'media.play' },
+    { command: 'playSound', write: true, standard: 'speech.playSound' },
     { command: 'chromecast:getDevices', write: false },
     { command: 'getWebServerIps', write: false },
     { command: 'checkWebInstance', write: false },
@@ -15,10 +21,25 @@ export const COMMANDS: { command: string; write: boolean }[] = [
 export const HELP = `ioBroker.chromecast: plays media on Google Cast devices in the network (Chromecast, Google Home / Nest speakers and
 displays, TVs with Chromecast built-in, speaker groups) and shows what they play. An agent can play a URL (audio or
 video file, internet radio, playlist, YouTube video), play an announcement and then resume, pause, stop, skip and set
-the volume. All of that is done by writing states; the only message an agent needs is help.
+the volume. Playing a URL and an announcement also works as a message with an answer; the rest is done by writing
+states.
 
-Commands (sendTo chromecast.0):
-- help: this text; answer {help, commands: [{command, write}]}.
+Commands (sendTo chromecast.0); getPlayers, play and playSound follow the shared catalog of sendTo commands
+(media.getPlayers, media.play, speech.playSound), errors are {error, reason?} (reason NOT_FOUND or AMBIGUOUS with
+candidates: [names], NOT_CONNECTED, NOT_ALLOWED = disabled, BAD_REQUEST):
+- help: this text; answer {help, commands: [{command, write, standard?}]}.
+- getPlayers {}: the Cast devices; answer {players: [{id, name, room?, connected, enabled, active}]}. id = <device>
+  below, name = the name of the device, room = its ioBroker room, active = playing or paused.
+- play {uri?, device?, room?, positionSec?}: plays uri like player.url2play (an http(s) URL of a file, stream or
+  playlist, a YouTube video URL, iobfile://<adapter>.<n>/<path> or a path on the host, both only with the web server
+  of the settings); positionSec = start position. Without uri it resumes (paused) or plays the last URL again.
+  Answers when the device has loaded it: {ok: true, device: {id, name}}; after 15 s {ok: true, pending: true,
+  device} and it goes on. device = an id or a name (without case; exact before partial), room = an ioBroker room; with
+  neither the only device.
+- playSound {url | file, device?, room?, volume?}: plays a short sound or speech file (url = http(s), file =
+  iobfile://<adapter>.<n>/<path> through the web server of the settings) like player.announcement, then what played
+  before goes on; volume 1-100 only while it plays. Answers {ok: true, device} when it was played (after 15 s
+  {ok: true, pending: true}).
 - chromecast:getDevices: the devices of the instance, [{value: <device>, label: "<name> (<device>)"}]; used by the
   settings of the devices widget and of the web component.
 - getWebServerIps, checkWebInstance: used by the settings dialog, not needed by agents.
@@ -67,7 +88,8 @@ How to talk to the user:
 - Play, stop, announce and change the volume only on the user's request; loud (volume above about 50) and
   announcements at night (about 22:00 to 07:00) only when asked.
 - If status.connected is false, the device is off or not reachable: say so.
-- After a command read the states again (a few seconds later) before saying that it plays: if status.playerState
-  stays idle or stop, the device could not play the URL (the log tells why).
+- play and playSound answer when the device plays (or an error). After writing a state read the states again (a few
+  seconds later) before saying that it plays: if status.playerState stays idle or stop, the device could not play
+  the URL (the log tells why).
 - "What is playing": metadata.title and metadata.artist (or status.text, or the app status.displayName) on <device>,
   playing or paused, position and length as m:ss (not for live streams).`;

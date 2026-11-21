@@ -7,8 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 `iobroker.chromecast` ("Google Home") is an ioBroker adapter that finds Google Cast devices (Chromecast, Google Home /
 Nest speakers and displays, TVs with Chromecast built-in, speaker groups) via mDNS, creates one ioBroker device per Cast
 device and plays URLs, playlists, YouTube videos and announcements on them. Everything is controlled by writing states;
-the only message API is `help` (plus `chromecast:getDevices` for the settings of the devices widget and two messages
-the settings dialog uses). It also brings a widget for ioBroker.devices and a web component (see below).
+the message API is `help`, the standard commands `getPlayers` / `play` / `playSound` of the shared catalog
+(media.getPlayers, media.play, speech.playSound; `onStandardCommand()` in main.ts, `ChromecastDevice.play()` /
+`playSound()`; they answer when the device plays, after 15 s `{ok, pending}`), `chromecast:getDevices` for the settings
+of the devices widget and two messages the settings dialog uses. It also brings a widget for ioBroker.devices and a web component (see below).
 
 TypeScript (CommonJS output). Sources live in `src/`, the published/runnable code is the compiled `build/`
 (`package.json` `main` is `build/main.js`). `build/` is gitignored — always run the build before starting the adapter or

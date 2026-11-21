@@ -4,6 +4,7 @@ import type { AdapterInstance } from '@iobroker/adapter-core';
 import type { ApplicationClass } from 'castv2-client';
 
 import type { CastConnection, MediaPlayer, RepeatMode } from './cast/mediaPlayer';
+import type { PlayOptions } from './cast/playlist';
 import Youtube from './youtube/Youtube';
 import type { CastClientStatus, CastPlayerStatus } from './types';
 
@@ -948,7 +949,15 @@ export class ChromecastDevice {
         );
     }
 
-    private async playURL(url2play: string, orgUrl2play?: string): Promise<void> {
+    /**
+     * Plays the URL (or a file on the host, through the web server). Resolves when the device has loaded it (YouTube:
+     * the video) and url2play is acknowledged; errors are logged and rejected.
+     *
+     * @param url2play URL or path of a file on the host
+     * @param orgUrl2play URL written to url2play (the original one, if url2play is the exported file)
+     * @param options Merged into each queue item, e.g. `{ startTime: 30 }`
+     */
+    private async playURL(url2play: string, orgUrl2play?: string, options?: PlayOptions): Promise<void> {
         const originalUrl = orgUrl2play === undefined ? url2play : orgUrl2play;
 
         if (!url2play.startsWith('http')) {
@@ -959,35 +968,30 @@ export class ChromecastDevice {
             if (!this.adapter.config.webServer) {
                 this.adapter.log.error(`${this.name}- Sorry, cannot play file "${url2play}"`);
                 this.adapter.log.error(`${this.name}- Please configure webserver settings first!`);
-                return;
+                throw new Error(`cannot play the file "${url2play}": no web server in the settings of the adapter`);
             }
 
             // The web instance serves the files of the meta object <namespace> under http://<ip>:<port>/<namespace>/...
             const namespace = this.adapter.namespace;
             const exportedFilePath = `${this.id}/exportedMedia.mp3`;
             try {
-                try {
-                    // writeFile needs a meta object to store the file in
-                    await this.adapter.setForeignObjectNotExistsAsync(namespace, {
-                        type: 'meta',
-                        common: { name: 'Local files played by the Cast devices', type: 'meta.user' },
-                        native: {},
-                    });
-                    await this.adapter.writeFileAsync(namespace, exportedFilePath, await readFile(url2play));
-                } catch (err) {
-                    this.adapter.log.error(
-                        `${this.name} - Cannot store file "${url2play}" into ${namespace}/${exportedFilePath}: ${err.toString()}`,
-                    );
-                    return;
-                }
-                // Calculate the exported URL
-                const exportedUrl = `http://${this.adapter.config.webServer}:${this.webPort}/${namespace}/${exportedFilePath}`;
-                this.adapter.log.debug(`Exported as ${exportedUrl}`);
-                await this.playURL(exportedUrl, originalUrl);
+                // writeFile needs a meta object to store the file in
+                await this.adapter.setForeignObjectNotExistsAsync(namespace, {
+                    type: 'meta',
+                    common: { name: 'Local files played by the Cast devices', type: 'meta.user' },
+                    native: {},
+                });
+                await this.adapter.writeFileAsync(namespace, exportedFilePath, await readFile(url2play));
             } catch (err) {
-                this.adapter.log.error(`${this.name} - Cannot play file "${url2play}": ${err.toString()}`);
+                this.adapter.log.error(
+                    `${this.name} - Cannot store file "${url2play}" into ${namespace}/${exportedFilePath}: ${err.toString()}`,
+                );
+                throw err;
             }
-            return;
+            // Calculate the exported URL
+            const exportedUrl = `http://${this.adapter.config.webServer}:${this.webPort}/${namespace}/${exportedFilePath}`;
+            this.adapter.log.debug(`Exported as ${exportedUrl}`);
+            return this.playURL(exportedUrl, originalUrl, options);
         }
 
         // Is this a YouTube URL?
@@ -995,32 +999,97 @@ export class ChromecastDevice {
         if (youtubeId) {
             this.adapter.log.debug(`Trying to play YouTube (${youtubeId}) on ${this.connection.name}`);
 
-            // TODO: do something funky with sessions & re-use?
-            this.launch(Youtube, (err, player) => {
-                if (err || !player) {
-                    this.adapter.log.error(`Error launching Youtube: ${err}`);
-                } else {
-                    this.adapter.log.debug('Youtube launched, playing...');
-                    player.load(youtubeId, err => {
-                        if (err) {
-                            this.adapter.log.error(`Error loading Youtube: ${err}`);
-                        } else {
-                            this.adapter.log.debug('Youtube should be playing!');
-                            this.adapter
-                                .setStateAsync(`${this.id}.player.url2play`, { val: originalUrl, ack: true })
-                                .catch(e => this.adapter.log.error(`${this.name} - ${e}`));
-                        }
-                    });
-                }
+            if (!this.mediaPlayer?.castClient) {
+                // launch() would never call back
+                throw new Error('not connected');
+            }
+            await new Promise<void>((resolve, reject) => {
+                // TODO: do something funky with sessions & re-use?
+                this.launch(Youtube, (err, player) => {
+                    if (err || !player) {
+                        this.adapter.log.error(`Error launching Youtube: ${err}`);
+                        reject(err || new Error('cannot launch YouTube'));
+                    } else {
+                        this.adapter.log.debug('Youtube launched, playing...');
+                        player.load(youtubeId, err => {
+                            if (err) {
+                                this.adapter.log.error(`Error loading Youtube: ${err}`);
+                                reject(err);
+                            } else {
+                                this.adapter.log.debug('Youtube should be playing!');
+                                resolve();
+                            }
+                        });
+                    }
+                });
             });
-        } else if (this.mediaPlayer) {
-            this.mediaPlayer
-                .playUrlPromise(url2play)
-                .then(() => this.adapter.setStateAsync(`${this.id}.player.url2play`, { val: originalUrl, ack: true }))
-                .catch(err =>
-                    this.adapter.log.error(`${this.name} - Cannot play file "${url2play}": ${err.toString()}`),
-                );
+            await this.adapter.setStateAsync(`${this.id}.player.url2play`, { val: originalUrl, ack: true });
+            return;
         }
+
+        if (!this.mediaPlayer) {
+            throw new Error('not enabled');
+        }
+        try {
+            await this.mediaPlayer.playUrlPromise(url2play, options);
+        } catch (err) {
+            this.adapter.log.error(`${this.name} - Cannot play file "${url2play}": ${err.toString()}`);
+            throw err;
+        }
+        await this.adapter.setStateAsync(`${this.id}.player.url2play`, { val: originalUrl, ack: true });
+    }
+
+    /** ID below the namespace: MAC address without ":", groups.<id> or the name from the settings; '' until known */
+    public get deviceId(): string {
+        return this.id;
+    }
+
+    /** Name of the device as the device reports it (with spaces), e.g. "Living Room speaker" */
+    public get deviceName(): string {
+        return this.connection.name;
+    }
+
+    /** false if the device is disabled (state "enabled" false): then it cannot play */
+    public get isEnabled(): boolean {
+        return !!this.mediaPlayer;
+    }
+
+    /**
+     * For the message "play" (media.play): plays the URL like player.url2play and resolves when the device has
+     * loaded it; without a URL it resumes like player.play
+     *
+     * @param url URL (also YouTube) or path of a file on the host; empty = resume
+     * @param positionSec Start position in seconds
+     */
+    public async play(url?: string, positionSec?: number): Promise<void> {
+        if (!this.mediaPlayer) {
+            throw new Error('not enabled');
+        }
+        if (url) {
+            await this.playURL(url, undefined, positionSec ? { startTime: positionSec } : undefined);
+        } else {
+            await this.mediaPlayer.playPromise();
+        }
+    }
+
+    /**
+     * For the message "playSound" (speech.playSound): plays an announcement like player.announcement (then what
+     * played before goes on) and resolves when it was played
+     *
+     * @param url http(s) URL of the sound
+     * @param volume Volume 1-100 while the announcement plays
+     */
+    public async playSound(url: string, volume?: number): Promise<void> {
+        if (!this.mediaPlayer) {
+            throw new Error('not enabled');
+        }
+        try {
+            await this.mediaPlayer.playAnnouncementPromise(volume ? JSON.stringify({ url, volume }) : url);
+        } catch (err) {
+            this.adapter.log.error(`${this.name} - Could not play announcement: ${err}`);
+            throw err;
+        }
+        await this.adapter.setStateAsync(`${this.id}.player.announcement`, { val: url, ack: true });
     }
 
     // is called if a subscribed state changes
@@ -1086,12 +1155,13 @@ export class ChromecastDevice {
                     // Try to play last contentID
                     const contentState = await this.adapter.getStateAsync(`${namespace}.player.contentId`);
                     if (typeof contentState?.val === 'string' && contentState.val.startsWith('http')) {
-                        await this.playURL(contentState.val);
+                        // errors are logged by playURL
+                        await this.playURL(contentState.val).catch(() => {});
                     } else {
                         // Try to play last url2play
                         const url2playState = await this.adapter.getStateAsync(`${namespace}.player.url2play`);
                         if (typeof url2playState?.val === 'string' && url2playState.val.startsWith('http')) {
-                            await this.playURL(url2playState.val);
+                            await this.playURL(url2playState.val).catch(() => {});
                         } else {
                             // Could not find a valid link to play -> set to false again
                             await this.adapter.setStateAsync(`${this.id}.status.playing`, { val: false, ack: true });
@@ -1218,7 +1288,8 @@ export class ChromecastDevice {
                 break;
 
             case 'player.url2play':
-                await this.playURL(state.val as string);
+                // errors are logged by playURL
+                await this.playURL(state.val as string).catch(() => {});
                 break;
 
             default:
