@@ -39,6 +39,12 @@ port 8009.
 * mDNS does not pass routers: devices in another subnet or VLAN are only found with an mDNS reflector on the router.
   Otherwise, add them by hand in the tab "Devices" of the settings.
 
+### Unwanted devices found?
+Third-party devices with Google Cast built-in (e.g. Denon/Marantz HEOS speakers, AVRs, or smart TVs) announce themselves
+via mDNS just like Google Home / Chromecast devices and are therefore discovered automatically.
+* To prevent the adapter from connecting to an unwanted device, set its state `chromecast.0.<device>.enabled` to `false`.
+* A discovery ignore list is currently not available.
+
 ## Features
 * detect devices with multicast-dns
   * optionally add additional manually configured devices in admin pannel, tab "devices"
@@ -82,6 +88,9 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
   ### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+- (meistermopper) README: document how to disable unwanted Cast devices (e.g. HEOS) [#377]
+
 ### 4.3.0 (2026-11-20)
 - (copilot) Adapter requires node.js >= 22.19.0 now
 - (raintonr) Move castv2-player 'info' logging to 'debug' [#550]
