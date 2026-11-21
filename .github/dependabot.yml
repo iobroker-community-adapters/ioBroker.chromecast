@@ -14,8 +14,10 @@ updates:
     open-pull-requests-limit: 15
 
   - package-ecosystem: 'npm'
-    directories: 
-      - '**/*'
+    directories:
+      - '/'
+      - '/src-devices'
+      - '/src-webcomponents'
     schedule:
       interval: 'cron'
       timezone: 'Europe/Berlin'

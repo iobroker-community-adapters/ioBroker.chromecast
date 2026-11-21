@@ -91,6 +91,7 @@ there are only `chromecast:getDevices`, which lists the devices for the settings
 ### **WORK IN PROGRESS**
 - (meistermopper) README: document how to disable unwanted Cast devices (e.g. HEOS) [#377]
 - (GermanBluefox) `npm run build` builds the complete adapter now: TypeScript, the devices widget and the web component (#573)
+- (GermanBluefox) Used adapter timers in the cast classes and added dependabot entries for src-devices/src-webcomponents [#569]
 
 ### 4.3.0 (2026-11-20)
 - (copilot) Adapter requires node.js >= 22.19.0 now
