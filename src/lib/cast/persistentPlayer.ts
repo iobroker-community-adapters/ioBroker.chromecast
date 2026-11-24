@@ -11,6 +11,9 @@ import { Playlist, type PlayOptions } from './playlist';
 /** Query the status if there was none in this time (ms) */
 const STATUS_QUERY_TIME = 30000;
 
+/** Maximal time (ms) to wait for the end of an announcement, then the volume is restored anyway */
+const ANNOUNCEMENT_TIMEOUT = 5 * 60000;
+
 /** Announcement as JSON: `{ "url": "http://...", "volume": 40 }` */
 interface AnnouncementOptions {
     url?: string;
@@ -201,29 +204,67 @@ export class PersistentPlayer extends EventEmitter {
                 // currently not playing -> playUrl and wait for it to finish
                 this.log.info(`${this.name} - Try to play announcement - ${JSON.stringify(announcementUrl)}`);
 
-                // Set the volume if required
+                // Set the volume if required and wait for it, so that the announcement plays with this volume
                 const currentVolume = this.client.getVolume();
-                if (urlOptions?.volume) {
-                    void this.client.setVolumePromise(urlOptions.volume);
-                }
+                const setVolumePromise: Promise<unknown> =
+                    urlOptions?.volume !== undefined
+                        ? this.client
+                              .setVolumePromise(urlOptions.volume)
+                              .catch(err => this.log.warn(`${this.name} - Cannot set announcement volume - ${err}`))
+                        : Promise.resolve();
 
-                return this.playUrl(announcementUrl, options).then(
-                    playUrlResult =>
-                        new Promise(resolve => {
-                            const announcementCheckStatus = (status: CastPlayerStatus): void => {
-                                if (status.media!.contentId !== announcementUrl || status.playerState !== 'PLAYING') {
-                                    this.log.info(`${this.name} - Finished playing announcement`);
+                return setVolumePromise
+                    .then(() => this.playUrl(announcementUrl, options))
+                    .then(
+                        playUrlResult =>
+                            new Promise(resolve => {
+                                // The announcement was seen playing
+                                let started = false;
+                                let timeout: ioBroker.Timeout | undefined;
+
+                                const finish = (): void => {
+                                    this.timers.clearTimeout(timeout);
+                                    timeout = undefined;
                                     this.removeListener(this.EVENT_STATUS, announcementCheckStatus);
                                     // Reset the original volume if required
-                                    if (urlOptions?.volume) {
+                                    if (urlOptions?.volume !== undefined) {
                                         void this.client.setVolumePromise(currentVolume);
                                     }
                                     resolve(playUrlResult);
-                                }
-                            };
-                            this.on(this.EVENT_STATUS, announcementCheckStatus);
-                        }),
-                );
+                                };
+
+                                const announcementCheckStatus = (status: CastPlayerStatus): void => {
+                                    const contentId = status.media?.contentId;
+                                    if (status.playerState === 'PLAYING' && contentId === announcementUrl) {
+                                        started = true;
+                                        return;
+                                    }
+                                    // BUFFERING, LOADING or a status without playerState is not the end
+                                    const endedAfterStart =
+                                        started &&
+                                        (status.playerState === 'IDLE' ||
+                                            status.playerState === 'PAUSED' ||
+                                            (contentId !== undefined && contentId !== announcementUrl));
+                                    const endedIdle =
+                                        status.playerState === 'IDLE' &&
+                                        ['FINISHED', 'ERROR', 'CANCELLED', 'INTERRUPTED'].includes(
+                                            status.idleReason ?? '',
+                                        );
+                                    if (endedAfterStart || endedIdle) {
+                                        this.log.info(`${this.name} - Finished playing announcement`);
+                                        finish();
+                                    }
+                                };
+                                this.on(this.EVENT_STATUS, announcementCheckStatus);
+
+                                // Safety net: if the end of the announcement is never reported
+                                timeout = this.timers.setTimeout(() => {
+                                    timeout = undefined;
+                                    this.log.warn(`${this.name} - No end of announcement detected, giving up`);
+                                    finish();
+                                }, ANNOUNCEMENT_TIMEOUT);
+                            }),
+                    );
             }
 
             // Currently playing -> insert the announcement and wait for it to finish
@@ -292,7 +333,7 @@ export class PersistentPlayer extends EventEmitter {
                     let announcementIds = insertedIds;
 
                     // Set the volume if required - here to avoid a peak in the volume with the track that plays
-                    if (urlOptions?.volume) {
+                    if (urlOptions?.volume !== undefined) {
                         void this.client.setVolumePromise(urlOptions.volume);
                     }
 
@@ -306,7 +347,7 @@ export class PersistentPlayer extends EventEmitter {
                                 !announcementIds.includes(this.getCurrentPlaylistId() as number)
                             ) {
                                 // The item after the announcement started buffering -> restore the original volume
-                                if (urlOptions?.volume) {
+                                if (urlOptions?.volume !== undefined) {
                                     void this.client.setVolumePromise(currentVolume);
                                     // So we do not set it again on every status update
                                     urlOptions = undefined;
